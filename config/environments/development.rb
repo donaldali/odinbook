@@ -34,4 +34,12 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # configuration for letter_opener gem
+  config.action_mailer.delivery_method = :letter_opener
+  
+  # Care if the mailer can't send.
+  config.action_mailer.raise_delivery_errors = true
+
+  config.action_mailer.default_url_options = { host: 'localhost:3000' }
 end
