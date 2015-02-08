@@ -7,6 +7,8 @@
     = csrf_meta_tags
     = favicon_link_tag 'favicon.ico'
   %body
+    = yield :header
+    
     - if flash.any?
       - flash.each do |type, message|
         -# Don't display Devise's timedout flash message

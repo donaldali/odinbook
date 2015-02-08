@@ -1,16 +1,6 @@
-%h2 Sign in
-= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-  %div
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true
-  %div
-    = f.label :password
-    %br/
-    = f.password_field :password, autocomplete: "off"
-  - if devise_mapping.rememberable?
-    %div
-      = f.check_box :remember_me
-      = f.label :remember_me
-  %div= f.submit "Sign in"
-= render "devise/shared/links"
+- content_for :header do
+  = render "devise/shared/login"
+%br/
+%h2 DIVIDER
+%br/
+= render "devise/shared/signup"

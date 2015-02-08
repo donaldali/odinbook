@@ -1,0 +1,6 @@
+- content_for :header do
+  %header= link_to "Log Out", destroy_user_session_path, method: :delete
+  
+%h1 Newsfeed
+
+%p= "Newsfeed for #{current_user.first_name} #{current_user.last_name}"

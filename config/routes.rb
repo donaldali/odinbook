@@ -1,6 +1,21 @@
 Rails.application.routes.draw do
-  root to: 'registrations#new'
-  devise_for :users
+
+  devise_scope :user do
+    root 'registrations#new'
+  end
+
+  devise_for :users, 
+             :controllers => { :registrations => "registrations" }, 
+             :skip => [:sessions]
+  as :user do
+    get    'login'  => 'devise/sessions#new',     :as => :new_user_session
+    post   'login'  => 'devise/sessions#create',  :as => :user_session
+    delete 'logout' => 'devise/sessions#destroy', :as => :destroy_user_session
+    get    'signup' => 'registrations#new'
+  end
+
+  get 'newsfeed/:id', to: 'users#newsfeed', as: :newsfeed
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
