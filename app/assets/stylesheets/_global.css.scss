@@ -1,0 +1,76 @@
+/*
+  ========================================
+  Grid
+  ========================================
+*/
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+/*
+  ========================================
+  General
+  ========================================
+*/
+body {
+  color: $color;
+  background-color: $bg-color;
+  font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+  font-size: 11px;
+}
+header {
+  background-color: $blue;
+  width: 100%;
+  height: 83px;
+  border-bottom: 1px solid #133783;
+}
+.container{
+  width: 980px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/*
+  ========================================
+  Message
+  ========================================
+*/
+.flash-holder {
+  margin-top: 10px;
+}
+.flash {
+  max-width: 600px;
+  padding: 10px;
+  border: 1px solid;
+  margin: 0 auto;
+  color: #141823;
+  text-align: center;
+}
+.alert {
+  border-color: #dd3c10;
+  background-color: #ffebe8;
+}
+.notice {
+  border-color: #f5b232;
+  background-color: #ffff9e;
+}
+
+/*
+  ========================================
+  Form
+  ========================================
+*/
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}

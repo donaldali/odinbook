@@ -1,0 +1,167 @@
+/*
+  ========================================
+  Log In
+  ========================================
+*/
+.header-container{
+  @extend .container;
+
+  height: 72px;
+  padding-top: 13px;
+
+  .logo {
+    height: 50px;
+  }
+/*  table {
+    font-size: 11px;
+  }*/
+  td {
+    padding-left: 14px;
+  }
+  label {
+    color: white;
+  }
+  input + label {
+    color: #9daccb;
+  }
+  a {
+    color: #9daccb;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  input[type="email"],
+  input[type="password"] {
+    border: 1px solid #1d2a5b;
+    width: 150px;
+    padding: 3px;
+    /*font-size: 11px;*/
+  }
+  input[type="submit"] {
+    color: white;
+    background-color: #5b74a8;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid #999;
+    border-color: #2f477a #29447e #1a356e;
+    padding: 2px 6px;
+    /*font-size: 11px;*/
+    height: 22px;
+
+  }
+  .login-img {
+    height: 30px;
+    margin-bottom: -10px;
+    padding-right: 40px;
+  }
+}
+.login-container {
+  display: inline-block;
+  position: absolute;
+  right: 0;
+}
+
+/*
+  ========================================
+  Sign Up
+  ========================================
+*/
+.signup-container {
+  @extend .container;
+  padding-top: 20px;
+}
+.signup {
+  width: 399px;
+  position: absolute;
+  right: 0;
+
+  h2,
+  p,
+  input[type="submit"] {
+    font-family: 'Freight Sans Bold', 'lucida grande',tahoma,verdana,arial,sans-serif;
+  }
+  h2 {
+    font-size: 36px;
+    margin-bottom: 5px;
+    line-height: 120%;
+  }
+  p {
+    font-size: 19px;
+    margin-bottom: 20px;
+    line-height: 126%;
+  }
+  label {
+    @extend .sr-only;
+  }
+  input {
+    font-size: 18px;
+    width: 399px;
+    padding: 8px 10px;
+    border: 1px solid #bdc7d8;
+    margin-bottom: 10px;
+    -webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+
+  }
+  input[type="text"] {
+    width: 194px;
+  }
+  .name {
+    position: relative;
+  }
+  .right-align {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  input[type="submit"] {
+    font-size: 19px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #69a74e;
+    background: linear-gradient(#67ae55, #578843);
+    box-shadow: inset 0 1px 1px #a4e388;
+    text-shadow: 0 1px 2px rgba(0,0,0,.5);
+    border: 1px solid;
+    border-color: #3b6e22 #3b6e22 #2c5115;
+    line-height: 126%;
+    text-align: center;
+    width: 194px;
+    margin: 10px 0;
+    padding: 7px 20px;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}
+
+.field_with_errors {
+  display: inline-block;
+  input {
+    border: 1px solid red;
+  }
+}
+
+#error_explanation {
+/*  position: absolute;
+  top: 80px;
+  right: 400px;
+  width: 300px;*/
+  
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #dd3c10;
+  background-color: #ffebe8;
+  color: #8b0300;
+  h2 {
+    font-size: 20px;
+  }
+  li {
+    font-size: 14px;
+    padding-left: 15px;
+  }
+}

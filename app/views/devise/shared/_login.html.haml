@@ -1,16 +1,27 @@
-%h2 Log in
-= form_for(resource, as: resource_name, url: session_path(resource_name), html: {id: 'login_form'}) do |f|
-  %div
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true
-  %div
-    = f.label :password
-    %br/
-    = f.password_field :password, autocomplete: "off"
-  - if devise_mapping.rememberable?
-    %div
-      = f.check_box :remember_me
-      = f.label :remember_me
-  %div= f.submit "Log In"
-= render "devise/shared/links"
+%header
+  .header-container
+    = image_tag "logo.png", alt: "Odinbook logo", class: "logo"
+
+    .login-container
+      = form_for(resource, as: resource_name, url: session_path(resource_name), html: {id: 'login-form'}) do |f|
+        %table
+          %tbody
+            %tr
+              %td
+              %td= f.label :email
+              %td= f.label :password
+              %td
+            %tr
+              %td
+                = link_to root_path do
+                  = image_tag "fb_login.png", class: "login-img"
+              %td= f.email_field :email, autofocus: true
+              %td= f.password_field :password, autocomplete: "off"
+              %td= f.submit "Log In"
+            %tr
+              %td
+              %td
+                = f.check_box :remember_me
+                = f.label :keep_me_logged_in, for: 'user_remember_me'
+              %td= link_to "Forgot your password?", new_password_path(resource_name)
+              %td

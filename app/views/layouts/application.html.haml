@@ -13,8 +13,9 @@
       - flash.each do |type, message|
         -# Don't display Devise's timedout flash message
         - if type != 'timedout'
-          .flash{class: "#{type}"}
-            = message
+          .flash-holder
+            .flash{class: "#{type}"}
+              = message
 
     = yield
 
