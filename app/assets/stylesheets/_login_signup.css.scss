@@ -23,6 +23,7 @@
   }
   input + label {
     color: #9daccb;
+    cursor: pointer;
   }
   a {
     color: #9daccb;
@@ -39,17 +40,7 @@
     /*font-size: 11px;*/
   }
   input[type="submit"] {
-    color: white;
-    background-color: #5b74a8;
-    font-weight: bold;
-    cursor: pointer;
-    text-align: center;
-    border: 1px solid #999;
-    border-color: #2f477a #29447e #1a356e;
-    padding: 2px 6px;
-    /*font-size: 11px;*/
-    height: 22px;
-
+    @extend .submit-btn;
   }
   .login-img {
     height: 30px;
@@ -151,7 +142,7 @@
   top: 80px;
   right: 400px;
   width: 300px;*/
-  
+
   margin: 10px;
   padding: 10px;
   border: 1px solid #dd3c10;

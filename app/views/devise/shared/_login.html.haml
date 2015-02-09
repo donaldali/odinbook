@@ -1,6 +1,7 @@
 %header
   .header-container
-    = image_tag "logo.png", alt: "Odinbook logo", class: "logo"
+    = link_to root_path do
+      = image_tag "logo.png", alt: "Odinbook logo", class: "logo", title: "Go to Odinbook Home"
 
     .login-container
       = form_for(resource, as: resource_name, url: session_path(resource_name), html: {id: 'login-form'}) do |f|
