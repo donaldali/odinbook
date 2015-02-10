@@ -2,7 +2,7 @@ include ApplicationHelper
 
 def log_in(user)
   visit new_user_session_path
-  within("#login_form") do
+  within("#login-form") do
     fill_in "Email",    with: user.email
     fill_in "Password", with: user.password
   end
@@ -11,7 +11,7 @@ end
 
 def sign_up(user)
   visit new_user_registration_path
-  within("#signup_form") do 
+  within("#signup-form") do 
     fill_in "First name", with: user.first_name
     fill_in "Last name",  with: user.last_name
     fill_in "Email",      with: user.email
