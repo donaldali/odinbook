@@ -14,7 +14,7 @@
               %td
             %tr
               %td
-                = link_to root_path do
+                = link_to user_omniauth_authorize_path(:facebook) do
                   = image_tag "fb_login.png", class: "login-img"
               %td= f.email_field :email, autofocus: true
               %td= f.password_field :password, autocomplete: "off"
