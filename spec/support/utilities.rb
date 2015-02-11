@@ -20,3 +20,8 @@ def sign_up(user)
   end
   click_on "Sign Up"
 end
+
+def make_friends(user1, user2)
+  user1.send_friend_request_to(user2)
+  user2.accept_friend_request_from(user1)
+end
