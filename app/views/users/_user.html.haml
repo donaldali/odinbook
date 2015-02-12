@@ -1,0 +1,11 @@
+- unless user == current_user
+  .user-container
+    .user-info
+      = "image_tag(image_path)"
+      .user-name
+        = "#{user.first_name} #{user.last_name}"
+    .friend-status
+      / #friend-status
+      = friend_status_of(user)
+
+    %br

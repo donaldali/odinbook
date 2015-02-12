@@ -15,6 +15,9 @@ Rails.application.routes.draw do
     get    'signup' => 'registrations#new'
   end
 
+  resources :users,       only: [:index]
+  resources :friendships, only: [:create, :update, :destroy]
+
   get 'newsfeed/:id', to: 'users#newsfeed', as: :newsfeed
 
   # The priority is based upon order of creation: first created -> highest priority.
