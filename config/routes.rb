@@ -18,7 +18,10 @@ Rails.application.routes.draw do
   resources :users,       only: [:index]
   resources :friendships, only: [:create, :update, :destroy]
 
-  get 'newsfeed/:id', to: 'users#newsfeed', as: :newsfeed
+  get 'newsfeed/:id',        to: 'users#newsfeed',        as: :newsfeed
+  get 'friends/:id',         to: 'users#friends',         as: :friends
+  get 'friend_requests/:id', to: 'users#friend_requests', as: :friend_requests
+  get 'find_friends/:id',    to: 'users#find_friends',    as: :find_friends
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

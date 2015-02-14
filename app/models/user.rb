@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  scope :alphabetize, -> { order(:first_name, :last_name) }
 
   has_many :friendships, dependent: :destroy, foreign_key: :friender_id
   has_many :friended_users, through: :friendships, source: :friended
@@ -79,6 +80,24 @@ class User < ActiveRecord::Base
 
     User.where("id IN (#{friender_friends_ids}) OR 
                 id IN (#{friended_friends_ids})", user_id: self.id)
+        .alphabetize
+  end
+
+  def requests_from
+    frienders_ids = "SELECT friender_id FROM friendships 
+                     WHERE friended_id = :user_id AND accepted = false"
+
+    User.where("id IN (#{frienders_ids})", user_id: self.id).alphabetize
+  end
+
+  def no_friendship
+    frienders_ids = "SELECT friender_id FROM friendships 
+                     WHERE friended_id = :user_id"
+    friendeds_ids = "SELECT friended_id FROM friendships 
+                     WHERE friender_id = :user_id"
+
+    User.where("id NOT IN (#{frienders_ids}) AND 
+                id NOT IN (#{friendeds_ids})", user_id: self.id).alphabetize
   end
 
   def name

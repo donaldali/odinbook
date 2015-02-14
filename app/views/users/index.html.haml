@@ -1,16 +1,14 @@
-- content_for :header do
-  %header
-    = link_to "Newsfeed", newsfeed_path(current_user)
-    = link_to "Log Out", destroy_user_session_path, method: :delete
+= render "header"
 
+=# render "users_list", title: @title, users: @users
 .users-container
   .users-header
     %h1= @title
     %nav
       %ul
         %li= link_to "All Users", users_path
-        %li= link_to "All Friends"
-        %li= link_to "Friend Requests"
-        %li= link_to "Find Friends"
+        %li= link_to "All Friends (#{current_user.friends.count})", friends_path(current_user)
+        %li= link_to "Friend Requests", friend_requests_path(current_user)
+        %li= link_to "Find Friends", find_friends_path(current_user)
 
   = render @users

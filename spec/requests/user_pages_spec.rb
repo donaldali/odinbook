@@ -13,7 +13,7 @@ describe "User pages" do
       visit users_path
     end
 
-    it { should have_text("All Users") }
+    it { should have_selector("h1", text: "All Users") }
 
     context "with multiple users" do
         let(:friender)  { create(:user, first_name: "friender") }
@@ -66,6 +66,79 @@ describe "User pages" do
         click_on "Confirm"
         click_on "Unfriend"
         expect(page).to have_submit("Add Friend")
+      end
+    end
+  end
+
+  describe "friendship status pages" do
+    let(:friender1)  { create(:user, first_name: "friender1") }
+    let(:friender2)  { create(:user, first_name: "friender2") }
+    let(:friended1)  { create(:user, first_name: "friended1") }
+    let(:friended2)  { create(:user, first_name: "friended2") }
+    let(:friend1)    { create(:user, first_name: "friend1") }
+    let(:friend2)    { create(:user, first_name: "friend2") }
+    let(:no_friend1) { create(:user, first_name: "no_friend1") }
+    let(:no_friend2) { create(:user, first_name: "no_friend2") }
+
+    before(:each) do
+      friender1  = create(:user, first_name: "friender1")
+      friender2  = create(:user, first_name: "friender2")
+      friended1  = create(:user, first_name: "friended1")
+      friended2  = create(:user, first_name: "friended2")
+      friend1    = create(:user, first_name: "friend1")
+      friend2    = create(:user, first_name: "friend2")
+      no_friend1 = create(:user, first_name: "no_friend1")
+      no_friend1 = create(:user, first_name: "no_friend2")
+      friender1.send_friend_request_to(user)
+      friender2.send_friend_request_to(user)
+      user.send_friend_request_to(friended1)
+      user.send_friend_request_to(friended2)
+      make_friends(user, friend1)
+      make_friends(user, friend2)
+    end
+
+    describe "friends page" do 
+      before(:each) { visit friends_path(user) }
+
+      it "has the correct header" do 
+        expect(page).to have_selector("h1", text: "Friends")
+      end
+      it "has the right number of friends" do
+        expect(page).to have_submit("Unfriend", count: 2) 
+      end
+      it "lists all friends" do
+        expect(page).to have_link(friend1.name)
+        expect(page).to have_link(friend2.name)
+      end
+    end
+
+    describe "friend requests page" do 
+      before(:each) { visit friend_requests_path(user) }
+
+      it "has the correct header" do 
+        expect(page).to have_selector("h1", text: "Friend Requests")
+      end
+      it "has the right number of friend requests" do
+        expect(page).to have_submit("Confirm", count: 2)
+      end
+      it "lists all friend requests" do
+        expect(page).to have_link(friender1.name)
+        expect(page).to have_link(friender2.name)
+      end
+    end
+
+    describe "find friends page" do 
+      before(:each) { visit find_friends_path(user) }
+
+      it "has the correct header" do 
+        expect(page).to have_selector("h1", text: "Find Friends")
+      end
+      it "has the right number of friends" do
+        expect(page).to have_submit("Add Friend", count: 2)
+      end
+      it "lists all non-friends/requests" do
+        expect(page).to have_link(friend1.name)
+        expect(page).to have_link(friend2.name)
       end
     end
   end
