@@ -1,11 +1,12 @@
 - unless user == current_user
   .user-container
-    .user-info
-      = "image_tag(image_path)"
-      .user-name
-        = "#{user.first_name} #{user.last_name}"
-    .friend-status
-      / #friend-status
-      = friend_status_of(user)
+    .user-img>
+      = link_to newsfeed_path(user) do
+        = image_for(user, {img_class: "lg-img"} )
 
-    %br
+    .user-info
+      .user-name
+        = link_to "#{user.first_name} #{user.last_name}", newsfeed_path(user)
+
+      .friend-status{id: "friend-status-#{user.id}"}
+        = friend_status_of(user)

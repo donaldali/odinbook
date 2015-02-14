@@ -2,7 +2,7 @@
 
 .friend-options
   = form_for(user.friendships.find_by(friended_id: current_user, accepted: false), html: { method: :patch }) do |f|
-    = f.submit "Accept"
+    = f.submit "Confirm", class: "primary-btn"
 
   = form_for(user.friendships.find_by(friended_id: current_user, accepted: false), html: { method: :delete }) do |f|
-    = f.submit "Decline"
+    = f.submit "Delete Request", class: "default-btn"

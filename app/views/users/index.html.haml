@@ -3,5 +3,14 @@
     = link_to "Newsfeed", newsfeed_path(current_user)
     = link_to "Log Out", destroy_user_session_path, method: :delete
 
-%h1 All Users
-= render @users
+.users-container
+  .users-header
+    %h1= @title
+    %nav
+      %ul
+        %li= link_to "All Users", users_path
+        %li= link_to "All Friends"
+        %li= link_to "Friend Requests"
+        %li= link_to "Find Friends"
+
+  = render @users

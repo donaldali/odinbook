@@ -23,7 +23,7 @@ body {
 body {
   color: $color;
   background-color: $bg-color;
-  font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+  font-family: Helvetica, Arial, 'lucida grande',tahoma,verdana,arial,sans-serif;
   font-size: 11px;
 }
 header {
@@ -51,7 +51,7 @@ header {
   padding: 10px;
   border: 1px solid;
   margin: 0 auto;
-  color: #141823;
+  color: $alt-color;
   text-align: center;
 }
 .alert {
@@ -78,15 +78,73 @@ header {
     clip: rect(0,0,0,0);
     border: 0;
 }
-.submit-btn {
-  color: white;
-  background-color: #5b74a8;
+/* Buttons */
+.btn {
   font-weight: bold;
-  cursor: pointer;
   text-align: center;
-  border: 1px solid #999;
-  border-color: #2f477a #29447e #1a356e;
-  padding: 2px 6px;
-  font-size: 11px;
   height: 22px;
+  line-height: 22px;
+  border: 1px solid;
+  cursor: pointer;
+  display: inline-block;
+}
+.alt-btn {
+  @extend .btn;
+  color: #fff;
+  background-color: #5b74a8;
+  border-color: #2f477a #29447e #1a356e;
+  padding: 0 6px;
+  font-size: 11px;
+  line-height: 13px;
+}
+.main-btn {
+  @extend .btn;
+  padding: 0 8px;
+  border-radius: 2px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+  box-sizing: content-box;
+  /*position: relative;*/
+  vertical-align: middle;
+  font-size: 12px;
+
+}
+.primary-btn {
+  @extend .main-btn;
+  color: #fff;
+  background-color: #4e69a2;
+  border-color: #435a8b #3c5488 #334c83;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, .2);
+
+}
+.default-btn {
+  @extend .main-btn;
+  background-color: #f6f7f8;
+  border-color: #cccccc #c5c6c8 #b6b7b9;
+  color: #4e5665;
+  text-shadow: 0 1px 0 #fff;
+}
+.danger-btn {
+  @extend .default-btn;
+  color: #980113;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+/*
+  ========================================
+  Positioning
+  ========================================
+*/
+.vertical-align {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }

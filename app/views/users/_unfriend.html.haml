@@ -1,2 +1,2 @@
-= form_for(get_friendship(current_user, user), html: {method: :delete}) do |f|
+= form_for(get_friendship(current_user, user), html: {method: :delete}, data: {confirm: "Are you sure you want to Unfriend #{user.name}?"}) do |f|
   = f.submit "Unfriend", class: "danger-btn"

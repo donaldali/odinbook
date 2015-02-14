@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
+    @title = "All Users"
   end
 
   def newsfeed

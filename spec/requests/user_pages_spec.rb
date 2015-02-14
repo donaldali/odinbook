@@ -51,19 +51,19 @@ describe "User pages" do
       it "accepts friend request" do 
         other_user.send_friend_request_to(user)
         visit users_path
-        click_on "Accept"
+        click_on "Confirm"
         expect(page).to have_submit("Unfriend")
       end
       it "rejects friend request" do 
         other_user.send_friend_request_to(user)
         visit users_path
-        click_on "Decline"
+        click_on "Delete Request"
         expect(page).to have_submit("Add Friend")
       end
       it "unfriends" do
         other_user.send_friend_request_to(user)
         visit users_path
-        click_on "Accept"
+        click_on "Confirm"
         click_on "Unfriend"
         expect(page).to have_submit("Add Friend")
       end

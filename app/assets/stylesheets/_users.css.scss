@@ -1,0 +1,115 @@
+/*
+  ========================================
+  Users Header
+  ========================================
+*/
+.users-container {
+  width: 496px;
+  border: 1px solid #d3d6db;
+  -webkit-border-radius: 3px;
+     -moz-border-radius: 3px;
+          border-radius: 3px;
+}
+.users-header {
+  background-color: #f6f7f8;
+  border-bottom: 1px solid #d3d6db;
+  color: #373e4d;
+  height: 84px;
+  position: relative;
+  padding: 0 10px;
+
+  h1 {
+    text-align: center;
+    padding: 16px 0;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  nav {
+    position: absolute;
+    bottom: 10px;
+  }
+  li{
+    display: inline-block;
+    padding-right: 20px;
+  }
+  a {
+    color: #373e4d;
+    line-height: 1.28;
+    font-size: 13px;
+    font-weight: bold;
+  }
+}
+
+/*
+  ========================================
+  Single User
+  ========================================
+*/
+.user-container {
+  background-color: #fff;
+  padding: 10px 10px 0px 10px;
+  &:last-child {
+    padding-bottom: 10px;
+  }
+
+  .user-img {
+
+  }
+  .user-img,
+  .user-info,
+  .user-name,
+  .friend-status {
+    display: inline-block;
+  }
+  .user-info {
+    position: relative;
+    vertical-align: top;
+    /*width: 373px;*/
+    width: 398px;
+    /*height: 100px;*/
+    height: 75px;
+    border: 1px solid #e9eaed;
+    border-left: 0;
+  }
+  .user-name {
+    /*width: 180px;*/
+    width: 205px;
+    overflow: hidden;
+    padding-left: 10px;
+    @extend .vertical-align;
+  }
+  img {
+    display: block;
+  }
+  a {
+    color: $blue;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  .friend-status {
+    vertical-align: bottom;
+    right: 10px;
+    @extend .vertical-align;
+    float: right;
+  }
+  p {
+    text-align: center;
+    color: #9197a3;
+    font-size: 12px;
+    line-height: 1.28;
+    padding-bottom: 6px;
+  }
+}
+.friend-options {
+  form {
+    display: inline-block;
+    &:first-child {
+      padding-right: 2px;
+    }
+  }
+}
+
+
+
+
+

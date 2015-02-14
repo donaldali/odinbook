@@ -15,4 +15,23 @@ module UsersHelper
     user1.friendships.find_by(friended_id: user2.id, accepted: true) ||
       user2.friendships.find_by(friended_id: user1.id, accepted: true)
   end
+
+  # Returns the Gravatar (http://gravatar.com/) for the given user.
+  def image_for(user, options = { size: 50, img_class: "mid-img" })
+    gravatar_id  = Digest::MD5::hexdigest(user.email.downcase)
+    # size         = options[:size]
+    img_class    = options[:img_class]
+    size = case img_class
+           when "v-lg-img" then 160
+           when "lg-img"   then 75
+           when "md-img"   then 40
+           when "sm-img"   then 32
+           when "v-sm-img" then 19
+           else options[:size] || 50
+           end
+
+    gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"
+    image_tag(gravatar_url, alt: user.first_name, class: img_class)
+  end
+  
 end

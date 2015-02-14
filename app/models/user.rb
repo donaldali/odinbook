@@ -81,6 +81,10 @@ class User < ActiveRecord::Base
                 id IN (#{friended_friends_ids})", user_id: self.id)
   end
 
+  def name
+    "#{first_name} #{last_name}"
+  end
+
 
   private
 
