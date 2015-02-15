@@ -1,0 +1,2 @@
+:plain
+  $("#friend-status-#{@user.id}").html("#{escape_javascript(render('users/request_sent', user: @user))}")

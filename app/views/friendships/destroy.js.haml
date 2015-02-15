@@ -1,0 +1,5 @@
+:plain
+  $("#friend-status-#{@user.id}").html("#{escape_javascript(render('users/add_friend', user: @user))}")
+- if @unfriend
+  :plain
+    $("#friend-count").html("(#{current_user.friends.count})")

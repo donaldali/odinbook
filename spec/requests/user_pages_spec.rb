@@ -106,9 +106,28 @@ describe "User pages" do
       it "has the right number of friends" do
         expect(page).to have_submit("Unfriend", count: 2) 
       end
+      it "displays the right number of friends" do 
+        expect(page).to have_selector("#friend-count", text: "(2)")
+      end
       it "lists all friends" do
         expect(page).to have_link(friend1.name)
         expect(page).to have_link(friend2.name)
+      end
+
+      context "when unfriending" do
+        before(:each) do 
+          click_on("Unfriend", match: :first)
+        end
+
+        it "removes only unfriended user" do
+          expect(page).to have_submit("Unfriend", count: 1)
+        end
+        it "updates the number of friends" do 
+          expect(page).to have_selector("#friend-count", text: "(1)")
+        end
+        it "stays on the same page" do
+          expect(current_path).to eq(friends_path(user))
+        end
       end
     end
 
@@ -125,6 +144,35 @@ describe "User pages" do
         expect(page).to have_link(friender1.name)
         expect(page).to have_link(friender2.name)
       end
+
+      context "accepting friend request" do
+        before(:each) do 
+          click_on("Confirm", match: :first)
+        end
+
+        it "removes only accepted user" do
+          expect(page).to have_submit("Confirm", count: 1)
+        end
+        it "updates the number of friends" do 
+          expect(page).to have_selector("#friend-count", text: "(3)")
+        end
+        it "stays on the same page" do
+          expect(current_path).to eq(friend_requests_path(user))
+        end
+      end
+
+      context "rejecting friend request" do
+        before(:each) do 
+          click_on("Delete Request", match: :first)
+        end
+
+        it "removes only rejected user" do
+          expect(page).to have_submit("Delete Request", count: 1)
+        end
+        it "stays on the same page" do
+          expect(current_path).to eq(friend_requests_path(user))
+        end
+      end
     end
 
     describe "find friends page" do 
@@ -139,6 +187,19 @@ describe "User pages" do
       it "lists all non-friends/requests" do
         expect(page).to have_link(friend1.name)
         expect(page).to have_link(friend2.name)
+      end
+
+      context "when friending" do
+        before(:each) do 
+          click_on("Add Friend", match: :first)
+        end
+
+        it "removes only friended user" do
+          expect(page).to have_submit("Add Friend", count: 1)
+        end
+        it "stays on the same page" do
+          expect(current_path).to eq(find_friends_path(user))
+        end
       end
     end
   end
