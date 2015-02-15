@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   def index
     @users = User.all.alphabetize
     @title = "All Users"
+    @is_index = true
   end
 
   def newsfeed
@@ -12,18 +13,21 @@ class UsersController < ApplicationController
   def friends
     @users = current_user.friends
     @title = "Friends"
+    @is_index = false
     render "index"
   end
 
   def friend_requests
     @users = current_user.requests_from
     @title = "Friend Requests"
+    @is_index = false
     render "index"
   end
 
   def find_friends
     @users = current_user.no_friendship
     @title = "Find Friends"
+    @is_index = false
     render "index"
   end
 end

@@ -1,5 +1,5 @@
 - unless user == current_user
-  .user-container
+  %li.user-container
     .user-img>
       = link_to newsfeed_path(user) do
         = image_for(user, {img_class: "lg-img"} )
@@ -9,4 +9,4 @@
         = link_to "#{user.first_name} #{user.last_name}", newsfeed_path(user)
 
       .friend-status{id: "friend-status-#{user.id}"}
-        = friend_status_of(user)
+        = friend_status_of(user, is_index)

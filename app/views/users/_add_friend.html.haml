@@ -1,3 +1,4 @@
 = form_for(current_user.friendships.build, remote: true) do |f|
   = hidden_field_tag :friended_id, user.id
+  = hidden_field_tag :is_index, is_index
   = f.submit "Add Friend", class: "primary-btn"

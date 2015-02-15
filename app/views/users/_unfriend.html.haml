@@ -1,4 +1,5 @@
 = form_for(get_friendship(current_user, user), html: {method: :delete}, data: {confirm: "Are you sure you want to Unfriend #{user.name}?"}, remote: true) do |f|
   = hidden_field_tag :user_id,  user.id
   = hidden_field_tag :unfriend, true
+  = hidden_field_tag :is_index, is_index
   = f.submit "Unfriend", class: "danger-btn"

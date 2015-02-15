@@ -1,7 +1,7 @@
 = render "header"
 
-.users-container
-  .users-header
+%ul.users-container
+  %li.users-header
     %h1= @title
     %nav
       %ul
@@ -9,8 +9,7 @@
         %li
           = link_to "Friends", friends_path(current_user)
           %span{id: "friend-count"}= "(#{current_user.friends.count})"
-        / %li=# link_to "All Friends (#{current_user.friends.count})", friends_path(current_user)
         %li= link_to "Friend Requests", friend_requests_path(current_user)
         %li= link_to "Find Friends", find_friends_path(current_user)
 
-  = render @users
+  = render @users, is_index: @is_index

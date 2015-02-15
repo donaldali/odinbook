@@ -16,9 +16,9 @@ describe "User pages" do
     it { should have_selector("h1", text: "All Users") }
 
     context "with multiple users" do
-        let(:friender)  { create(:user, first_name: "friender") }
-        let(:friended)  { create(:user, first_name: "friended") }
-        let(:no_friend) { create(:user, first_name: "no_friend") }
+      let(:friender)  { create(:user, first_name: "friender") }
+      let(:friended)  { create(:user, first_name: "friended") }
+      let(:no_friend) { create(:user, first_name: "no_friend") }
 
       before(:each) do
         friender  = create(:user, first_name: "friender")
@@ -122,6 +122,9 @@ describe "User pages" do
         it "removes only unfriended user" do
           expect(page).to have_submit("Unfriend", count: 1)
         end
+        it "removes all info about unfriended user" do
+          expect(page).to have_selector("li.user-container", count: 1)
+        end
         it "updates the number of friends" do 
           expect(page).to have_selector("#friend-count", text: "(1)")
         end
@@ -153,6 +156,9 @@ describe "User pages" do
         it "removes only accepted user" do
           expect(page).to have_submit("Confirm", count: 1)
         end
+        it "removes all info about accepted user" do
+          expect(page).to have_selector(".user-container", count: 1)
+        end
         it "updates the number of friends" do 
           expect(page).to have_selector("#friend-count", text: "(3)")
         end
@@ -168,6 +174,9 @@ describe "User pages" do
 
         it "removes only rejected user" do
           expect(page).to have_submit("Delete Request", count: 1)
+        end
+        it "removes all info about rejected user" do
+          expect(page).to have_selector(".user-container", count: 1)
         end
         it "stays on the same page" do
           expect(current_path).to eq(friend_requests_path(user))
@@ -197,11 +206,15 @@ describe "User pages" do
         it "removes only friended user" do
           expect(page).to have_submit("Add Friend", count: 1)
         end
+        it "removes all info about friended user" do
+          expect(page).to have_selector(".user-container", count: 1)
+        end
         it "stays on the same page" do
           expect(current_path).to eq(find_friends_path(user))
         end
       end
     end
+
   end
 
   describe "newsfeed" do

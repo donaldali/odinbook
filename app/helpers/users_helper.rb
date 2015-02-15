@@ -1,13 +1,14 @@
 module UsersHelper
-  def friend_status_of(user)
+
+  def friend_status_of(user, is_index)
     if current_user.has_friend_request_from?(user)
-      render "users/request_received", user: user
+      render "users/request_received", user: user, is_index: is_index
     elsif user.has_friend_request_from?(current_user)
-      render "users/request_sent", user: user
+      render "users/request_sent"
     elsif current_user.friends_with?(user)
-      render "users/unfriend", user: user
+      render "users/unfriend", user: user, is_index: is_index
     else
-      render "users/add_friend", user: user
+      render "users/add_friend", user: user, is_index: is_index
     end
   end
 
