@@ -15,8 +15,9 @@ Rails.application.routes.draw do
     get    'signup' => 'registrations#new'
   end
 
-  resources :users,       only: [:index]
-  resources :friendships, only: [:create, :update, :destroy]
+  resources :users,         only: [:index]
+  resources :friendships,   only: [:create, :update, :destroy]
+  resources :notifications, only: [:index]
 
   get 'newsfeed/:id',        to: 'users#newsfeed',        as: :newsfeed
   get 'friends/:id',         to: 'users#friends',         as: :friends

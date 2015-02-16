@@ -1,0 +1,33 @@
+/*
+  ========================================
+  Notifications
+  ========================================
+*/
+.notifications {
+  background-color: #fff;
+  width: $content-width;
+
+  h1 {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 20px;
+    color: #1e2d4c;
+    border-bottom: 1px solid #aaa;
+    padding: 20px 5px;
+  }
+}
+.notification-container {
+  padding: 10px 20px;
+  color: $alt-color;
+  &:nth-child(odd) {
+    background: #f6f7f8;
+    border: 1px solid #e9eaed;
+  }
+  .main-message {
+    line-height: 1.28;
+    font-size: 12px;
+  }
+  .sub-message {
+
+  }
+}

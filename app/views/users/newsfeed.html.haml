@@ -1,7 +1,4 @@
-- content_for :header do
-  %header
-    = link_to "All Users", users_path
-    = link_to "Log Out", destroy_user_session_path, method: :delete
+= render "users/header"
   
 %h1 Newsfeed
 
