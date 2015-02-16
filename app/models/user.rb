@@ -1,13 +1,17 @@
 class User < ActiveRecord::Base
+  # Scope
   scope :alphabetize, -> { order(:first_name, :last_name) }
 
+  # Associations
   has_many :friendships, dependent: :destroy, foreign_key: :friender_id
   has_many :friended_users, through: :friendships, source: :friended
   has_many :reverse_friendships, class_name: "Friendship", 
                                  dependent: :destroy, 
                                  foreign_key: :friended_id
   has_many :frienders, through: :reverse_friendships, source: :friender
+  has_many :notifications
 
+  # Validations
   validates :first_name, presence: true
   validates :last_name,  presence: true
 
@@ -17,6 +21,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :validatable, 
          :omniauthable, :omniauth_providers => [:facebook]
 
+  # Class methods
   def self.from_omniauth(auth)
     # where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
     where(email: auth.info.email).first_or_create do |user|
@@ -41,6 +46,7 @@ class User < ActiveRecord::Base
     end
   end
 
+  # Instance methods
   def send_friend_request_to(other_user)
     unless friends_with?(other_user) || 
            has_friend_request_from?(other_user) ||
@@ -102,6 +108,14 @@ class User < ActiveRecord::Base
 
   def name
     "#{first_name} #{last_name}"
+  end
+
+  def update_new_notifications
+    increment!(:new_notifications)
+  end
+
+  def reset_new_notifications
+    update_attributes(new_notifications: 0)
   end
 
 

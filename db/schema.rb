@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20152011030515) do
+ActiveRecord::Schema.define(version: 20150216011719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,17 @@ ActiveRecord::Schema.define(version: 20152011030515) do
   add_index "friendships", ["friender_id", "friended_id"], name: "index_friendships_on_friender_id_and_friended_id", unique: true, using: :btree
   add_index "friendships", ["friender_id"], name: "index_friendships_on_friender_id", using: :btree
 
+  create_table "notifications", force: true do |t|
+    t.string   "message"
+    t.string   "notification_type"
+    t.string   "sender"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
+
   create_table "users", force: true do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -40,6 +51,7 @@ ActiveRecord::Schema.define(version: 20152011030515) do
     t.datetime "updated_at"
     t.string   "provider"
     t.string   "uid"
+    t.integer  "new_notifications",      default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

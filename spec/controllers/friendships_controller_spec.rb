@@ -15,11 +15,19 @@ describe FriendshipsController do
         expect { post :create, friended_id: friend.id }.
                to change{Friendship.count}.by(1)
       end
+      it "increments the Notification count" do 
+        expect { post :create, friended_id: friend.id }.
+               to change{Notification.count}.by(1)
+      end
     end
     context "with Ajax" do 
       it "increments the Friendship count" do 
         expect { xhr :post, :create, friended_id: friend.id }.
                to change{Friendship.count}.by(1)
+      end
+      it "increments the Notification count" do 
+        expect { xhr :post, :create, friended_id: friend.id }.
+               to change{Notification.count}.by(1)
       end
       it "responds with success" do 
         xhr :post, :create, friended_id: friend.id

@@ -22,12 +22,18 @@ describe User do
   it { should respond_to(:requests_from) }
   it { should respond_to(:no_friendship) }
   it { should respond_to(:name) }
+  it { should respond_to(:notifications) }
+  it { should respond_to(:new_notifications) }
+  it { should respond_to(:reset_new_notifications) }
+  it { should respond_to(:update_new_notifications) }
+  it { should respond_to(:new_notifications?) }
 
   describe "associations" do 
     it { should have_many(:friendships).dependent(:destroy) }
     it { should have_many(:friended_users) }
     it { should have_many(:reverse_friendships).dependent(:destroy) }
     it { should have_many(:frienders) }
+    it { should have_many(:notifications) }
   end
 
   describe "validations" do
@@ -40,6 +46,32 @@ describe User do
     it { should allow_value("foo@example.com").for(:email) }
     it { should_not allow_value("foo@example").for(:email) }
     it { should_not allow_value("@example.com").for(:email) }
+  end
+
+  describe "defaults" do
+    it "sets new_notifications to zero" do
+      expect(user.new_notifications).to be_zero
+    end
+  end
+
+  describe "notifications management" do 
+    before(:each) do 
+      Notification.send_notification(user, "request", "Friender")
+    end
+    it "resets new notifications" do
+      expect(user.new_notifications).to eq(1)
+      user.reset_new_notifications
+      expect(user.new_notifications).to be_zero
+    end
+    it "increases new notifications" do
+      expect{ user.update_new_notifications }.
+        to change{ user.new_notifications }.by(1)
+    end
+    it "checks for new notifications" do 
+      expect(user.new_notifications?).to be_true
+      user.reset_new_notifications
+      expect(user.new_notifications?).to be_false
+    end
   end
   
   describe "friending" do 
