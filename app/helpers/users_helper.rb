@@ -20,8 +20,8 @@ module UsersHelper
   # Returns the Gravatar (http://gravatar.com/) for the given user.
   def image_for(user, options = { size: 50, img_class: "mid-img" })
     gravatar_id  = Digest::MD5::hexdigest(user.email.downcase)
-    # size         = options[:size]
-    img_class    = options[:img_class]
+    title     = options[:title] || ""
+    img_class = options[:img_class] || "mid-img"
     size = case img_class
            when "v-lg-img" then 160
            when "lg-img"   then 75
@@ -32,7 +32,8 @@ module UsersHelper
            end
 
     gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"
-    image_tag(gravatar_url, alt: user.first_name, class: img_class)
+    image_tag(gravatar_url, alt: "#{user.name}'s profile picture", 
+                            class: img_class, title: title)
   end
   
 end

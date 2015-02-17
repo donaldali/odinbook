@@ -18,9 +18,8 @@
 }
 .notification-container {
   padding: 10px 20px;
-  color: $alt-color;
   &:nth-child(odd) {
-    background: #f6f7f8;
+    background: $gray;
     border: 1px solid #e9eaed;
   }
   .main-message {

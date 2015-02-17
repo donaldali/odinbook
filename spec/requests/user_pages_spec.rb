@@ -28,7 +28,9 @@ describe "User pages" do
       end
 
       it "does not list current user" do
-        expect(page).not_to have_text(user.first_name)
+        within ".users-container" do
+          expect(page).not_to have_text(user.first_name)
+        end
       end
       it "lists all other users" do  
         expect(page).to have_text(friender.first_name)

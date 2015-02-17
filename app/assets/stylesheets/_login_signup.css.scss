@@ -5,21 +5,20 @@
 */
 .header-container{
   @extend .container;
+  font-size: 11px;
 
   height: 72px;
+  height: 83px;
   padding-top: 13px;
 
   .logo {
     height: 50px;
   }
-/*  table {
-    font-size: 11px;
-  }*/
   td {
     padding-left: 14px;
   }
   label {
-    color: white;
+    color: #fff;
   }
   input + label {
     color: #9daccb;

@@ -3,6 +3,99 @@
   Users Header
   ========================================
 */
+.main-header {
+  height: 43px;
+  min-width: 980px;
+  background-color: #3a5795;
+  border-bottom: 1px solid #133783;
+  box-shadow: 0 2px 2px -2px rgba(0, 0, 0, .52);
+}
+.header-holder{
+  @extend .container;
+  height: 100%;
+
+  a,
+  .header-form,
+  .header-menu,
+  li {
+    display: inline-block;
+  }
+  .icon {
+    height: 22px;
+    border-radius: 3px;
+    float: left;
+    position: relative;
+    top: 3px;
+    left: -8px;
+  }
+  .header-form {
+    position: relative;
+    top: -8px;
+    left: -1px;
+  }
+  input {
+    height: 26px;
+    font-size: 14px;
+    border: 1px solid #355089;
+    border-radius: 4px;
+    padding-left: 5px;
+    margin-right: 7px;
+    overflow: hidden;
+    max-width: 550px;
+    width: 433px;
+  }
+  ul{
+    position: relative;
+    top: -9px;
+  }
+  li {
+    position: relative;
+    border-left: 1px solid #355079;
+    border-right: 1px solid #355079;
+    &:first-child {
+      border-left: 0;
+    }
+    &:last-child {
+      border-right: 0;
+    }
+    &:hover {
+      background-color: #355084;
+    }
+  }
+  a {
+    color: #fff;
+    text-shadow: 0 -1px rgba(0, 0, 0, .5);
+    font-size: 12px;
+    font-weight: bold;
+    display: block;
+    padding: 7px 8px;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+.header-profile {
+  img {
+    vertical-align: middle;
+    border-radius: 2px;
+  }
+  a {
+    padding-left: 2px;
+  }
+  span {
+    display: inline-block;
+    max-width: 175px;
+    overflow: hidden;
+    padding-left: 3px;
+    padding-right: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    position: relative;
+    top: 2px;
+  }
+}
+
 #new-notifications {
   border-radius: 2px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, .7);
@@ -11,10 +104,13 @@
   background-image: linear-gradient(#fa3c45, #dc0d17);
   color: #fff;
   min-height: 13px;
-  padding: 1px 3px;
+  padding: 3px;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, .4);
 
   display: inline-block;
   font-family: 'Helvetica Neue', Helvetica, sans-serif;
   font-size: 10px;
+  position: absolute;
+  right: 0;
+  top: -4px;
 }
