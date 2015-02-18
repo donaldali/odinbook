@@ -10,6 +10,10 @@ class User < ActiveRecord::Base
                                  foreign_key: :friended_id
   has_many :frienders, through: :reverse_friendships, source: :friender
   has_many :notifications
+  has_many :created_posts,  class_name: 'Post', foreign_key: :creator_id,
+                           dependent: :destroy
+  has_many :received_posts, class_name: 'Post', foreign_key: :receiver_id,
+                           dependent: :destroy
 
   # Validations
   validates :first_name, presence: true
