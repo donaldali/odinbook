@@ -111,23 +111,23 @@ header {
   ========================================
 */
 .flash-holder {
-  margin-top: 7px;
-  margin-bottom: 7px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 .flash {
   max-width: 600px;
-  padding: 7px;
+  padding: 10px;
   border: 1px solid;
   margin: 0 auto;
-  text-align: center;
+  font-size: 11px;
 }
 .alert {
   border-color: #dd3c10;
   background-color: #ffebe8;
 }
 .notice {
-  border-color: #f5b232;
-  background-color: #ffff9e;
+  border-color: #e2c822;
+  background-color: #fff9d7;
 }
 
 /*
