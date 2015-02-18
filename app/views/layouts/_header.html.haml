@@ -1,0 +1,23 @@
+- content_for :header do
+  .main-header
+    .header-holder
+      = link_to newsfeed_path(current_user) do
+        = image_tag "icon.png", alt: "Odinbook icon", class: "icon"
+      .header-form
+        = search_field_tag(:q, "", placeholder: "Search Odinbook soon...")
+      .header-menu
+        %ul
+          %li>
+            .header-profile{title: "Profile"}
+              / = link_to timeline_path(current_user) do
+              = link_to users_path do
+                = image_for(current_user, options = { img_class: "v-sm-img"})
+                %span= "#{current_user.first_name}"
+          %li>= link_to "Home", newsfeed_path(current_user)
+          %li>= link_to "Find Friends", find_friends_path(current_user)
+          %li>
+            = link_to notifications_path do
+              = "Notifications"
+              -if current_user.new_notifications?
+                %span#new-notifications= current_user.new_notifications
+          %li>= link_to "Log Out", destroy_user_session_path, method: :delete

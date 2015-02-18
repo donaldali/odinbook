@@ -10,6 +10,29 @@
      -moz-box-sizing: border-box;
           box-sizing: border-box;
 }
+.main-container {
+  @extend .container;
+}
+.info-container {
+  padding-top: 12px;
+}
+/*.profile { background-color: red; }*/
+/*.sidebar { background-color: green; }*/
+/*.content { background-color: blue; }*/
+.sidebar,
+.content {
+  display: inline-block;
+  vertical-align: top;
+}
+.sidebar {
+  width: $sidebar-width;
+  margin-left: 8px;
+}
+.content {
+  width: $content-width;
+  margin-left: 11px;
+  margin-right: 10px;
+}
 
 /*
   ========================================
@@ -36,6 +59,51 @@ header {
   margin: 0 auto;
   position: relative;
 }
+.sidebar {
+  line-height: 24px;
+  li {
+    &:hover {
+      background-color: #dfdfdf;
+    }
+    &:first-child {
+      font-weight: bold;
+    }
+  }
+  a {
+    display: block;
+    color: $alt-color;
+    padding-left: 10px;
+    &:hover{
+      text-decoration: none;
+    }
+  }
+  .sm-profile a {
+    display: inline-block;
+    padding-left: 0;
+    position: relative;
+    top: -5px;
+  }
+  .info {
+    display: inline-block;
+    line-height: 22px;
+    color: $color;
+    overflow: hidden;
+    a {
+      white-space: nowrap;
+      width: 120px;
+      padding-left: 5px;
+      &:hover {
+        text-decoration: underline;
+      }
+      &:first-child {
+        display: block;
+        font-weight: bold;
+        position: relative;
+        top: 0;
+      }
+    }
+  }
+}
 
 /*
   ========================================
@@ -44,6 +112,7 @@ header {
 */
 .flash-holder {
   margin-top: 7px;
+  margin-bottom: 7px;
 }
 .flash {
   max-width: 600px;

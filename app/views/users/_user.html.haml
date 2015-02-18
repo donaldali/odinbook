@@ -6,6 +6,7 @@
 
     .user-info
       .user-name
+        / = link_to "#{user.first_name} #{user.last_name}", timeline_path(user)
         = link_to "#{user.first_name} #{user.last_name}", newsfeed_path(user)
 
       .friend-status{id: "friend-status-#{user.id}"}
