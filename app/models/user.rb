@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
                            dependent: :destroy
   has_many :received_posts, class_name: 'Post', foreign_key: :receiver_id,
                            dependent: :destroy
+  has_many :comments, foreign_key: :commenter_id, dependent: :destroy
 
   # Validations
   validates :first_name, presence: true

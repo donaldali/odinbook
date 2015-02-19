@@ -29,6 +29,7 @@ describe User do
   it { should respond_to(:new_notifications?) }
   it { should respond_to(:created_posts) }
   it { should respond_to(:received_posts) }
+  it { should respond_to(:comments) }
 
   describe "associations" do 
     it { should have_many(:friendships).dependent(:destroy) }
@@ -38,6 +39,7 @@ describe User do
     it { should have_many(:notifications) }
     it { should have_many(:created_posts).dependent(:destroy) }
     it { should have_many(:received_posts).dependent(:destroy) }
+    it { should have_many(:comments).dependent(:destroy) }
   end
 
   describe "validations" do
