@@ -9,11 +9,13 @@ describe Post do
   it { should respond_to(:creator) }
   it { should respond_to(:receiver) }
   it { should respond_to(:comments) }
+  it { should respond_to(:likes) }
 
   describe "associations" do 
     it { should belong_to(:creator) }
     it { should belong_to(:receiver) }
     it { should have_many(:comments).dependent(:destroy) }
+    it { should have_many(:likes).dependent(:destroy) }
   end
 
   describe "validations" do 

@@ -8,10 +8,12 @@ describe 'Comment' do
   it { should respond_to(:content) }
   it { should respond_to(:post) }
   it { should respond_to(:commenter) }
+  it { should respond_to(:likes) }
 
   describe "associations" do 
     it { should belong_to(:post) }
     it { should belong_to(:commenter) }
+    it { should have_many(:likes).dependent(:destroy) }
   end
 
   describe "validations" do

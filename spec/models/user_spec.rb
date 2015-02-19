@@ -30,16 +30,18 @@ describe User do
   it { should respond_to(:created_posts) }
   it { should respond_to(:received_posts) }
   it { should respond_to(:comments) }
+  it { should respond_to(:likes) }
 
   describe "associations" do 
     it { should have_many(:friendships).dependent(:destroy) }
     it { should have_many(:friended_users) }
     it { should have_many(:reverse_friendships).dependent(:destroy) }
     it { should have_many(:frienders) }
-    it { should have_many(:notifications) }
+    it { should have_many(:notifications).dependent(:destroy) }
     it { should have_many(:created_posts).dependent(:destroy) }
     it { should have_many(:received_posts).dependent(:destroy) }
     it { should have_many(:comments).dependent(:destroy) }
+    it { should have_many(:likes).dependent(:destroy) }
   end
 
   describe "validations" do
