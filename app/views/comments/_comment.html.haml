@@ -1,6 +1,10 @@
 - commenter = comment.commenter
 .comment-container
   .comment-details
+    - if current_user == comment.commenter
+      = link_to comment_path(comment), method: :delete, class: "delete" do
+        = image_tag("close.png", class: "delete-icon")
+
     / = link_to timeline_path(commenter) do
     = link_to users_path do
       = image_for(commenter, options = { img_class: "sm-img"})
@@ -15,7 +19,7 @@
         %span.dot= "."
         %span.comment-like
           = render "likes/like_link", likeable_id: comment.id, likeable_type: "Comment"
-          
+
         - likes = comment.likes.count
         - if likes > 0
           %span.dot= "."

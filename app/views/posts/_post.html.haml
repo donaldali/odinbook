@@ -1,6 +1,9 @@
 - creator = post.creator
 .post-container
   .post-details
+    - if current_user == post.creator || current_user == post.receiver
+      = link_to post_path(post), method: :delete, class: "delete" do
+        = image_tag("close.png", class: "delete-icon")
     / = link_to timeline_path(creator) do
     = link_to users_path do
       = image_for(creator, options = { img_class: "md-img"})
