@@ -4,8 +4,8 @@
     = link_to users_path do
       = image_for(current_user, options = { img_class: "md-img"})
     .info
-      / = link_to "#{current_user.first_name} #{current_user.last_name}", timeline_path(current_user)
-      = link_to "#{current_user.first_name} #{current_user.last_name}"
+      / = link_to "#{current_user.name}", timeline_path(current_user)
+      = link_to "#{current_user.name}"
       = link_to "Edit Profile"
   %ul
     %li= link_to "Newsfeed", newsfeed_path(current_user)

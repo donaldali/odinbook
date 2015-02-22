@@ -1,0 +1,22 @@
+- creator = post.creator
+.post-container
+  .post-details
+    / = link_to timeline_path(creator) do
+    = link_to users_path do
+      = image_for(creator, options = { img_class: "md-img"})
+    .info
+      / = link_to "#{creator.name}", timeline_path(creator)
+      .poster= link_to "#{creator.name}"
+      = post.created_at
+      = time_ago_in_words(post.created_at)
+
+    %p= post.content
+
+    .post-like
+      = render "likes/like_link", likeable_id: post.id, likeable_type: "Post"
+
+  .post-likers= "#{post.likes.count} people like this"
+
+  = render post.comments
+
+  = render template: "comments/new", locals: {post: post}

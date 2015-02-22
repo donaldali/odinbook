@@ -18,6 +18,9 @@ Rails.application.routes.draw do
   resources :users,         only: [:index]
   resources :friendships,   only: [:create, :update, :destroy]
   resources :notifications, only: [:index]
+  resources :posts,         only: [:create]
+  resources :comments,      only: [:create]
+  resources :likes,         only: [:create, :destroy]
 
   get 'newsfeed/:id',        to: 'users#newsfeed',        as: :newsfeed
   get 'friends/:id',         to: 'users#friends',         as: :friends

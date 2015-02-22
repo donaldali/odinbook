@@ -8,6 +8,10 @@ class UsersController < ApplicationController
   end
 
   def newsfeed
+    @receiver_id = params[:id]
+    @label = "Update Status"
+    @placeholder = "What's on your mind?"
+    @posts = Post.all
   end
 
   def friends

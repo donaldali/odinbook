@@ -7,4 +7,5 @@ class Post < ActiveRecord::Base
   validates :content,     presence: true
   validates :creator_id,  presence: true
   validates :receiver_id, presence: true
+
 end

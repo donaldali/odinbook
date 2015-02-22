@@ -1,3 +1,6 @@
-%h1 Newsfeed
+.newsfeed-container
+  = render template: 'posts/new'
 
-%p= "Newsfeed for #{current_user.first_name} #{current_user.last_name}"
+  = render @posts
+
+%h1 **************************END Newsfeed

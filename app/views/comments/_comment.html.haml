@@ -1,0 +1,20 @@
+- commenter = comment.commenter
+.comment-container
+  .comment-details
+    / = link_to timeline_path(commenter) do
+    = link_to users_path do
+      = image_for(commenter, options = { img_class: "sm-img"})
+    .info
+      / = link_to "#{commenter.name}", timeline_path(commenter)
+      = link_to "#{commenter.name}"
+      %p= comment.content
+
+      %p
+        = comment.created_at
+        = time_ago_in_words(comment.created_at)
+        = "."
+        %span.comment-like
+          = render "likes/like_link", likeable_id: comment.id, likeable_type: "Comment"
+
+        = "."
+        = "#{comment.likes.count} likes."

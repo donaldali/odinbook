@@ -1,0 +1,6 @@
+.post-form
+  = form_for(current_user.created_posts.build) do |f|
+    = hidden_field_tag :receiver_id, @receiver_id
+    .post-label= f.label @label, for: "post_content"
+    .post-textarea= f.text_area :content, placeholder: @placeholder, title: @placeholder
+    .post-submit= f.submit "Post", class: "primary-btn"

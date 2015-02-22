@@ -1,0 +1,9 @@
+.comment-form
+  / = link_to timeline_path(current_user) do
+  = link_to users_path do
+    = image_for(current_user, options = { img_class: "sm-img"})
+  = form_for(post.comments.build) do |f|
+    = hidden_field_tag :post_id, post.id
+    .comment-label= f.label :content, class: "sr-only"
+    .comment-input= f.text_field :content, placeholder: "Write a comment...", title: "Write a comment..."
+    = f.submit "Comment", class: "sr-only"
