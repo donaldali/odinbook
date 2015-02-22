@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     @receiver_id = params[:id]
     @label = "Update Status"
     @placeholder = "What's on your mind?"
-    @posts = Post.all
+    @posts = Post.all.order(created_at: :desc)
   end
 
   def friends

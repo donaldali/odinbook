@@ -10,11 +10,13 @@
       %p= comment.content
 
       %p
-        = comment.created_at
-        = time_ago_in_words(comment.created_at)
-        = "."
+        = format_datetime(comment.created_at)
+
+        %span.dot= "."
         %span.comment-like
           = render "likes/like_link", likeable_id: comment.id, likeable_type: "Comment"
-
-        = "."
-        = "#{comment.likes.count} likes."
+          
+        - likes = comment.likes.count
+        - if likes > 0
+          %span.dot= "."
+          = "#{pluralize(likes, 'like')}"

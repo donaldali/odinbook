@@ -6,17 +6,25 @@
       = image_for(creator, options = { img_class: "md-img"})
     .info
       / = link_to "#{creator.name}", timeline_path(creator)
-      .poster= link_to "#{creator.name}"
-      = post.created_at
-      = time_ago_in_words(post.created_at)
+      .poster
+        = link_to "#{creator.name}"
+        - unless creator == post.receiver
+          %span= ">"
+          / = link_to "#{post.receiver.name}",timeline_path(post.receiver.name)
+          = link_to "#{post.receiver.name}"
+
+      = format_datetime(post.created_at)
 
     %p= post.content
 
     .post-like
       = render "likes/like_link", likeable_id: post.id, likeable_type: "Post"
 
-  .post-likers= "#{post.likes.count} people like this"
+  - likes = post.likes.count
+  - if likes > 0
+    .post-likers= post_likers(post, likes)
 
-  = render post.comments
+  = render post.comments.order(created_at: :asc)
 
-  = render template: "comments/new", locals: {post: post}
+  - if current_user == post.creator || current_user == post.receiver || current_user.friends_with?(post.creator) || current_user.friends_with?(post.receiver)
+    = render template: "comments/new", locals: {post: post}
