@@ -1,22 +1,24 @@
 - creator = post.creator
-.post-container
+%li.post-container
   .post-details
     - if current_user == post.creator || current_user == post.receiver
       = link_to post_path(post), method: :delete, class: "delete" do
-        = image_tag("close.png", class: "delete-icon")
-    / = link_to timeline_path(creator) do
-    = link_to users_path do
-      = image_for(creator, options = { img_class: "md-img"})
-    .info
-      / = link_to "#{creator.name}", timeline_path(creator)
-      .poster
-        = link_to "#{creator.name}"
-        - unless creator == post.receiver
-          %span= ">"
-          / = link_to "#{post.receiver.name}",timeline_path(post.receiver.name)
-          = link_to "#{post.receiver.name}"
+        = image_tag("close.png", title: "Delete Post")
+    .top
+      / = link_to timeline_path(creator) do
+      = link_to users_path do
+        = image_for(creator, options = { img_class: "md-img"})
+      .info
+        / = link_to "#{creator.name}", timeline_path(creator)
+        .poster
+          = link_to "#{creator.name}"
+          - unless creator == post.receiver
+            %span
+              &gt;
+            / = link_to "#{post.receiver.name}",timeline_path(post.receiver.name)
+            = link_to "#{post.receiver.name}"
 
-      = format_datetime(post.created_at)
+        = format_datetime(post.created_at)
 
     %p= post.content
 
@@ -27,7 +29,9 @@
   - if likes > 0
     .post-likers= post_likers(post, likes)
 
-  = render post.comments.order(created_at: :asc)
+  - if post.comments.any?
+    %ul.comment-list
+      = render post.comments.order(created_at: :asc)
 
   - if current_user == post.creator || current_user == post.receiver || current_user.friends_with?(post.creator) || current_user.friends_with?(post.receiver)
     = render template: "comments/new", locals: {post: post}

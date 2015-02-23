@@ -1,4 +1,5 @@
 .newsfeed-container
   = render template: 'posts/new'
 
-  = render @posts
+  %ul
+    = render @posts

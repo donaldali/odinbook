@@ -1,0 +1,116 @@
+/*
+  ========================================
+  Posts
+  ========================================
+*/
+.post-form, .post-container {  
+  width: $content-width;
+  position: relative;
+  word-wrap: break-word;
+  line-height: 1.28;
+}
+.post-form {
+  border: 1px solid #d3d6db;
+  margin-bottom: 17px;
+  border-radius: 3px;
+
+  .post-label, .post-submit {
+    background-color: $gray;
+  }
+  .post-label {
+    height: 35px;
+    color: #373e4d;
+    border-bottom: 1px solid #dcdee3;
+    padding: 10px 0 8px 12px;
+    font-weight: bold;
+    line-height: 16px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+  }
+  .post-submit {
+    height: 41px;
+    border-top: 1px solid #dcdee3;
+    padding: 8px;
+    position: relative;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    input {
+      padding-left: 16px;
+      padding-right: 16px;
+      position: absolute;
+      right: 8px;
+    }
+  }
+  .post-textarea {
+    height: 73px;
+
+    textarea {
+      width: 100%;
+      font-size: 14px;
+      line-height: 18px;
+      word-wrap: break-word;
+      color: #373e4d;
+      border: none;
+      padding: 13px 12px 5px 12px;
+      min-height: 73px;
+      resize: none;
+      overflow: hidden;
+      font-family: $font-family;
+    }
+  }
+}
+.post-container {
+  border: 1px solid;
+  border-color: #e5e6e9 #dfe0e4 #d0d1d5;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+.post-details {
+  padding: 12px;
+  background-color: #fff;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  position: relative;
+  border-bottom: 1px solid #e1e2e3;
+
+  .top {
+    margin-bottom: 8px;
+  }
+  .info {
+    color: #9197a3;
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 5px;
+
+    .poster {
+      word-wrap: break-word;
+      overflow: hidden;
+      padding: 2px 0;
+      max-width: 420px;
+    }
+    a {
+      color: $blue;
+      font-weight: bold;
+      font-size: 14px;
+      line-height: 1.38
+    }
+    span {
+      padding: 0 4px;
+      font-weight: bold;
+    }
+  }
+  p {
+    font-size: 14px;
+    line-height: 1.38;
+  }
+  .post-like {
+    margin-top: 10px;
+    a {
+      color: #6d84b4;
+    }
+  }
+}
+.post-likers {
+  background-color: $gray;
+  padding: 9px 12px 7px 12px;
+}

@@ -145,7 +145,8 @@ header {
     clip: rect(0,0,0,0);
     border: 0;
 }
-input:focus {
+input:focus,
+textarea:focus {
   outline: 0;
 }
 /* Buttons */
@@ -216,4 +217,13 @@ a {
   -webkit-transform: translateY(-50%);
       -ms-transform: translateY(-50%);
           transform: translateY(-50%);
+}
+.delete {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  opacity: 0.3;
+  &:hover {
+    opacity: 1;
+  }
 }

@@ -1,0 +1,68 @@
+/*
+  ========================================
+  Comments
+  ========================================
+*/
+.comment-list,
+.comment-form {
+  background-color: $gray;
+}
+.comment-container {
+  position: relative;
+  padding-bottom: 8px;
+  margin: 0 12px;
+
+  &:first-child {
+    border-top: 1px solid #e1e2e3;
+    padding-top: 7px;
+  }
+}
+.comment-details {
+  .info {
+    max-width: 425px;
+    & > a {
+      color: $blue;
+      font-weight: bold;
+      font-size: 12px;
+      line-height: 1.28
+    }
+  }
+  p {
+    color: #9197a3;
+    a {
+      color: $blue;
+    }
+  }
+  .dot {
+    position: relative;
+    top: -3px;
+  }
+  .delete {
+    right: -10px;
+  }
+  .info {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 5px; 
+  }
+}
+.comment-form {
+  padding: 6px 12px 5px 12px;
+  form {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 5px;
+  }
+  .comment-input {
+    display: inline-block;
+    input {
+      height: 32px;
+      width: 427px;
+      border: 1px solid #bdc7d8;
+      word-wrap: break-word;
+      color: $color;
+      line-height: 16px;
+      padding: 7px 3px 7px 5px;
+    }
+  }
+}
