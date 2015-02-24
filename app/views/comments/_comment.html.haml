@@ -23,4 +23,5 @@
         - likes = comment.likes.count
         - if likes > 0
           %span.dot= "."
-          = "#{pluralize(likes, 'like')}"
+          = image_tag "like.png", class: "like-img"
+          = "#{likes}"

@@ -27,7 +27,9 @@
 
   - likes = post.likes.count
   - if likes > 0
-    .post-likers= post_likers(post, likes)
+    .post-likers
+      = image_tag "like.png", class: "like-img"
+      = post_likers(post, likes)
 
   - if post.comments.any?
     %ul.comment-list

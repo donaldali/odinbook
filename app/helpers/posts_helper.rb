@@ -14,7 +14,7 @@ module PostsHelper
     if (Time.now - datetime) >= 1.day
       datetime.strftime("%B %-d, %Y at %l:%M%P")
     else
-      time_ago_in_words(datetime)
+      time_ago_in_words(datetime).gsub("hour", "hr").gsub("minute", "min")
     end
   end
 end
