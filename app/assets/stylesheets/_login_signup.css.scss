@@ -19,13 +19,18 @@
   }
   label {
     color: #fff;
+    padding-left: 1px;
   }
   input + label {
     color: #9daccb;
     cursor: pointer;
+    position: relative;
+    top: -2px;
   }
   a {
     color: #9daccb;
+    position: relative;
+    top: -2px;
     text-decoration: none;
     &:hover {
       text-decoration: underline;
@@ -41,10 +46,15 @@
   input[type="submit"] {
     @extend .alt-btn;
   }
+  td:first-child {
+    a {
+      margin-right: 40px;
+      top: 2px;
+    }
+  }
   .login-img {
     height: 30px;
     margin-bottom: -10px;
-    padding-right: 40px;
   }
 }
 .login-container {
@@ -82,8 +92,10 @@
     margin-bottom: 20px;
     line-height: 126%;
   }
-  label {
-    @extend .sr-only;
+  .sr-labels {
+    label {
+      @extend .sr-only;
+    }
   }
   input {
     font-size: 18px;
@@ -106,6 +118,22 @@
     position: absolute;
     right: 0;
     top: 0;
+  }
+  .gender {
+    padding: 10px 5px;
+    input {
+      width: 15px;
+      position: relative;
+      top: -3px;
+      left: 2px;
+      &:last-of-type {
+        margin-left: 17px;
+      }
+    }
+    label {
+      font-size: 18px;
+      line-height: 18px;
+    }
   }
   input[type="submit"] {
     font-size: 19px;
