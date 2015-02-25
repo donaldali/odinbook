@@ -1,0 +1,5 @@
+- likes = comment.likes.count
+- if likes > 0
+  %span.dot= "."
+  = image_tag "like.png", class: "like-img"
+  = "#{likes}"

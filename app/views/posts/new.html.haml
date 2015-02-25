@@ -1,5 +1,5 @@
 .post-form
-  = form_for(current_user.created_posts.build) do |f|
+  = form_for(current_user.created_posts.build, remote: true) do |f|
     = hidden_field_tag :receiver_id, @receiver_id
     .post-label= f.label @label, for: "post_content"
     .post-textarea= f.text_area :content, placeholder: @placeholder, title: @placeholder

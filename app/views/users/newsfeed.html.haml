@@ -1,5 +1,5 @@
 .newsfeed-container
   = render template: 'posts/new'
 
-  %ul
+  %ul{ id: "posts" }
     = render @posts

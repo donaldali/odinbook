@@ -1,0 +1,4 @@
+- unless @post.nil?
+  :plain
+    $("#posts").prepend("#{ escape_javascript(render @post) }")
+    $("#post_content").val("")

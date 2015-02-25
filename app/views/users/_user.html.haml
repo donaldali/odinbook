@@ -1,6 +1,7 @@
 - unless user == current_user
   %li.user-container
     .user-img>
+      / = link_to timeline_path(user) do
       = link_to newsfeed_path(user) do
         = image_for(user, {img_class: "lg-img"} )
 

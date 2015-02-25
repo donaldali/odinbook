@@ -1,8 +1,8 @@
 - commenter = comment.commenter
-%li.comment-container
+%li.comment-container{ id: "comment-#{ comment.id }"}
   .comment-details
     - if current_user == comment.commenter
-      = link_to comment_path(comment), method: :delete, class: "delete" do
+      = link_to comment_path(comment), method: :delete, class: "delete", remote: true do
         = image_tag("close.png", title: "Delete Comment")
 
     / = link_to timeline_path(commenter) do
@@ -17,11 +17,8 @@
         = format_datetime(comment.created_at)
 
         %span.dot= "."
-        %span.comment-like
+        %span.comment-like{ id: "comment-#{comment.id}-like" }
           = render "likes/like_link", likeable_id: comment.id, likeable_type: "Comment"
 
-        - likes = comment.likes.count
-        - if likes > 0
-          %span.dot= "."
-          = image_tag "like.png", class: "like-img"
-          = "#{likes}"
+        %span{ id: "comment-#{comment.id}-likers"}
+          = render "comments/comment_likers", comment: comment

@@ -1,6 +1,6 @@
 - like = find_like(likeable_id, likeable_type)
 
 - if like.nil? # current user hasn't liked this likeable object
-  = link_to "Like", likes_path(likeable_id: likeable_id, likeable_type: likeable_type), method: :post
+  = link_to "Like", likes_path(likeable_id: likeable_id, likeable_type: likeable_type), method: :post, title: "Like this #{likeable_type.downcase}", remote: true
 - else
-  = link_to "Unlike", like, method: :delete
+  = link_to "Unlike", like, method: :delete, title: "Unlike this #{likeable_type.downcase}", remote: true

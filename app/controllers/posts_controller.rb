@@ -2,16 +2,24 @@ class PostsController < ApplicationController
   def create
     content = params[:post][:content]
     unless content.blank?
-      current_user.created_posts.create(content: content,
+      @post = current_user.created_posts.create(content: content,
                                         receiver_id: params[:receiver_id])
     end
 
-    redirect_to :back
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.js
+    end
   end
 
   def destroy
-    Post.find(params[:id]).destroy
-    redirect_to :back
+    @post = Post.find(params[:id])
+    @post.destroy
+    
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.js
+    end
   end
 
 end

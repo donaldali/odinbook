@@ -1,0 +1,4 @@
+- unless @comment.nil?
+  :plain
+    $("#post-#{@comment.post.id}-comments").append("#{ escape_javascript(render @comment) }")
+    $("#post-#{@comment.post.id}-comments").closest("li").find("input[type='text']").val("")

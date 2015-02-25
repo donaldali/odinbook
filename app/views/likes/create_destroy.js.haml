@@ -1,0 +1,9 @@
+- type = @like.likeable_type.downcase
+:plain
+  $("##{type}-#{@like.likeable_id}-like").html("#{ escape_javascript(render 'likes/like_link', likeable_id: @like.likeable_id, likeable_type: @like.likeable_type) }")
+- if type == "post"
+  :plain
+    $("#post-#{@like.likeable_id}-likers").html("#{ escape_javascript(render 'posts/post_likers', post: @like.likeable) }")
+- elsif type == "comment"
+  :plain
+    $("#comment-#{@like.likeable_id}-likers").html("#{ escape_javascript(render 'comments/comment_likers', comment: @like.likeable) }")

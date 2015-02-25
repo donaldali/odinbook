@@ -1,16 +1,16 @@
 - creator = post.creator
-%li.post-container
+%li.post-container{ id: "post-#{post.id}"}
   .post-details
     - if current_user == post.creator || current_user == post.receiver
-      = link_to post_path(post), method: :delete, class: "delete" do
+      = link_to post_path(post), method: :delete, class: "delete", remote: true do
         = image_tag("close.png", title: "Delete Post")
     .top
       / = link_to timeline_path(creator) do
       = link_to users_path do
         = image_for(creator, options = { img_class: "md-img"})
       .info
-        / = link_to "#{creator.name}", timeline_path(creator)
         .poster
+          / = link_to "#{creator.name}", timeline_path(creator)
           = link_to "#{creator.name}"
           - unless creator == post.receiver
             %span
@@ -22,17 +22,14 @@
 
     %p= post.content
 
-    .post-like
+    .post-like{ id: "post-#{post.id}-like" }
       = render "likes/like_link", likeable_id: post.id, likeable_type: "Post"
 
-  - likes = post.likes.count
-  - if likes > 0
-    .post-likers
-      = image_tag "like.png", class: "like-img"
-      = post_likers(post, likes)
+  %div{ id: "post-#{post.id}-likers" }
+    = render "posts/post_likers", post: post
 
   - if post.comments.any?
-    %ul.comment-list
+    %ul.comment-list{ id: "post-#{post.id}-comments"}
       = render post.comments.order(created_at: :asc)
 
   - if current_user == post.creator || current_user == post.receiver || current_user.friends_with?(post.creator) || current_user.friends_with?(post.receiver)
