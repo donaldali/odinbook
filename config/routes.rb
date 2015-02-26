@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   resources :posts,         only: [:create, :destroy]
   resources :comments,      only: [:create, :destroy]
   resources :likes,         only: [:create, :destroy]
+  resources :profiles,      only: [:show, :edit, :update]
 
   get 'newsfeed/:id',        to: 'users#newsfeed',        as: :newsfeed
   get 'friends/:id',         to: 'users#friends',         as: :friends

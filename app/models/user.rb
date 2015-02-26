@@ -16,11 +16,15 @@ class User < ActiveRecord::Base
                            dependent: :destroy
   has_many :comments, foreign_key: :commenter_id, dependent: :destroy
   has_many :likes, dependent: :destroy
+  has_one  :profile, dependent: :destroy
 
   # Validations
   validates :first_name, presence: true
   validates :last_name,  presence: true
   validates :gender,     presence: true
+
+  # Callbacks
+  before_create :build_default_profile
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :trackable 
@@ -142,5 +146,10 @@ class User < ActiveRecord::Base
   # one user to another. Return nil if no such request exists
   def get_friend_request(from_user, to_user)
     from_user.friendships.find_by(friended_id: to_user.id, accepted: false)
+  end
+
+  def build_default_profile
+    self.build_profile({ access_to: "All Users", email_notification: true })
+    true
   end
 end
