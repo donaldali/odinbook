@@ -18,6 +18,7 @@ gem 'figaro', '0.7.0'
 gem 'devise', '3.2.4'
 gem 'omniauth', '1.2.2'
 gem 'omniauth-facebook', '1.6.0'
+gem 'country_select', github: 'stefanpenner/country_select'
 gem 'paperclip', '4.1.1'
 
 group :development, :test do

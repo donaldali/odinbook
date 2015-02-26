@@ -6,16 +6,17 @@
     .info
       / = link_to "#{current_user.name}", timeline_path(current_user)
       = link_to "#{current_user.name}"
-      = link_to "Edit Profile"
+      = link_to "Edit Profile", edit_profile_path(current_user.profile)
   %ul
     %li= link_to "Newsfeed", newsfeed_path(current_user)
     %li= link_to "Timeline"
     %li= link_to "Friends", friends_path(current_user)
-    %li= link_to "Profile"
+    %li= link_to "Profile", profile_path(current_user.profile)
     %li= link_to "All Users", users_path
     %li= link_to "Find Friends"
-    %li= link_to "Privacy"
+    %li= link_to "Friend Requests"
     %li= link_to "Notifications"
+    %li= link_to "Privacy"
     %li= link_to "Log out"
     %li= link_to ""
     

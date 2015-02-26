@@ -1,0 +1,33 @@
+.profile-container
+  %h2= "About #{@profile.user.first_name}"
+
+  %div
+    %span Birthday: 
+    %span= "#{formatted_birthday @profile.birthday}"
+
+  %div
+    %span Country: 
+    %span= "#{country_name @profile.country}"
+
+  %div
+    %span Education: 
+    %span= "#{value_or_none @profile.education}"
+
+  %div
+    %span Profession: 
+    %span= "#{value_or_none @profile.profession}"
+
+  %div
+    %span= "About #{@profile.user.first_name}: "
+    %span= "#{value_or_none @profile.about_you}"
+  %br
+  %div
+    %span Who has access to your Profile and Posts: 
+    %span= "#{@profile.access_to}"
+
+  %div
+    %span Will you receive email of notifications: 
+    %span= "#{bool_to_yes_no @profile.email_notification}"
+  %br
+  %div
+    = link_to "Edit Your Profile", edit_profile_path(current_user.profile)
