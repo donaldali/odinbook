@@ -3,42 +3,45 @@
 
   .edit-profile-form
     = form_for @profile do |f|
-      %div
-        = f.label :birthday
-        = f.date_select :birthday, discard_year: true, use_short_month: true, prompt: true
+      .general
+        .bday
+          = f.label :birthday
+          = f.date_select :birthday, discard_year: true, use_short_month: true, prompt: true
 
-      %div
-        = f.label :country
-        = f.country_select :country, priority_countries: ["US"], prompt: "Select Country", include_blank: true
+        %div
+          = f.label :country
+          = f.country_select :country, priority_countries: ["US"], prompt: "Select Country", include_blank: true
 
-      %div
-        = f.label :education
-        = f.select :education, get_education_options, prompt: "Select Edcation Level", include_blank: true
+        %div
+          = f.label :education
+          = f.select :education, get_education_options, prompt: "Select Education Level", include_blank: true
 
-      %div
-        = f.label :profession
-        = f.select :profession, get_profession_options, prompt: "Select Profession", include_blank: true
+        %div
+          = f.label :profession
+          = f.select :profession, get_profession_options, prompt: "Select Profession", include_blank: true
 
-      %div
-        = f.label :about_you
-        = f.text_area :about_you
+        %div
+          = f.label :about_you
+          = f.text_area :about_you
 
-      %h3 Privacy
-      %div
-        %span Who can view your Profile and Posts
-        = f.radio_button :access_to, "All Users"
-        = f.label :access_to_all_users, "All Users"
-        = f.radio_button :access_to, "Friends"
-        = f.label :access_to_friends, "Friends"
+      .privacy
+        %h3 Privacy
+        %div
+          %span Who can view your Profile and Posts
+          = f.radio_button :access_to, "All Users"
+          = f.label :access_to_all_users, "All Users"
+          = f.radio_button :access_to, "Friends"
+          = f.label :access_to_friends, "Friends"
 
-      %div
-        %span Receive email of notifications?
-        = f.radio_button :email_notification, true
-        = f.label :email_notification_true, "Yes"
-        = f.radio_button :email_notification, false
-        = f.label :email_notification_false, "No"
+        %div
+          %span Receive email of notifications?
+          = f.radio_button :email_notification, true
+          = f.label :email_notification_true, "Yes"
+          = f.radio_button :email_notification, false
+          = f.label :email_notification_false, "No"
 
-      = f.submit
-      = link_to "Cancel", @profile
+      .center
+        = f.submit class: "primary-btn"
+        = link_to "Cancel", @profile, class: "default-btn"
 
-  = button_to "Delete Odinbook Account", registration_path(current_user), data: { confirm: "WARNING! This will completely delete your entire Odinbook account (not just your profile)\nThere will be no way to recover any part of your account.\nAre you absolutely sure you want to proceed?" }, method: :delete, class: "danger-btn"
+  = button_to "Delete Odinbook Account", registration_path(current_user), data: { confirm: "WARNING! This will completely delete your entire Odinbook account (not just your profile).\nThere will be no way to recover any part of your account.\nAre you absolutely sure you want to proceed?" }, method: :delete, class: "destroy-btn"
