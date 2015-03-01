@@ -269,7 +269,7 @@ describe "User pages" do
 
       context "with no comment content" do 
         it "does not create a comment" do
-          expect { click_on "Comment" }.not_to change{ Comment.count }
+          expect { click_button "Comment" }.not_to change{ Comment.count }
         end
       end
 
@@ -281,14 +281,14 @@ describe "User pages" do
        end
 
         it "creates a comment" do
-          expect { click_on "Comment" }.to change{ Comment.count }.by(1)
+          expect { click_button "Comment" }.to change{ Comment.count }.by(1)
         end
         it "displays the comment" do 
-          click_on "Comment"
+          click_button "Comment"
           expect(page).to have_text("Lorem ipsum comment")
         end
         it "displays the commenter's name" do 
-          click_on "Comment"
+          click_button "Comment"
           within ".post-container" do 
             expect(page).to have_text(user.name)
           end
@@ -303,7 +303,7 @@ describe "User pages" do
         click_on "Post"
         within('.post-container') do 
           fill_in "Content", with: "Lorem ipsum comment"
-          click_on "Comment"
+          click_button "Comment"
         end
       end
       it "allows deletion of own comment" do
