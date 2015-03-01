@@ -1,0 +1,20 @@
+- user = (@profile && @profile.user) || User.find(@receiver_id)
+
+.profile-banner
+  .banner-top
+    %span= link_to "#{user.name}", timeline_path(user)
+    .friend-status{id: "friend-status-#{user.id}"}
+      = display_friend_status_of(user)
+
+  .banner-bottom
+    %ul
+      %li>= link_to "Timeline", timeline_path(user)
+      %li>= link_to "About", profile_path(user.profile)
+      %li
+        = link_to friends_path(user, from: "profile") do
+          %span Friends
+          %span.friend-count= user.friends.count
+  .profile-pic
+    / = link_to "??? Update Profile pic w/ Paperclip???" do
+    = link_to timeline_path(user) do
+      = image_for(user, options = { img_class: "v-lg-img" })

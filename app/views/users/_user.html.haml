@@ -1,14 +1,12 @@
-- unless user == current_user
-  %li.user-container
-    .user-img>
-      / = link_to timeline_path(user) do
-      = link_to newsfeed_path(user) do
-        = image_for(user, {img_class: "lg-img"} )
+-# unless user == current_user
+%li.user-container
+  .user-img>
+    = link_to timeline_path(user) do
+      = image_for(user, {img_class: "lg-img"} )
 
-    .user-info
-      .user-name
-        / = link_to "#{user.first_name} #{user.last_name}", timeline_path(user)
-        = link_to "#{user.first_name} #{user.last_name}", newsfeed_path(user)
+  .user-info
+    .user-name
+      = link_to "#{user.name}", timeline_path(user)
 
-      .friend-status{id: "friend-status-#{user.id}"}
-        = friend_status_of(user, is_index)
+    .friend-status{id: "friend-status-#{user.id}"}
+      = friend_status_of(user, is_index)

@@ -27,9 +27,9 @@ describe "User pages" do
         visit users_path
       end
 
-      it "does not list current user" do
+      it "lists current user" do
         within ".users-container" do
-          expect(page).not_to have_text(user.first_name)
+          expect(page).to have_text(user.first_name)
         end
       end
       it "lists all other users" do  
@@ -363,5 +363,109 @@ describe "User pages" do
       end
     end
 
+  end
+
+  describe "Timeline" do 
+    context "for current user" do 
+      before { visit timeline_path(user) }
+
+      it { should have_css(".profile") }
+      it { should have_xpath("//img[@class='v-lg-img']") }
+
+      it "should have link to Timeline" do
+        expect(find(".profile")).to have_link("Timeline")
+      end
+      it "should have link to About" do
+        expect(find(".profile")).to have_link("About")
+      end
+      it "should have link to friends" do
+        expect(find(".profile")).to have_link("Friends")
+      end
+      it "should have display for friend status" do
+        expect(find(".profile")).to have_css(".friend-status")
+      end
+
+      context "as friend status" do
+        let(:friender)  { create(:user, first_name: "friender") }
+        let(:friended)  { create(:user, first_name: "friended") }
+        let(:friend)    { create(:user, first_name: "friend") }
+        let(:no_friend) { create(:user, first_name: "no_friend") }
+
+        before(:each) do
+          friender  = create(:user, first_name: "friender")
+          friended  = create(:user, first_name: "friended")
+          friend    = create(:user, first_name: "friend")
+          no_friend = create(:user, first_name: "no_friend")
+          # friender.send_friend_request_to(user)
+          # user.send_friend_request_to(friended)
+          # make_friends(user, friend)
+          # make_friends2(user, friend)
+        end
+
+        context "for the current user" do
+          it "displays correct friend status" do
+            visit timeline_path(user)
+            expect(find(".friend-status")).
+                   to have_link("Update your Profile")
+          end
+        end
+        context "for a friender" do
+          it "displays correct friend status" do
+            friend_request_to_from(user, friender)
+            visit timeline_path(friender)
+            expect(find(".friend-status")).
+                   to have_text("Friend request from #{friender.first_name}")
+            expect(find(".friend-status")).
+                   to have_link("See your friend requests")
+          end
+        end
+        context "for a friended" do
+          it "displays correct friend status" do
+            friend_request_from_to(user, friended)
+            visit timeline_path(friended)
+            expect(find(".friend-status")).
+                   to have_text("Friend request pending")
+          end
+        end
+        context "for a friend" do
+          it "displays correct friend status" do
+            make_friends2(user, friend)
+            visit timeline_path(friend)
+# puts "USER: #{user.friends.count}"
+# puts "FRIEND: #{friend.friends.count}"
+# puts page.html
+            expect(find(".friend-status")).
+                   to have_text("Friends with #{friend.first_name}")
+          end
+        end
+        context "for a non-friend" do
+          it "displays correct friend status" do
+            visit timeline_path(no_friend)
+            expect(find(".friend-status")).
+                   to have_text("Do you know #{no_friend.first_name}?")
+            expect(find(".friend-status")).
+                   to have_submit("Add Friend")
+          end
+          it "allows friend request to be sent" do
+            visit timeline_path(no_friend)
+            friendships = Friendship.count
+            within(".friend-status") do 
+              click_on("Add Friend")
+            end
+            expect(Friendship.count).to eq(friendships + 1)
+          end
+          it "displays correct status after sending friend request" do
+            visit timeline_path(no_friend)
+            within(".friend-status") do 
+              click_on("Add Friend")
+            end
+            expect(find(".friend-status")).
+                   to have_text("Friend request pending")
+          end
+        end
+      end
+
+
+    end
   end
 end

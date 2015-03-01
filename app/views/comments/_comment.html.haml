@@ -5,12 +5,10 @@
       = link_to comment_path(comment), method: :delete, class: "delete", remote: true do
         = image_tag("close.png", title: "Delete Comment")
 
-    / = link_to timeline_path(commenter) do
-    = link_to users_path do
+    = link_to timeline_path(commenter) do
       = image_for(commenter, options = { img_class: "sm-img"})
     .info
-      / = link_to "#{commenter.name}", timeline_path(commenter)
-      = link_to "#{commenter.name}"
+      = link_to "#{commenter.name}", timeline_path(commenter)
       %span= comment.content
 
       %p

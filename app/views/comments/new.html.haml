@@ -1,6 +1,5 @@
 .comment-form
-  / = link_to timeline_path(current_user) do
-  = link_to users_path do
+  = link_to timeline_path(current_user) do
     = image_for(current_user, options = { img_class: "sm-img"})
   = form_for(post.comments.build, remote: true) do |f|
     = hidden_field_tag :post_id, post.id

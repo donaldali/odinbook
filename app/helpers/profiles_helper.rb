@@ -1,4 +1,19 @@
 module ProfilesHelper
+
+  def display_friend_status_of user
+    if current_user == user
+      render "profiles/self"
+    elsif current_user.has_friend_request_from?(user)
+      render "profiles/request_received", user: user
+    elsif user.has_friend_request_from?(current_user)
+      render "profiles/request_sent"
+    elsif current_user.friends_with?(user)
+      render "profiles/current_friend", user: user
+    else
+      render "profiles/add_friend", user: user
+    end
+  end
+
   def formatted_birthday birthday
     return "No birthday provided" if birthday.blank?
 

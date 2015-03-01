@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   resources :profiles,      only: [:show, :edit, :update]
 
   get 'newsfeed/:id',        to: 'users#newsfeed',        as: :newsfeed
+  get 'timeline/:id',        to: 'users#timeline',        as: :timeline
   get 'friends/:id',         to: 'users#friends',         as: :friends
   get 'friend_requests/:id', to: 'users#friend_requests', as: :friend_requests
   get 'find_friends/:id',    to: 'users#find_friends',    as: :find_friends

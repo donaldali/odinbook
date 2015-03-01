@@ -1,22 +1,19 @@
 .sidebar-container
   .sm-profile
-    / = link_to timeline_path(current_user) do
-    = link_to users_path do
+    = link_to timeline_path(current_user) do
       = image_for(current_user, options = { img_class: "md-img"})
     .info
-      / = link_to "#{current_user.name}", timeline_path(current_user)
-      = link_to "#{current_user.name}"
+      = link_to "#{current_user.name}", timeline_path(current_user)
       = link_to "Edit Profile", edit_profile_path(current_user.profile)
   %ul
     %li= link_to "Newsfeed", newsfeed_path(current_user)
-    %li= link_to "Timeline"
+    %li= link_to "Timeline", timeline_path(current_user)
     %li= link_to "Friends", friends_path(current_user)
     %li= link_to "Profile", profile_path(current_user.profile)
     %li= link_to "All Users", users_path
-    %li= link_to "Find Friends"
-    %li= link_to "Friend Requests"
-    %li= link_to "Notifications"
+    %li= link_to "Find Friends", find_friends_path(current_user)
+    %li= link_to "Friend Requests", friend_requests_path(current_user)
+    %li= link_to "Notifications", notifications_path
     %li= link_to "Privacy"
-    %li= link_to "Log out"
-    %li= link_to ""
+    %li= link_to "Log Out", destroy_user_session_path, method: :delete
     

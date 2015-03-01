@@ -64,15 +64,12 @@
   .user-info {
     position: relative;
     vertical-align: top;
-    /*width: 373px;*/
     width: 398px;
-    /*height: 100px;*/
     height: 75px;
     border: 1px solid #e9eaed;
     border-left: 0;
   }
   .user-name {
-    /*width: 180px;*/
     width: 205px;
     overflow: hidden;
     padding-left: 10px;
@@ -109,7 +106,25 @@
   }
 }
 
+/*
+  ========================================
+  Friend's Header
+  ========================================
+*/
+.friends-header {
+  word-wrap: break-word;
 
-
-
-
+  h2 {
+    font-weight: bold;
+    color: #373e4d;
+    font-size: 20px;
+    background-color: #f6f7f8;
+    border-bottom: 1px solid #dcdee3;
+    padding: 16px 12px;
+  }
+  span {
+    font-size: 14px;
+    color: #89919c;
+    padding-left: 3px;
+  }
+}

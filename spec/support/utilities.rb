@@ -25,3 +25,37 @@ def make_friends(user1, user2)
   user1.send_friend_request_to(user2)
   user2.accept_friend_request_from(user1)
 end
+
+def make_friends2(user, friend)
+  click_on "All Users", match: :first
+  within("#friend-status-#{friend.id}") do
+    click_on "Add Friend"
+  end
+  click_on "Log Out", match: :first
+
+  log_in(friend)
+  click_on("Friend Requests")
+  click_on("Confirm")
+  click_on "Log Out", match: :first
+  log_in(user)
+end
+
+def friend_request_to_from(user, friender)
+  click_on "Log Out", match: :first
+
+  log_in(friender)
+  click_on "All Users", match: :first
+  within("#friend-status-#{user.id}") do
+    click_on "Add Friend"
+  end
+  click_on "Log Out", match: :first
+
+  log_in(user)
+end
+
+def friend_request_from_to(user, friended)
+  click_on "All Users", match: :first
+  within("#friend-status-#{friended.id}") do
+    click_on "Add Friend"
+  end
+end

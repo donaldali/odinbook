@@ -1,5 +1,5 @@
 class ProfilesController < ApplicationController
-  layout "layouts/users"
+  # layout "layouts/users"
 
   def show
     @profile = Profile.find(params[:id])
