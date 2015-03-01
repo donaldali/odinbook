@@ -1,5 +1,4 @@
 class FriendshipsController < ApplicationController
-  before_action :authenticate_user!
 
   def create
     @is_index = params[:is_index]

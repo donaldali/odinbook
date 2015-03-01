@@ -1,8 +1,6 @@
 class UsersController < ApplicationController
   include UsersHelper
 
-  before_action :authenticate_user!
-
   def newsfeed
     @receiver_id = params[:id]
     @label       = "Update Status"
