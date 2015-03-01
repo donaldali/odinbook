@@ -8,11 +8,14 @@
     = favicon_link_tag 'favicon.ico'
   %body
     %header= yield :header
+
+    - if user_signed_in?
+      .header-margin
     
     - if flash.any?
       - flash.each do |type, message|
         -# Don't display Devise's timedout flash message
-        - if type != 'timedout'
+        - unless message.blank? || type == 'timedout'
           .flash-holder
             .flash{class: "#{type}"}
               = message

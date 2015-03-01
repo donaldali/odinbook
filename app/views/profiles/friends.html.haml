@@ -1,24 +1,10 @@
 - user    = User.find(@receiver_id)
 - friends = user.friends
-/ .profile-container
+
 %ul.users-container
   %li.friends-header
     %h2
       = "#{user.first_name}'s friends"
       %span= "#{friends.count}"
 
-  / .show-profile-container
   = render friends, is_index: true
-
-  / - if friends.include?(current_user)
-  /   = render current_user, is_index: true
-
-
-
-/ .profile-container
-/   %h2= "About #{@profile.user.first_name}"
-
-/   .show-profile-container
-
-/ %h1= "Friends of #{User.find(@receiver_id).name}; count: #{@users.count}"
-/ = render @users, is_index: true

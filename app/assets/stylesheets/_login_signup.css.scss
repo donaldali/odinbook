@@ -7,12 +7,15 @@
   @extend .container;
   font-size: 11px;
 
-  height: 72px;
   height: 83px;
   padding-top: 13px;
+  border-bottom: 1px solid #133783;
 
   .logo {
     height: 50px;
+    position: relative;
+    top: 5px;
+    left: -6px;
   }
   td {
     padding-left: 14px;
@@ -133,6 +136,7 @@
     label {
       font-size: 18px;
       line-height: 18px;
+      cursor: pointer;
     }
   }
   input[type="submit"] {

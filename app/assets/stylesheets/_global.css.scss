@@ -49,7 +49,6 @@ body {
 header {
   background-color: $blue;
   width: 100%;
-  border-bottom: 1px solid #133783;
 }
 .container{
   width: 980px;
@@ -235,11 +234,12 @@ header {
   ========================================
 */
 .flash-holder {
-  margin-top: 10px;
+  position: relative;
+  top: 10px;
   margin-bottom: 10px;
 }
 .flash {
-  max-width: 600px;
+  max-width: 610px;
   padding: 10px;
   border: 1px solid;
   margin: 0 auto;
