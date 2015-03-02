@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :profile do 
-    access_to "All Users"
+    access_to ACCESS[:all]
     email_notification true
     user
   end

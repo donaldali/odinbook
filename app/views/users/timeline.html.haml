@@ -1,5 +1,6 @@
 .timeline-container
-  = render template: 'posts/new'
+  - if access_level?(User.find(@receiver_id), :friend)
+    = render template: 'posts/new'
 
   %ul{ id: "posts" }
     = render @posts

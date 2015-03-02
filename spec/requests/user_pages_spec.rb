@@ -224,6 +224,10 @@ describe "User pages" do
     describe "post creation" do 
       before { visit newsfeed_path(user) }
 
+      it { should have_selector(".post-form") }
+      it { should have_text("Update status") }
+      it { should have_button("Post") }
+
       context "with no post content" do
         it "does not create a post" do
           expect { click_on "Post" }.not_to change{ Post.count }
@@ -371,6 +375,9 @@ describe "User pages" do
 
       it { should have_css(".profile") }
       it { should have_xpath("//img[@class='v-lg-img']") }
+      it { should have_selector(".post-form") }
+      it { should have_text("Status") }
+      it { should have_button("Post") }
 
       it "should have link to Timeline" do
         expect(find(".profile")).to have_link("Timeline")
@@ -450,8 +457,83 @@ describe "User pages" do
           end
         end
       end
-
-
     end
+
+
+    context "for friends" do 
+      let(:friend) { create(:user) }
+      before(:each) do 
+        make_friends2(user, friend)
+        visit timeline_path(friend)
+      end
+
+      it { should have_css(".profile") }
+      it { should have_xpath("//img[@class='v-lg-img']") }
+      it { should have_selector(".post-form") }
+      it { should have_button("Post") }
+
+      it "should have form label for posts" do
+        expect(find(".post-label")).to have_text("Post")
+      end
+      # it "should have display for friend status" do
+      #   expect(find(".profile")).to have_css(".friend-status")
+      # end
+      # it "should have link to Timeline" do
+      #   expect(find(".profile")).to have_link("Timeline")
+      # end
+      # it "should have link to About" do
+      #   expect(find(".profile")).to have_link("About")
+      # end
+      # it "should have link to friends" do
+      #   expect(find(".profile")).to have_link("Friends")
+      # end
+    end
+
+
+    context "for non-friends with public profile" do 
+      let(:public_user) { create(:user) }
+      before { visit timeline_path(public_user) }
+
+      it { should have_css(".profile") }
+      it { should have_xpath("//img[@class='v-lg-img']") }
+      it { should_not have_selector(".post-form") }
+
+      # it "should have display for friend status" do
+      #   expect(find(".profile")).to have_css(".friend-status")
+      # end
+      # it "should have link to Timeline" do
+      #   expect(find(".profile")).to have_link("Timeline")
+      # end
+      # it "should have link to About" do
+      #   expect(find(".profile")).to have_link("About")
+      # end
+      # it "should have link to friends" do
+      #   expect(find(".profile")).to have_link("Friends")
+      # end
+    end
+
+
+    context "for non-friends with private profile" do 
+      let(:private_user) { create(:user) }
+      before { visit timeline_path(private_user) }
+
+      it { should have_css(".profile") }
+      it { should have_xpath("//img[@class='v-lg-img']") }
+      it { should_not have_selector(".post-form") }
+
+      # it "should have display for friend status" do
+      #   expect(find(".profile")).to have_css(".friend-status")
+      # end
+      # it "should have link to Timeline" do
+      #   expect(find(".profile")).to have_link("Timeline")
+      # end
+      # it "should have link to About" do
+      #   expect(find(".profile")).to have_link("About")
+      # end
+      # it "should have link to friends" do
+      #   expect(find(".profile")).to have_link("Friends")
+      # end
+    end
+
   end
 end

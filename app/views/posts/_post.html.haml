@@ -1,7 +1,7 @@
 - creator = post.creator
 %li.post-container{ id: "post-#{post.id}"}
   .post-details
-    - if current_user == post.creator || current_user == post.receiver
+    - if access_level?(post.creator, :self) || access_level?(post.receiver, :self)
       = link_to post_path(post), method: :delete, class: "delete", remote: true do
         = image_tag("close.png", title: "Delete Post")
     .top

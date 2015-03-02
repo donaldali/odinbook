@@ -180,7 +180,7 @@ describe User do
   describe "creates profile" do 
     it "makes a profile when a User is created" do
       new_user = create(:user)
-      expect(new_user.profile.access_to).to eq("All Users")
+      expect(new_user.profile.access_to).to eq(ACCESS[:all])
       expect(new_user.profile.email_notification).to be_true
     end
   end

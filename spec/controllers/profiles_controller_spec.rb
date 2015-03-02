@@ -5,7 +5,9 @@ describe ProfilesController do
 
   before(:each) do
     sign_in user
-    request.env["HTTP_REFERER"] = user_root_path(user) unless request.nil? or request.env.nil?
+    unless request.nil? or request.env.nil?
+      request.env["HTTP_REFERER"] = user_root_path(user)
+    end 
   end
 
   describe "GET show" do 
@@ -53,7 +55,7 @@ describe ProfilesController do
     context "for non-friend of current user with private profile" do
       let(:private_non_friend) { create(:user) }
       let(:profile) { create(:profile, user: private_non_friend, 
-                                       access_to: "Friends") }
+                                       access_to: ACCESS[:friends]) }
       before { get :show, id: profile.id }
 
       it "shows flash with denied message" do
@@ -120,7 +122,7 @@ describe ProfilesController do
     context "for non-friend of current user with private profile" do
       let(:private_non_friend) { create(:user) }
       let(:profile) { create(:profile, user: private_non_friend, 
-                                       access_to: "Friends") }
+                                       access_to: ACCESS[:friends]) }
       before { get :edit, id: profile.id }
 
       it "shows flash with denied message" do
@@ -141,7 +143,7 @@ describe ProfilesController do
     context "for current user" do
       let(:profile) { create(:profile, user: user) }
       before(:each) do 
-        patch :update, id: profile.id, profile: { access_to: "Friends",
+        patch :update, id: profile.id, profile: { access_to: ACCESS[:friends],
                                                 email_notification: false }
         profile.reload
       end
@@ -159,7 +161,7 @@ describe ProfilesController do
       let(:profile) { create(:profile, user: friend) }
       before(:each) do 
         make_friends(user, friend)
-        patch :update, id: profile.id, profile: { access_to: "Friends",
+        patch :update, id: profile.id, profile: { access_to: ACCESS[:friends],
                                                 email_notification: false }
         profile.reload
       end
@@ -176,7 +178,7 @@ describe ProfilesController do
       let(:public_non_friend) { create(:user) }
       let(:profile) { create(:profile, user: public_non_friend) }
       before(:each) do 
-        patch :update, id: profile.id, profile: { access_to: "Friends",
+        patch :update, id: profile.id, profile: { access_to: ACCESS[:friends],
                                                 email_notification: false }
         profile.reload
       end
@@ -192,9 +194,9 @@ describe ProfilesController do
     context "for non-friend of current user with private profile" do
       let(:private_non_friend) { create(:user) }
       let(:profile) { create(:profile, user: private_non_friend, 
-                                       access_to: "Friends") }
+                                       access_to: ACCESS[:friends]) }
       before(:each) do 
-        patch :update, id: profile.id, profile: { access_to: "Friends",
+        patch :update, id: profile.id, profile: { access_to: ACCESS[:friends],
                                                 email_notification: false }
         profile.reload
       end

@@ -1,4 +1,8 @@
 class PostsController < ApplicationController
+
+  before_action :authorize_friend_post,           only: [:create]
+  before_action :authorize_self_creator_receiver, only: [:destroy]
+
   def create
     content = params[:post][:content]
     unless content.blank?
@@ -22,4 +26,25 @@ class PostsController < ApplicationController
     end
   end
 
+
+  private
+
+
+  def authorize_friend_post
+    user = User.find(params[:receiver_id])
+    msg  = "You can only create a post for yourself or your friends."
+    authorize_user!(user, :friend, msg)
+  end
+
+  def authorize_self_creator_receiver
+    post = Post.find(params[:id])
+    creator = post.creator
+    receiver = post.receiver
+    msg      = "You can only delete posts you created or received."
+
+    unless access_level?(creator, :self) || access_level?(receiver, :self)
+      flash[:alert] = "Access denied. #{msg}"
+      redirect_to user_root_path(current_user)
+    end
+  end
 end
