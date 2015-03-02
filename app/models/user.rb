@@ -131,6 +131,10 @@ class User < ActiveRecord::Base
     update_attributes(new_notifications: 0)
   end
 
+  def genderize
+    (gender == "male") ? "his" : "her"
+  end
+
 
   private
 
@@ -149,7 +153,7 @@ class User < ActiveRecord::Base
   end
 
   def build_default_profile
-    self.build_profile({ access_to: "All Users", email_notification: true })
+    self.build_profile({ access_to: ACCESS[:all], email_notification: true })
     true
   end
 end

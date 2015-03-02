@@ -391,17 +391,6 @@ describe "User pages" do
         let(:friend)    { create(:user, first_name: "friend") }
         let(:no_friend) { create(:user, first_name: "no_friend") }
 
-        before(:each) do
-          friender  = create(:user, first_name: "friender")
-          friended  = create(:user, first_name: "friended")
-          friend    = create(:user, first_name: "friend")
-          no_friend = create(:user, first_name: "no_friend")
-          # friender.send_friend_request_to(user)
-          # user.send_friend_request_to(friended)
-          # make_friends(user, friend)
-          # make_friends2(user, friend)
-        end
-
         context "for the current user" do
           it "displays correct friend status" do
             visit timeline_path(user)
@@ -431,9 +420,6 @@ describe "User pages" do
           it "displays correct friend status" do
             make_friends2(user, friend)
             visit timeline_path(friend)
-# puts "USER: #{user.friends.count}"
-# puts "FRIEND: #{friend.friends.count}"
-# puts page.html
             expect(find(".friend-status")).
                    to have_text("Friends with #{friend.first_name}")
           end

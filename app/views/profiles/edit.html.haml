@@ -28,10 +28,10 @@
         %h3 Privacy
         %div
           %span Who can view your Profile and Posts
-          = f.radio_button :access_to, "All Users"
-          = f.label :access_to_all_users, "All Users"
-          = f.radio_button :access_to, "Friends"
-          = f.label :access_to_friends, "Friends"
+          = f.radio_button :access_to, ACCESS[:all]
+          = f.label :access_to_all_users, ACCESS[:all]
+          = f.radio_button :access_to, ACCESS[:friends]
+          = f.label :access_to_friends, ACCESS[:friends]
 
         %div
           %span Receive email of notifications?

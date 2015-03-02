@@ -1,5 +1,7 @@
 class ProfilesController < ApplicationController
-  # layout "layouts/users"
+
+  before_action :authorize_self_profile,   only: [:edit, :update]
+  before_action :authorize_public_profile, only: [:show]
 
   def show
     @profile = Profile.find(params[:id])
@@ -23,6 +25,18 @@ class ProfilesController < ApplicationController
 
   private
 
+  
+  def authorize_self_profile
+    user = Profile.find(params[:id]).user
+    msg  = "You can change only your profile"
+    authorize_user!(user, :self, msg)
+  end
+
+  def authorize_public_profile
+    user = Profile.find(params[:id]).user
+    msg  = "#{user.first_name} only shares #{user.genderize} profile information with friends"
+    authorize_user!(user, :public, msg)
+  end
 
   def profile_params
     params.require(:profile).permit(:birthday,   :country, :education,
