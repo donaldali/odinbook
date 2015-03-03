@@ -472,24 +472,24 @@ describe "User pages" do
         it "includes post delete button" do
           expect(find('.post-details')).to have_selector('.delete')
         end
-        # it "includes post unlike" do
-        #   expect(find('.post-details')).to have_link('Unlike')
-        # end
+        it "includes post unlike" do
+          expect(find('.post-details')).to have_link('Unlike')
+        end
         it "includes comment link" do
           expect(find('.post-details')).to have_link('Comment')
         end
-        # it "includes the post's likes" do
-        #   expect(page).to have_text('You like this')
-        # end
+        it "includes the post's likes" do
+          expect(page).to have_text('You like this')
+        end
         it "includes comment delete button" do
           expect(find('.comment-details')).to have_selector('.delete')
         end
-        # it "includes comment unlike" do
-        #   expect(find('.comment-details')).to have_link('Unlike')
-        # end
-        # it "includes count of comment's likes" do
-        #   expect(find('.comment-details')).to have_text('1')
-        # end
+        it "includes comment unlike" do
+          expect(find('.comment-details')).to have_link('Unlike')
+        end
+        it "includes count of comment's likes" do
+          expect(find('.comment-details')).to have_text('1')
+        end
         it "includes comment form" do
           expect(page).to have_selector('.comment-form')
         end
@@ -539,24 +539,24 @@ describe "User pages" do
         it "doesn't include post delete button" do
           expect(find('.post-details')).not_to have_selector('.delete')
         end
-        # it "includes post like" do
-        #   expect(find('.post-details')).to have_link('Like')
-        # end
+        it "includes post like" do
+          expect(find('.post-details')).to have_link('Like')
+        end
         it "includes comment link" do
           expect(find('.post-details')).to have_link('Comment')
         end
-        # it "includes the post's likes" do
-        #   expect(page).to have_text('1 person likes this')
-        # end
+        it "includes the post's likes" do
+          expect(page).to have_text('1 person likes this')
+        end
         it "doesn't include comment delete button" do
           expect(find('.comment-details')).not_to have_selector('.delete')
         end
-        # it "includes comment like" do
-        #   expect(find('.comment-details')).to have_link('Like')
-        # end
-        # it "includes count of comment's likes" do
-        #   expect(find('.comment-details')).to have_text('1')
-        # end
+        it "includes comment like" do
+          expect(find('.comment-details')).to have_link('Like')
+        end
+        it "includes count of comment's likes" do
+          expect(find('.comment-details')).to have_text('1')
+        end
         it "includes comment form" do
           expect(page).to have_selector('.comment-form')
         end
@@ -600,24 +600,24 @@ describe "User pages" do
         it "doesn't include post delete button" do
           expect(find('.post-details')).not_to have_selector('.delete')
         end
-        # it "includes post like" do
-        #   expect(find('.post-details')).to have_link('Like')
-        # end
+        it "includes post like" do
+          expect(find('.post-details')).to have_link('Like')
+        end
         it "doesn't include comment link" do
           expect(find('.post-details')).not_to have_link('Comment')
         end
-        # it "includes the post's likes" do
-        #   expect(page).to have_text('1 person likes this')
-        # end
+        it "includes the post's likes" do
+          expect(page).to have_text('1 person likes this')
+        end
         it "doesn't include comment delete button" do
           expect(find('.comment-details')).not_to have_selector('.delete')
         end
-        # it "includes comment like" do
-        #   expect(find('.comment-details')).to have_link('Like')
-        # end
-        # it "includes count of comment's likes" do
-        #   expect(find('.comment-details')).to have_text('1')
-        # end
+        it "includes comment like" do
+          expect(find('.comment-details')).to have_link('Like')
+        end
+        it "includes count of comment's likes" do
+          expect(find('.comment-details')).to have_text('1')
+        end
         it "doesn't include comment form" do
           expect(page).not_to have_selector('.comment-form')
         end

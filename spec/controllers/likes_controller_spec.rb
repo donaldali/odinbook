@@ -7,10 +7,12 @@ describe LikesController do
 
   before(:each) do
     sign_in user
-    request.env["HTTP_REFERER"] = "/" unless request.nil? or request.env.nil?
+    unless request.nil? or request.env.nil?
+      request.env["HTTP_REFERER"] = user_root_path(user)
+    end 
   end
 
-  describe "create post like" do
+  describe "POST create of post like" do
     context "without Ajax" do
       it "creates a post like" do
         expect { post :create, likeable_id: likeable_post.id,
@@ -31,7 +33,7 @@ describe LikesController do
     end
   end
 
-  describe "create comment like" do
+  describe "POST create of comment like" do
     context "without Ajax" do
       it "creates a comment like" do
         expect { post :create, likeable_id: likeable_comment.id,
@@ -52,7 +54,7 @@ describe LikesController do
     end
   end
 
-  describe "destroy post like" do
+  describe "DELETE destroy of post like" do
     before(:each) do 
       create(:post_like, user: user, likeable: likeable_post)
     end
@@ -65,18 +67,64 @@ describe LikesController do
     end
 
     context "with Ajax" do 
-      it "destroys a post like" do 
-        expect { xhr :delete, :destroy, id: like.id }.
-                 to change{Like.count}.by(-1)
+      context "on current user like" do
+        it "destroys a post like" do 
+          expect { xhr :delete, :destroy, id: like.id }.
+          to change{Like.count}.by(-1)
+        end
+        it "responds with success" do
+          xhr :delete, :destroy, id: like.id
+          expect(response).to be_success
+        end
       end
-      it "responds with success" do
-        xhr :delete, :destroy, id: like.id
-        expect(response).to be_success
+
+      context "on current user's friend's like" do
+        let(:friend) { create(:user) }
+        before(:each) do 
+          make_friends(user, friend)
+          create(:post_like, user: friend, likeable: likeable_post)
+        end
+        let(:like) { Like.last }
+
+        it "shows flash with denied message" do
+          xhr :delete, :destroy, id: like.id
+          expect(flash[:alert]).to include("Access denied.")
+        end
+        it "redirects" do
+          xhr :delete, :destroy, id: like.id
+          expect(response.status).to eq(302)
+        end
+        it "redirects to current user's root path" do
+          xhr :delete, :destroy, id: like.id
+          expect(response).to redirect_to(user_root_path(user))
+        end
       end
+
+      context "on current user's non-friend's like" do
+        let(:non_friend) { create(:user) }
+        before(:each) do 
+          create(:post_like, user: non_friend, likeable: likeable_post)
+        end
+        let(:like) { Like.last }
+
+        it "shows flash with denied message" do
+          xhr :delete, :destroy, id: like.id
+          expect(flash[:alert]).to include("Access denied.")
+        end
+        it "redirects" do
+          xhr :delete, :destroy, id: like.id
+          expect(response.status).to eq(302)
+        end
+        it "redirects to current user's root path" do
+          xhr :delete, :destroy, id: like.id
+          expect(response).to redirect_to(user_root_path(user))
+        end
+      end
+
     end
   end
 
-  describe "destroy comment like" do
+  describe "DELETE destroy of comment like" do
     before(:each) do 
       create(:comment_like, user: user, likeable: likeable_comment)
     end
@@ -89,14 +137,60 @@ describe LikesController do
     end
 
     context "with Ajax" do 
-      it "destroys a comment like" do 
-        expect { xhr :delete, :destroy, id: like.id }.
-                 to change{Like.count}.by(-1)
+      context "on current user like" do
+        it "destroys a comment like" do 
+          expect { xhr :delete, :destroy, id: like.id }.
+          to change{Like.count}.by(-1)
+        end
+        it "responds with success" do
+          xhr :delete, :destroy, id: like.id
+          expect(response).to be_success
+        end
       end
-      it "responds with success" do
-        xhr :delete, :destroy, id: like.id
-        expect(response).to be_success
+
+      context "on current user's friend's like" do
+        let(:friend) { create(:user) }
+        before(:each) do 
+          make_friends(user, friend)
+          create(:comment_like, user: friend, likeable: likeable_comment)
+        end
+        let(:like) { Like.last }
+
+        it "shows flash with denied message" do
+          xhr :delete, :destroy, id: like.id
+          expect(flash[:alert]).to include("Access denied.")
+        end
+        it "redirects" do
+          xhr :delete, :destroy, id: like.id
+          expect(response.status).to eq(302)
+        end
+        it "redirects to current user's root path" do
+          xhr :delete, :destroy, id: like.id
+          expect(response).to redirect_to(user_root_path(user))
+        end
       end
+
+      context "on current user's non-friend's like" do
+        let(:non_friend) { create(:user) }
+        before(:each) do 
+          create(:comment_like, user: non_friend, likeable: likeable_comment)
+        end
+        let(:like) { Like.last }
+
+        it "shows flash with denied message" do
+          xhr :delete, :destroy, id: like.id
+          expect(flash[:alert]).to include("Access denied.")
+        end
+        it "redirects" do
+          xhr :delete, :destroy, id: like.id
+          expect(response.status).to eq(302)
+        end
+        it "redirects to current user's root path" do
+          xhr :delete, :destroy, id: like.id
+          expect(response).to redirect_to(user_root_path(user))
+        end
+      end
+
     end
   end
 
