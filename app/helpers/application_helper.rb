@@ -8,6 +8,14 @@ module ApplicationHelper
     end
   end
 
+  def authorize_either_user!(user1, user2, access_level, msg)
+    unless access_level?(user1, access_level) || 
+           access_level?(user2, access_level)
+      flash[:alert] = "Access denied. #{msg}"
+      redirect_to user_root_path(current_user)
+    end
+  end
+
   # Check if a user is authorized up to a certain level
   def access_level?(user, level_requested)
     access_levels = { self: 4, friend: 3, friends: 3, public: 2, private: 1 }

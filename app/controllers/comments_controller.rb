@@ -42,10 +42,7 @@ class CommentsController < ApplicationController
     receiver = post.receiver
     msg      = "You can only comment on posts by or to you or your friends."
 
-    unless access_level?(creator, :friend) || access_level?(receiver, :friend)
-      flash[:alert] = "Access denied. #{msg}"
-      redirect_to user_root_path(current_user)
-    end
+    authorize_either_user!(creator, receiver, :friend, msg)
   end
 
 end

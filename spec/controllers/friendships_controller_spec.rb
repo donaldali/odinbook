@@ -1,15 +1,18 @@
 require 'spec_helper'
 
 describe FriendshipsController do 
-  let(:user)   { create(:user) }
-  let(:friend) { create(:user, first_name: "Friend") }
+  let(:user)       { create(:user) }
+  let(:friend)     { create(:user) }
+  let(:non_friend) { create(:user) }
 
   before(:each) do
-   sign_in user
-   request.env["HTTP_REFERER"] = "/" unless request.nil? or request.env.nil?
- end
+    sign_in user
+    unless request.nil? or request.env.nil?
+      request.env["HTTP_REFERER"] = user_root_path(user)
+    end 
+  end
 
-  describe "creating a friendship" do
+  describe "POST create" do
     context "without Ajax" do 
       it "increments the Friendship count" do 
         expect { post :create, friended_id: friend.id }.
@@ -36,55 +39,130 @@ describe FriendshipsController do
     end
   end
 
-  describe "updating a friendship" do
-    before(:each) do 
-      friend.send_friend_request_to(user)
-    end
-    let(:friendship) do
-      friend.friendships.find_by(friended_id: user.id, accepted: false)
-    end
-    
+  describe "PATCH update" do
     context "without Ajax" do 
+      let(:friendship) { create(:friendship, friender: friend, 
+                                 friended: user, accepted: false) }
+
       it "updates friendship accepted to true" do 
         patch :update, id: friendship.id
         expect(friendship.reload.accepted).to be_true
       end
     end
+
     context "with Ajax" do 
-      it "updates friendship accepted to true" do 
-        xhr :patch, :update, id: friendship.id
-        expect(friendship.reload.accepted).to be_true
+      context "when current user is friended" do
+        let(:friendship) { create(:friendship, friender: friend, 
+                                   friended: user, accepted: false) }
+
+        it "updates friendship accepted to true" do 
+          xhr :patch, :update, id: friendship.id
+          expect(friendship.reload.accepted).to be_true
+        end
+        it "responds with success" do 
+          xhr :patch, :update, id: friendship.id
+          expect(response).to be_success
+        end
       end
-      it "responds with success" do 
-        xhr :patch, :update, id: friendship.id
-        expect(response).to be_success
+
+      context "when current user is friender" do
+        let(:friendship) { create(:friendship, friender: user, 
+                               friended: friend, accepted: false) }
+
+        it "shows flash with denied message" do
+          xhr :patch, :update, id: friendship.id
+          expect(flash[:alert]).to include("Access denied.")
+        end
+        it "redirects" do
+          xhr :patch, :update, id: friendship.id
+          expect(response.status).to eq(302)
+        end
+        it "redirects to current user's root path" do
+          xhr :patch, :update, id: friendship.id
+          expect(response).to redirect_to(user_root_path(user))
+        end
       end
+
+      context "when friendship doesn't involve current user" do
+        let(:friendship) { create(:friendship, friender: non_friend, 
+                                   friended: friend, accepted: false) }
+
+        it "shows flash with denied message" do
+          xhr :patch, :update, id: friendship.id
+          expect(flash[:alert]).to include("Access denied.")
+        end
+        it "redirects" do
+          xhr :patch, :update, id: friendship.id
+          expect(response.status).to eq(302)
+        end
+        it "redirects to current user's root path" do
+          xhr :patch, :update, id: friendship.id
+          expect(response).to redirect_to(user_root_path(user))
+        end
+      end
+
     end
+
   end
 
-  describe "destroying a friendship" do
-    before(:each) do 
-      user.send_friend_request_to(friend)
-      friend.accept_friend_request_from(user)
-    end
-    let(:friendship) { Friendship.first }
-
+  describe "DELETE destroy" do
     context "without Ajax" do 
+      before { make_friends(user, friend) }
+      let(:friendship) { Friendship.first }
+
       it "decrements the Friendship count" do 
-        expect { delete :destroy, id: friendship.id, user_id: friend.id, 
-                 unfriend: true }.to change{Friendship.count}.by(-1)
+        expect { delete :destroy, id: friendship.id, user_id: friend.id }.
+                 to change{Friendship.count}.by(-1)
       end
     end
+
     context "with Ajax" do 
-      it "decrements the Friendship count" do 
-        expect { xhr :delete, :destroy, id: friendship.id, user_id: friend.id,
-                 unfriend: true }.to change{Friendship.count}.by(-1)
+      context "when current user is friended" do
+        before { make_friends(user, friend) }
+        let(:friendship) { Friendship.first }
+
+        it "decrements the Friendship count" do 
+          expect { xhr :delete, :destroy, id: friendship.id, 
+                   user_id: friend.id}.to change{ Friendship.count }.by(-1)
+         end
+         it "responds with success" do 
+          xhr :delete, :destroy, id: friendship.id, user_id: friend.id
+          expect(response).to be_success
+        end
       end
-      it "responds with success" do 
-        xhr :delete, :destroy, id: friendship.id, user_id: friend.id, 
-            unfriend: true
-        expect(response).to be_success
+
+      context "when current user is friender" do
+        before { make_friends(friend, user) }
+        let(:friendship) { Friendship.first }
+
+        it "decrements the Friendship count" do 
+          expect { xhr :delete, :destroy, id: friendship.id, 
+                   user_id: friend.id}.to change{ Friendship.count }.by(-1)
+         end
+         it "responds with success" do 
+          xhr :delete, :destroy, id: friendship.id, user_id: friend.id
+          expect(response).to be_success
+        end
+      end
+
+      context "when friendship doesn't involve current user" do
+        before { make_friends(friend, non_friend) }
+        let(:friendship) { Friendship.first }
+
+        it "shows flash with denied message" do
+          xhr :delete, :destroy, id: friendship.id, user_id: friend.id
+          expect(flash[:alert]).to include("Access denied.")
+        end
+        it "redirects" do
+          xhr :delete, :destroy, id: friendship.id, user_id: friend.id
+          expect(response.status).to eq(302)
+        end
+        it "redirects to current user's root path" do
+          xhr :delete, :destroy, id: friendship.id, user_id: friend.id
+          expect(response).to redirect_to(user_root_path(user))
+        end
       end
     end
+
   end
 end

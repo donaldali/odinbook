@@ -42,9 +42,6 @@ class PostsController < ApplicationController
     receiver = post.receiver
     msg      = "You can only delete posts you created or received."
 
-    unless access_level?(creator, :self) || access_level?(receiver, :self)
-      flash[:alert] = "Access denied. #{msg}"
-      redirect_to user_root_path(current_user)
-    end
+    authorize_either_user!(creator, receiver, :self, msg)
   end
 end

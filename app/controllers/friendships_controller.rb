@@ -1,5 +1,8 @@
 class FriendshipsController < ApplicationController
 
+  before_action :authorize_self_friended,          only: [:update]
+  before_action :authorize_self_friender_friended, only: [:destroy]
+
   def create
     @is_index = params[:is_index]
     @user = User.find(params[:friended_id])
@@ -30,5 +33,24 @@ class FriendshipsController < ApplicationController
       format.html { redirect_to :back }
       format.js
     end
+  end
+
+
+  private
+
+
+  def authorize_self_friended
+    user = Friendship.find(params[:id]).friended
+    msg  = "You can only accept friend requests sent to you"
+    authorize_user!(user, :self, msg)
+  end
+
+  def authorize_self_friender_friended
+    friendship = Friendship.find(params[:id])
+    friender   = friendship.friender
+    friended   = friendship.friended
+    msg        = "You can only delete a friendship you are part of"
+
+    authorize_either_user!(friender, friended, :self, msg)
   end
 end
