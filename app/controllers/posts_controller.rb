@@ -37,8 +37,8 @@ class PostsController < ApplicationController
   end
 
   def authorize_self_creator_receiver
-    post = Post.find(params[:id])
-    creator = post.creator
+    post     = Post.find(params[:id])
+    creator  = post.creator
     receiver = post.receiver
     msg      = "You can only delete posts you created or received."
 

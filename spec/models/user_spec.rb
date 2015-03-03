@@ -9,6 +9,7 @@ describe User do
   it { should respond_to(:last_name) }
   it { should respond_to(:email) }
   it { should respond_to(:gender) }
+  it { should respond_to(:genderize) }
   it { should respond_to(:friendships) }
   it { should respond_to(:friended_users) }
   it { should respond_to(:reverse_friendships) }
@@ -188,6 +189,15 @@ describe User do
   describe ".name" do 
     it "gets the combined name of a user" do 
       expect(user.name).to eq("#{user.first_name} #{user.last_name}")
+    end
+  end
+
+  describe ".genderize" do
+    it "genderizes a male" do
+      expect(user.genderize).to eq("his")
+    end
+    it "genderizes a female" do
+      expect(create(:user, gender: "female").genderize).to eq("her")
     end
   end
 end

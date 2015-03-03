@@ -59,3 +59,25 @@ def friend_request_from_to(user, friended)
     click_on "Add Friend"
   end
 end
+
+def make_post_comment_likes(user, liker)
+  click_on "Log Out", match: :first
+  log_in(liker)
+
+  visit timeline_path(liker)
+  fill_in "Status", with: "Lorem post"
+  click_button "Post"
+
+  click_link "Like"
+
+  within('.post-container') do 
+    fill_in "Content", with: "Lorem comment"
+    click_button "Comment"
+  end
+
+  click_link "Like"
+
+  click_link "Log Out", match: :first
+  log_in(user)
+end
+

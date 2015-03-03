@@ -1,4 +1,8 @@
 class CommentsController < ApplicationController
+
+  before_action :authorize_friend_post_creator_receiver, only: [:create]
+  before_action :authorize_self_comment, only: [:destroy]
+
   def create
     content = params[:comment][:content]
     unless content.blank?
@@ -19,6 +23,28 @@ class CommentsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to :back }
       format.js
+    end
+  end
+
+
+  private
+
+
+  def authorize_self_comment
+    user = Comment.find(params[:id]).commenter
+    msg  = "You can only delete comments you created."
+    authorize_user!(user, :self, msg)
+  end
+
+  def authorize_friend_post_creator_receiver
+    post     = Post.find(params[:post_id])
+    creator  = post.creator
+    receiver = post.receiver
+    msg      = "You can only comment on posts by or to you or your friends."
+
+    unless access_level?(creator, :friend) || access_level?(receiver, :friend)
+      flash[:alert] = "Access denied. #{msg}"
+      redirect_to user_root_path(current_user)
     end
   end
 

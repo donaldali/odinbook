@@ -21,7 +21,7 @@
 
     .post-like{ id: "post-#{post.id}-like" }
       = render "likes/like_link", likeable_id: post.id, likeable_type: "Post"
-      - if current_user == post.creator || current_user == post.receiver || current_user.friends_with?(post.creator) || current_user.friends_with?(post.receiver)
+      - if access_level?(post.creator, :friend) || access_level?(post.receiver, :friend)
         %span.dot= "."
         = link_to "Comment", "#", class: "comment-focus", title: "Leave a comment"
 
@@ -32,5 +32,5 @@
     - if post.comments.any?
       = render post.comments.order(created_at: :asc)
 
-  - if current_user == post.creator || current_user == post.receiver || current_user.friends_with?(post.creator) || current_user.friends_with?(post.receiver)
+  - if access_level?(post.creator, :friend) || access_level?(post.receiver, :friend)
     = render template: "comments/new", locals: {post: post}
