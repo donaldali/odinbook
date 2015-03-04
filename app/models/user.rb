@@ -61,7 +61,7 @@ class User < ActiveRecord::Base
 
   # Instance methods
   def send_friend_request_to(other_user)
-    unless friends_with?(other_user) || 
+    unless self == other_user || friends_with?(other_user) || 
            has_friend_request_from?(other_user) ||
            other_user.has_friend_request_from?(self)
       self.friendships.create(friended_id: other_user.id, accepted: false)

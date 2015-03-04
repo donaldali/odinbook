@@ -379,16 +379,16 @@ describe "User pages" do
       it { should have_text("Status") }
       it { should have_button("Post") }
 
-      it "should have link to Timeline" do
+      it "has link to Timeline" do
         expect(find(".profile")).to have_link("Timeline")
       end
-      it "should have link to About" do
+      it "has link to About" do
         expect(find(".profile")).to have_link("About")
       end
-      it "should have link to friends" do
+      it "has link to friends" do
         expect(find(".profile")).to have_link("Friends")
       end
-      it "should have display for friend status" do
+      it "has display for friend status" do
         expect(find(".profile")).to have_css(".friend-status")
       end
 
@@ -405,6 +405,7 @@ describe "User pages" do
                    to have_link("Update your Profile")
           end
         end
+
         context "for a friender" do
           it "displays correct friend status" do
             friend_request_to_from(user, friender)
@@ -415,6 +416,7 @@ describe "User pages" do
                    to have_link("See your friend requests")
           end
         end
+
         context "for a friended" do
           it "displays correct friend status" do
             friend_request_from_to(user, friended)
@@ -423,6 +425,7 @@ describe "User pages" do
                    to have_text("Friend request pending")
           end
         end
+
         context "for a friend" do
           it "displays correct friend status" do
             make_friends2(user, friend)
@@ -431,27 +434,23 @@ describe "User pages" do
                    to have_text("Friends with #{friend.first_name}")
           end
         end
+
         context "for a non-friend" do
+          before { visit timeline_path(no_friend) }
+
           it "displays correct friend status" do
-            visit timeline_path(no_friend)
             expect(find(".friend-status")).
                    to have_text("Do you know #{no_friend.first_name}?")
             expect(find(".friend-status")).
                    to have_submit("Add Friend")
           end
           it "allows friend request to be sent" do
-            visit timeline_path(no_friend)
             friendships = Friendship.count
-            within(".friend-status") do 
-              click_on("Add Friend")
-            end
+            within(".friend-status") { click_on("Add Friend") }
             expect(Friendship.count).to eq(friendships + 1)
           end
           it "displays correct status after sending friend request" do
-            visit timeline_path(no_friend)
-            within(".friend-status") do 
-              click_on("Add Friend")
-            end
+            within(".friend-status") { click_on("Add Friend") }
             expect(find(".friend-status")).
                    to have_text("Friend request pending")
           end
@@ -459,10 +458,11 @@ describe "User pages" do
       end
 
       describe "display of post comment like" do
-        before(:each) {
+        before(:each) do
           make_post_comment_likes(user, user)
           visit timeline_path(user)
-        }
+        end
+
         it "includes post form" do
           expect(page).to have_selector('.post-form')
         end
@@ -496,7 +496,6 @@ describe "User pages" do
       end
     end
 
-
     context "for friends" do 
       let(:friend) { create(:user) }
       before(:each) do 
@@ -509,27 +508,28 @@ describe "User pages" do
       it { should have_selector(".post-form") }
       it { should have_button("Post") }
 
-      it "should have form label for posts" do
+      it "has form label for posts" do
         expect(find(".post-label")).to have_text("Post")
       end
-      # it "should have display for friend status" do
-      #   expect(find(".profile")).to have_css(".friend-status")
-      # end
-      # it "should have link to Timeline" do
-      #   expect(find(".profile")).to have_link("Timeline")
-      # end
-      # it "should have link to About" do
-      #   expect(find(".profile")).to have_link("About")
-      # end
-      # it "should have link to friends" do
-      #   expect(find(".profile")).to have_link("Friends")
-      # end
+      it "has display for friend status" do
+        expect(find(".profile")).to have_css(".friend-status")
+      end
+      it "has link to Timeline" do
+        expect(find(".profile")).to have_link("Timeline")
+      end
+      it "has link to About" do
+        expect(find(".profile")).to have_link("About")
+      end
+      it "has link to friends" do
+        expect(find(".profile")).to have_link("Friends")
+      end
 
       describe "display of post comment like" do
-        before(:each) {
+        before(:each) do
           make_post_comment_likes(user, friend)
           visit timeline_path(friend)
-        }
+        end
+
         it "includes post form" do
           expect(page).to have_selector('.post-form')
         end
@@ -561,9 +561,7 @@ describe "User pages" do
           expect(page).to have_selector('.comment-form')
         end
       end
-
     end
-
 
     context "for non-friends with public profile" do 
       let(:public_user) { create(:user) }
@@ -573,24 +571,25 @@ describe "User pages" do
       it { should have_xpath("//img[@class='v-lg-img']") }
       it { should_not have_selector(".post-form") }
 
-      # it "should have display for friend status" do
-      #   expect(find(".profile")).to have_css(".friend-status")
-      # end
-      # it "should have link to Timeline" do
-      #   expect(find(".profile")).to have_link("Timeline")
-      # end
-      # it "should have link to About" do
-      #   expect(find(".profile")).to have_link("About")
-      # end
-      # it "should have link to friends" do
-      #   expect(find(".profile")).to have_link("Friends")
-      # end
+      it "has display for friend status" do
+        expect(find(".profile")).to have_css(".friend-status")
+      end
+      it "has link to Timeline" do
+        expect(find(".profile")).to have_link("Timeline")
+      end
+      it "has link to About" do
+        expect(find(".profile")).to have_link("About")
+      end
+      it "has link to friends" do
+        expect(find(".profile")).to have_link("Friends")
+      end
 
       describe "display of post comment like" do
-        before(:each) {
+        before(:each) do
           make_post_comment_likes(user, public_user)
           visit timeline_path(public_user)
-        }
+        end
+
         it "doesn't include post form" do
           expect(page).not_to have_selector('.post-form')
         end
@@ -622,46 +621,50 @@ describe "User pages" do
           expect(page).not_to have_selector('.comment-form')
         end
       end
-
     end
-
 
     context "for non-friends with private profile" do 
       let(:private_user) { create(:user) }
-      before { visit timeline_path(private_user) }
+      before do 
+        make_user_private(user, private_user)
+        visit timeline_path(private_user)
+      end
 
       it { should have_css(".profile") }
       it { should have_xpath("//img[@class='v-lg-img']") }
       it { should_not have_selector(".post-form") }
 
-      # it "should have display for friend status" do
-      #   expect(find(".profile")).to have_css(".friend-status")
-      # end
-      # it "should have link to Timeline" do
-      #   expect(find(".profile")).to have_link("Timeline")
-      # end
-      # it "should have link to About" do
-      #   expect(find(".profile")).to have_link("About")
-      # end
-      # it "should have link to friends" do
-      #   expect(find(".profile")).to have_link("Friends")
-      # end
+      it "has display for friend status" do
+        expect(find(".profile")).to have_css(".friend-status")
+      end
+      it "has link to Timeline" do
+        expect(find(".profile")).to have_link("Timeline")
+      end
+      it "doesn't have link to About" do
+        visit timeline_path(private_user)
+        expect(find(".banner-bottom")).not_to have_link("About")
+      end
+      it "doesn't have link to friends" do
+        expect(find(".profile")).not_to have_link("Friends")
+      end
 
       describe "display of post comment like" do
-        before(:each) {
+        before(:each) do
           make_post_comment_likes(user, private_user)
           visit timeline_path(private_user)
-        }
+        end
+
         it "doesn't includes post form" do
           expect(page).not_to have_selector('.post-form')
         end
-        # it "doesn't include posts" do
-        #   expect(page).not_to have_selector('#posts')
-        # end
+        it "doesn't include posts" do
+          expect(page).not_to have_selector('#posts')
+        end
 
-        # it "has message about hidden content" do
-        #   expect(page).not_to have_text('John only shares his profile and posts with friends')
-        # end
+        it "has message about hidden content" do
+          expect(page).to have_text("#{private_user.first_name} only " \
+          "shares #{private_user.genderize} profile and posts with friends")
+        end
       end
     end
 

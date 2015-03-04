@@ -81,3 +81,14 @@ def make_post_comment_likes(user, liker)
   log_in(user)
 end
 
+def make_user_private(user, private_user)
+  click_on "Log Out", match: :first
+  log_in(private_user)
+
+  visit edit_profile_path(private_user.profile)
+  choose "Friends"
+  click_button "Update Profile"
+
+  click_link "Log Out", match: :first
+  log_in(user)  
+end

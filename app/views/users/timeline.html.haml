@@ -1,7 +1,11 @@
+- user = User.find(@receiver_id)
 .timeline-container
-  - if access_level?(User.find(@receiver_id), :friend)
+  - if access_level?(user, :friend)
     = render template: 'posts/new'
 
-  %ul{ id: "posts" }
-    = render @posts
+  - if access_level?(user, :public)
+    %ul{ id: "posts" }
+      = render @posts
+  - else
+    %p.no-posts= "#{user.first_name} only shares #{user.genderize} profile and posts with friends"
     

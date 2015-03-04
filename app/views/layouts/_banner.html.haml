@@ -9,11 +9,12 @@
   .banner-bottom
     %ul
       %li>= link_to "Timeline", timeline_path(user)
-      %li>= link_to "About", profile_path(user.profile)
-      %li
-        = link_to friends_path(user, from: "profile") do
-          %span Friends
-          %span.friend-count= user.friends.count
+      - if access_level?(user, :public)
+        %li>= link_to "About", profile_path(user.profile)
+        %li
+          = link_to friends_path(user, from: "profile") do
+            %span Friends
+            %span.friend-count= user.friends.count
   .profile-pic
     / = link_to "??? Update Profile pic w/ Paperclip???" do
     = link_to timeline_path(user) do

@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
   include UsersHelper
 
+  before_action :authorize_friends, only: [:friends]
+  before_action ->(action = params[:action]) { authorize_self_user(action) },
+                   only: [:newsfeed, :friend_requests, :find_friends]
+
   def newsfeed
     @receiver_id = params[:id]
     @label       = "Update Status"
@@ -46,5 +50,32 @@ class UsersController < ApplicationController
     @title    = "Find Friends"
     @is_index = false
     render "index"
+  end
+
+
+  private
+
+
+  def authorize_self_user action
+    user = User.find(params[:id])
+    msg = case action
+          when "newsfeed"        then "You can only view your newsfeed"
+          when "friend_requests" then "You can only view your friend requests"
+          when "find_friends"    then "You can only find friends for yourself"
+          else ""
+          end
+    authorize_user!(user, :self, msg)
+  end
+
+  def authorize_friends
+    user = User.find(params[:id])
+
+    if params[:from] == "profile"
+      msg = "#{user.first_name} doesn't publicly share #{user.genderize} list of friends."
+      authorize_user!(user, :public, msg)
+    else
+      msg = "Try viewing #{user.first_name}'s friends from #{user.genderize} Timeline."
+      authorize_user!(user, :self, msg)
+    end
   end
 end

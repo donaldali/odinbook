@@ -121,3 +121,12 @@
 .focus-post {
   border-color: #5890ff;
 }
+.no-posts {
+  font-size: 14px;
+  color: #000;
+  color: $color;
+  background-color: #fff;
+  border: 1px solid #d3d6db;
+  border-radius: 3px;
+  padding: 15px;
+}
