@@ -1,4 +1,6 @@
 class Post < ActiveRecord::Base
+  scope :reverse_chronology, -> { order(created_at: :desc) }
+  
   belongs_to :creator,  class_name: 'User'
   belongs_to :receiver, class_name: 'User'
   has_many   :comments, dependent: :destroy

@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   # Scope
-  scope :alphabetize, -> { order(:first_name, :last_name) }
+  scope :alphabetize,        -> { order(:first_name, :last_name) }
 
   # Associations
   has_many :friendships, dependent: :destroy, foreign_key: :friender_id
@@ -117,6 +117,40 @@ class User < ActiveRecord::Base
 
     User.where("id NOT IN (#{frienders_ids}) AND 
                 id NOT IN (#{friendeds_ids})", user_id: self.id).alphabetize
+  end
+
+  def newsfeed_feed
+    friender_friends_ids      = "SELECT friender_id FROM friendships 
+                                 WHERE friended_id = :user_id AND accepted = true"
+    friended_friends_ids      = "SELECT friended_id FROM friendships 
+                                 WHERE friender_id = :user_id AND accepted = true"
+
+    user_created_posts_id     = "SELECT id FROM posts
+                                 WHERE creator_id = :user_id"
+    user_received_posts_id    = "SELECT id FROM posts
+                                 WHERE receiver_id = :user_id"
+    friends_created_posts_id  = "SELECT id FROM posts
+                                 WHERE creator_id IN (#{friender_friends_ids}) OR
+                                       creator_id IN (#{friended_friends_ids})"
+    friends_received_posts_id = "SELECT id FROM posts
+                                 WHERE receiver_id IN (#{friender_friends_ids}) OR
+                                       receiver_id IN (#{friended_friends_ids})"
+
+    Post.where("id IN (#{user_created_posts_id}) OR 
+                id IN (#{user_received_posts_id}) OR 
+                id IN (#{friends_created_posts_id}) OR 
+                id IN (#{friends_received_posts_id})", user_id: self.id)
+        .reverse_chronology
+  end
+
+  def timeline_feed
+    created_posts_ids  = "SELECT id FROM posts
+                          WHERE creator_id = :user_id"
+    received_posts_ids = "SELECT id FROM posts
+                          WHERE receiver_id = :user_id"
+    Post.where("id IN (#{created_posts_ids}) OR 
+                id IN (#{received_posts_ids})", user_id: self.id)
+        .reverse_chronology
   end
 
   def name

@@ -9,14 +9,14 @@ class UsersController < ApplicationController
     @receiver_id = params[:id]
     @label       = "Update Status"
     @placeholder = "What's on your mind?"
-    @posts       = Post.all.order(created_at: :desc)
+    @posts       = current_user.newsfeed_feed
   end
 
   def timeline
     @receiver_id = params[:id]
     @label       = get_status(@receiver_id)
     @placeholder = get_placeholder(@receiver_id)
-    @posts       = Post.all.order(created_at: :desc).limit(1)
+    @posts       = User.find(params[:id]).timeline_feed
     render layout: "profiles"
   end
 

@@ -122,9 +122,7 @@ describe User do
     end
 
     describe ".unfriend" do 
-      before do 
-        make_friends(user, friended)
-      end
+      before { make_friends(user, friended) }
 
       it "allows friender friend to unfriend" do 
         user.unfriend(friended)
@@ -198,6 +196,78 @@ describe User do
     end
     it "genderizes a female" do
       expect(create(:user, gender: "female").genderize).to eq("her")
+    end
+  end
+
+  describe ".timeline_feed" do
+    let(:friend)     { create(:user) }
+    before { make_friends(user, friend) }
+
+    it "includes posts created by user" do
+      post = create(:post, creator: user, receiver: friend)
+      expect(user.timeline_feed).to include(post)
+    end
+    it "includes posts received by user" do
+      post = create(:post, creator: friend, receiver: user)
+      expect(user.timeline_feed).to include(post)
+    end
+    it "doesn't duplicate user's post" do
+      post = create(:post, creator: user, receiver: user)
+      feed = user.timeline_feed
+      expect(feed).to include(post)
+      expect(feed.length).to eq(1)
+    end
+    it "doesn't include posts not created by or received by user" do
+      non_friend = create(:user)
+      make_friends(friend, non_friend)
+
+      post = create(:post, creator: friend, receiver: non_friend)
+      expect(user.timeline_feed).not_to include(post)
+    end
+  end
+
+  describe ".newsfeed_feed" do
+    let(:friend)     { create(:user) }
+    let(:non_friend) { create(:user) }
+    before(:each) do
+      make_friends(user,   friend)
+      make_friends(friend, non_friend)
+    end
+
+    it "includes posts created by user" do
+      post = create(:post, creator: user, receiver: friend)
+      expect(user.newsfeed_feed).to include(post)
+    end
+    it "includes posts received by user" do
+      post = create(:post, creator: friend, receiver: user)
+      expect(user.newsfeed_feed).to include(post)
+    end
+    it "doesn't duplicate user's post" do
+      post = create(:post, creator: user, receiver: user)
+      feed = user.newsfeed_feed
+      expect(feed).to include(post)
+      expect(feed.length).to eq(1)
+    end
+    it "includes posts created by user's friends" do
+      post = create(:post, creator: friend, receiver: non_friend)
+      expect(user.newsfeed_feed).to include(post)
+    end
+    it "includes posts received by user's friends" do
+      post = create(:post, creator: non_friend, receiver: friend)
+      expect(user.newsfeed_feed).to include(post)
+    end
+    it "doesn't duplicate user's friend's post" do
+      post = create(:post, creator: friend, receiver: friend)
+      feed = user.newsfeed_feed
+      expect(feed).to include(post)
+      expect(feed.length).to eq(1)
+    end
+    it "doesn't include posts not created by or for user or user's friends" do
+      non_friend2 = create(:user)
+      make_friends(non_friend, non_friend2)
+
+      post = create(:post, creator: non_friend, receiver: non_friend2)
+      expect(user.newsfeed_feed).not_to include(post)
     end
   end
 end
