@@ -1,0 +1,10 @@
+%p{style: "font-size: 16px; color: #141823; line-height: 20px; padding: 20px 30px 10px 30px; margin: 0;"}
+  = "Hey #{@notification.user.first_name},"
+  %strong{style: "font-weight: bold"}
+    = "#{@notification.message}."
+
+%p{style: "font-size: 16px; color: #141823; line-height: 20px; padding: 10px 30px; margin: 0;"}
+  = link_to "See your notifications", notifications_url, style: "color: #3b5998; text-decoration: none;"
+
+%p{style: "font-size: 16px; color: #141823; line-height: 20px; padding: 30px 30px 20px 30px; margin: 0;"}
+  The Odinbook Team

@@ -1,6 +1,14 @@
 class RegistrationsController < Devise::RegistrationsController
   before_action :configure_permitted_parameters
 
+  def create
+    super
+
+    if @user.errors.empty? && @user.persisted?
+      UserMailer.welcome_email(@user).deliver
+    end
+  end
+
 
   protected
 

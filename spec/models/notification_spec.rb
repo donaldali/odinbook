@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Notification do
   let(:notification) { create(:notification) }
+  let(:receiver)     { notification.user }
   subject { notification }
 
   it { should be_valid }
@@ -21,8 +22,6 @@ describe Notification do
   end
 
   describe "#send_notification" do 
-    let(:receiver) { notification.user }
-
     before(:each) do 
       Notification.send_notification(receiver, "request", "Friender")
     end
@@ -39,4 +38,32 @@ describe Notification do
     end
   end
 
+  describe "#make_message" do
+    it "gives appropriate message for friend request" do
+      message = Notification.make_message("request", "Friender")
+      expect(message).to eq("Friender sent you a Friend Request")
+    end
+    it "gives default message for unknown message type" do
+      message = Notification.make_message("unknown", "Friender")
+      expect(message).to eq("Default Notification")
+    end
+  end
+
+  describe ".send_notification_email" do 
+
+    context "for users with email notification" do
+      it "delievers email" do
+        expect{notification.send_notification_email}.
+          to change{ActionMailer::Base.deliveries.count}.by(1)
+      end
+    end
+    
+    context "for users without email notification" do
+      it "doesn't delievers email" do
+        receiver.profile.email_notification = false
+        expect{notification.send_notification_email}.
+          not_to change{ActionMailer::Base.deliveries.count}
+      end
+    end
+  end
 end

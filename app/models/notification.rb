@@ -6,19 +6,22 @@ class Notification < ActiveRecord::Base
 
   def self.send_notification(receiver, type, sender_name)
     message = make_message(type, sender_name)
-    receiver.notifications.create(message: message, notification_type: type, 
-                                  sender: sender_name)
+    notification = receiver.notifications.create(message: message, 
+                     notification_type: type, sender: sender_name)
     receiver.update_new_notifications
+    notification.send_notification_email
   end
-
-
-  # private
-
 
   def self.make_message(type, sender)
     case type.to_s.downcase
     when "request" then "#{sender} sent you a Friend Request"
     else "Default Notification"
+    end
+  end
+
+  def send_notification_email
+    if user.profile.email_notification
+      UserMailer.notification_email(self).deliver
     end
   end
 

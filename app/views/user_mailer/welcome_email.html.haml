@@ -1,0 +1,32 @@
+%h2{style: "font-size: 28px; color: #333; background-color: #f6f7f8; border-bottom: 1px solid #dcdee3; padding: 20px; margin: 0; text-align: center; border-top-left-radius: 5px; border-top-right-radius: 5px;"}
+  Welcome to Odinbook
+
+%p{style: "font-size: 16px; color: #141823; line-height: 20px; padding: 20px 30px 10px 30px; margin: 0;"}
+  = "Hey #{@user.first_name}, we are very excited that you joined Odinbook."
+
+%p{style: "font-size: 16px; color: #141823; line-height: 20px; padding: 10px 30px; margin: 0;"}
+  We invite you to first
+  = link_to "fill out your profile.", edit_profile_url(@user.profile), style: "color: #3b5998; text-decoration: none;"
+  Please note the
+  %strong{style: "font-weight: bold"}
+    privacy settings
+  in your profile and indicate who you want to share your information with as well as whether you wish to receive emails about notifications like friend requests.
+
+%p{style: "font-size: 16px; color: #141823; line-height: 20px; padding: 10px 30px; margin: 0;"}
+  You can then go
+  = link_to "find some friends", find_friends_url(@user), style: "color: #3b5998; text-decoration: none;"
+  or visit
+  = link_to "your newsfeed", newsfeed_url(@user), style: "color: #3b5998; text-decoration: none;"
+  or
+  = link_to "your timeline", timeline_url(@user), style: "color: #3b5998; text-decoration: none;"
+  to share or view posts and comments with friends or everyone.
+
+%p{style: "font-size: 16px; color: #141823; line-height: 20px; padding: 10px 30px; margin: 0;"}
+  Thanks again for joining and we hope you enjoy using Odinbook :-)
+
+%p{style: "font-size: 16px; color: #141823; line-height: 20px; padding: 30px 30px 10px 30px; margin: 0;"}
+  Best regards,
+= link_to root_url, title: "Odinbook", style: "padding-left: 30px;" do
+  = image_tag attachments['logo.png'].url
+%p{style: "font-size: 16px; color: #141823; line-height: 20px; padding: 10px 30px 20px 30px; margin: 0;"}
+  The Odinbook Team
