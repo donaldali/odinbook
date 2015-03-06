@@ -59,6 +59,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.unused_email?(email)
+    !User.find_by(email: email)
+  end
+
   # Instance methods
   def send_friend_request_to(other_user)
     unless self == other_user || friends_with?(other_user) || 

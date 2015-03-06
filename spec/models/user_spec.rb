@@ -199,6 +199,15 @@ describe User do
     end
   end
 
+  describe "#unused_email?" do
+    it "recognizes a used email" do
+      expect(User.unused_email?(user.email)).to be_false
+    end
+    it "recognizes an unused email" do
+      expect(User.unused_email?("unused@email.com")).to be_true
+    end
+  end
+
   describe ".timeline_feed" do
     let(:friend)     { create(:user) }
     before { make_friends(user, friend) }

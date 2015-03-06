@@ -3,10 +3,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
     super
-
-    if @user.errors.empty? && @user.persisted?
-      UserMailer.welcome_email(@user).deliver
-    end
+    signup_welcome(@user) if @user.errors.empty? && @user.persisted?
   end
 
 
@@ -14,8 +11,8 @@ class RegistrationsController < Devise::RegistrationsController
 
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up).push(:first_name, :last_name,
-                                                  :gender)
+    devise_parameter_sanitizer.for(:sign_up).push(:first_name,
+                                                  :last_name, :gender)
   end  
 
   def after_sign_up_path_for(user)

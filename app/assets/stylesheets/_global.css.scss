@@ -244,6 +244,11 @@ header {
   border: 1px solid;
   margin: 0 auto;
   font-size: 11px;
+  a {
+    color: $blue;
+    font-size: 13px;
+    padding-left: 15px;
+  }
 }
 .alert {
   border-color: #dd3c10;
@@ -273,6 +278,9 @@ input:focus,
 textarea:focus,
 select:focus {
   outline: 0;
+}
+input[type="radio"] {
+  cursor: pointer;
 }
 /* Buttons */
 .btn {
