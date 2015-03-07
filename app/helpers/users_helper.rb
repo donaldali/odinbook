@@ -27,23 +27,42 @@ module UsersHelper
       user2.friendships.find_by(friended_id: user1.id, accepted: true)
   end
 
-  # Returns the Gravatar (http://gravatar.com/) for the given user.
-  def image_for(user, options = { size: 50, img_class: "mid-img" })
-    gravatar_id  = Digest::MD5::hexdigest(user.email.downcase)
+  # Returns the image for a user giving priority to an uploaded image
+  # over a fallback gravatar image
+  def image_for(user, options = { img_class: "lg-img" })
+    img_class = options[:img_class] || "lg-img"
     title     = options[:title] || ""
-    img_class = options[:img_class] || "mid-img"
+
+    url = if user.profile.picture?
+            paperclip_url(user.profile.picture, img_class)
+          else
+            gravatar_url(user.email, img_class)
+          end
+
+    image_tag(url, class: img_class, title: title, 
+              alt: "#{user.first_name}'s profile picture")
+  end
+
+  def paperclip_url(picture, img_class)
+    if %w(v-lg-img lg-img md-img sm-img v-sm-img).include?(img_class)
+      picture.url(img_class.gsub("-", "_").to_sym)
+    else
+      picture.url
+    end
+  end
+
+  # Returns the Gravatar url for a given email
+  def gravatar_url(email, img_class)
+    gravatar_id  = Digest::MD5::hexdigest(email.downcase)
     size = case img_class
            when "v-lg-img" then 160
            when "lg-img"   then 75
            when "md-img"   then 40
            when "sm-img"   then 32
            when "v-sm-img" then 19
-           else options[:size] || 50
+           else 75
            end
-
-    gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"
-    image_tag(gravatar_url, alt: "#{user.name}'s profile picture", 
-                            class: img_class, title: title)
+    "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"
   end
   
 end

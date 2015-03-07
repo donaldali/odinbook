@@ -14,6 +14,7 @@ Spork.prefork do
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
   require 'shoulda/matchers'
+  require 'paperclip/matchers'
   require 'rspec/autorun'
 
   # Requires supporting ruby files with custom matchers and macros, etc,
@@ -53,7 +54,11 @@ Spork.prefork do
     config.order = "random"
     config.include Capybara::DSL
     config.include FactoryGirl::Syntax::Methods
+    config.include Paperclip::Shoulda::Matchers
     config.include Devise::TestHelpers, type: :controller
+    config.after(:suite) do
+      FileUtils.rm_rf(Dir["#{Rails.root}/spec/test_files/"])
+    end
   end
 end
 

@@ -1,9 +1,20 @@
 .profile-container
   %h2 Edit Profile
 
+  = render "form_errors", profile: @profile
+
   .edit-profile-form
-    = form_for @profile do |f|
+    = form_for @profile, html: { multipart: true } do |f|
       .general
+        %div{class: ("field_with_errors" if @profile.errors.any?)}
+          = f.label :picture
+          = f.file_field :picture
+
+        - if @profile.picture?
+          .delete_picture
+            = f.check_box :delete_picture
+            = f.label :delete_picture, "Delete Current Picture"
+
         .bday
           = f.label :birthday
           = f.date_select :birthday, discard_year: true, use_short_month: true, prompt: true

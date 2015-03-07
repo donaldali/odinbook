@@ -17,7 +17,6 @@ class ProfilesController < ApplicationController
     if @profile.update(profile_params)
       redirect_to @profile, notice: "Profile updated."
     else
-      flash.now[:alert] = "Unable to update profile."
       render "edit"
     end
   end
@@ -34,13 +33,15 @@ class ProfilesController < ApplicationController
 
   def authorize_public_profile
     user = Profile.find(params[:id]).user
-    msg  = "#{user.first_name} only shares #{user.genderize} profile information with friends"
+    msg  = "#{user.first_name} only shares #{user.genderize} profile "\
+           "information with friends"
     authorize_user!(user, :public, msg)
   end
 
   def profile_params
-    params.require(:profile).permit(:birthday,   :country, :education,
-                                    :profession, :about_you,
-                                    :access_to,  :email_notification)
+    params.require(:profile).permit(:picture,   :birthday,   :country,
+                                    :education, :profession, :about_you,
+                                    :access_to, :email_notification,
+                                    :delete_picture)
   end
 end

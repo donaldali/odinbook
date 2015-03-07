@@ -350,6 +350,31 @@ a {
       -ms-transform: translateY(-50%);
           transform: translateY(-50%);
 }
+.dot {
+  position: relative;
+  top: -3px;
+  color: #9197a3;
+}
+
+/*
+  ========================================
+  Images
+  ========================================
+*/
+@mixin image-size($size) {
+  height: $size;
+  width:  $size;
+}
+.v-lg-img { @include image-size(160px); }
+.lg-img   { @include image-size(75px); }
+.md-img   { @include image-size(40px); }
+.sm-img   { @include image-size(32px); }
+.v-sm-img { @include image-size(19px); }
+.like-img {
+  height: 11px;
+  position: relative;
+  top: 1px;
+}
 .delete {
   position: absolute;
   top: 2px;
@@ -358,14 +383,4 @@ a {
   &:hover {
     opacity: 1;
   }
-}
-.like-img {
-  height: 11px;
-  position: relative;
-  top: 1px;
-}
-.dot {
-  position: relative;
-  top: -3px;
-  color: #9197a3;
 }

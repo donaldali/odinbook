@@ -1,0 +1,7 @@
+- if profile.errors.any?
+  .error-container
+
+    %h3= "Please fix the #{'problem'.pluralize(profile.errors.count)} below"
+    %ul
+      - profile.errors.full_messages.each do |message|
+        %li= message

@@ -38,4 +38,9 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
   
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
+
+  # Indicate where Paperclip can find ImageMagick
+  Paperclip.options[:command_path] = "/usr/bin/"
+
+  Paperclip::Attachment.default_options[:path] = "#{Rails.root}/spec/test_files/:class/:id_partition/:style.:extension"
 end

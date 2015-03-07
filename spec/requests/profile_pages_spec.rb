@@ -10,6 +10,8 @@ describe "Profile Pages" do
     context "for current user" do
       before { visit edit_profile_path(profile) }
 
+      it { should have_xpath("//input[@type='file']") }
+      it { should_not have_xpath("//input[@type='checkbox']") }
       it { should have_select("profile_birthday_2i") }
       it { should have_select("profile_birthday_3i") }
       it { should have_select("Country") }
@@ -21,6 +23,28 @@ describe "Profile Pages" do
       it { should have_submit("Update Profile") }
       it { should have_link("Cancel") }
       it { should have_button("Delete Odinbook Account") }
+
+      describe "profile picture" do
+        it "accepts valid image files" do
+          attach_file("profile_picture", "app/assets/images/close.png")
+          click_on("Update Profile")
+          expect(profile.reload.picture_file_name).to eq("close.png")
+        end
+        it "doesn't accept invalid image files" do
+          attach_file("profile_picture", 
+                      "app/assets/javascripts/application.js")
+          click_on("Update Profile")
+          expect(profile.reload.picture_file_name).to be_nil
+        end
+        it "can be deleted" do 
+          attach_file("profile_picture", "app/assets/images/close.png")
+          click_on("Update Profile")
+          visit edit_profile_path(profile)
+          check("Delete Current Picture")
+          click_on("Update Profile")
+          expect(profile.reload.picture_file_name).to be_nil
+        end
+      end
     end
 
     context "for friends" do 
