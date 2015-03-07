@@ -164,26 +164,6 @@
 .field_with_errors {
   display: inline-block;
   input {
-    border: 1px solid red;
-  }
-}
-
-#error_explanation {
-/*  position: absolute;
-  top: 80px;
-  right: 400px;
-  width: 300px;*/
-
-  margin: 10px;
-  padding: 10px;
-  border: 1px solid #dd3c10;
-  background-color: #ffebe8;
-  color: #8b0300;
-  h2 {
-    font-size: 20px;
-  }
-  li {
-    font-size: 14px;
-    padding-left: 15px;
+    border: 1px solid #f53c10;
   }
 }

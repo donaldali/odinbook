@@ -11,7 +11,7 @@
           = f.file_field :picture
 
         - if @profile.picture?
-          .delete_picture
+          .delete-picture
             = f.check_box :delete_picture
             = f.label :delete_picture, "Delete Current Picture"
 

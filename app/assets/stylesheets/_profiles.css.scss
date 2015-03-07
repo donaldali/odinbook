@@ -40,16 +40,24 @@
     margin-bottom: 10px;
   }
   select,
-  textarea {
+  textarea,
+  input {
     vertical-align: top;
     margin-left: 10px;
   }
-  select {
+  select, 
+  input[type='file'] {
     padding: 5px 6px;
     border: 1px solid #bdc7d8;
     font-size: 14px;
     color: $color;
     width: 360px;
+  }
+  input[type='file'] {
+    border: none;
+    margin-left: 5px;
+    position: relative;
+    top: -3px;
   }
   .bday {
     select {
@@ -65,6 +73,27 @@
     overflow: hidden;
     font-size: 14px;
     resize: vertical;
+  }
+  .field_with_errors {
+    input {
+      border: 1px solid #dd3c10;
+    }
+    label { color: #dd3c10; }
+  }
+}
+.delete-picture {
+  margin-left: 110px;
+  position: relative;
+  top: -15px;
+
+  label {
+    width: 120px;
+    text-align: left;
+    color: #980113;
+    font-size: 11px;
+    cursor: pointer;
+    position: relative;
+    left: -3px;
   }
 }
 .privacy {
@@ -97,7 +126,6 @@
   }
 
 }
-
 .destroy-btn {
   @extend .danger-btn;
   font-size: 16px;
@@ -130,14 +158,14 @@
   span:first-child {
     font-weight: bold;
     color: #4e5665;
-    width: 100px;
+    width: 120px;
     margin-bottom: 16px;
     text-align: right;
     vertical-align: top;
   }
   span:last-child {
     color: $alt-color;
-    width: 350px;
+    width: 330px;
     margin-left: 10px
   }
 }
@@ -145,7 +173,7 @@
   margin: 30px 0;
 
   span:first-child {
-    width: 320px;
+    width: 300px;
     color: $alt-color;
     margin-bottom: 10px;
     text-align: right;
@@ -155,7 +183,7 @@
     color: $color;
   }
 }
-.show-center {
+.show-bottom {
   padding-top: 12px;
   border-top: 1px solid #bdc7d8;
   a {

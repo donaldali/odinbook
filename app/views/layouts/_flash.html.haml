@@ -1,0 +1,7 @@
+- if flash.any?
+  - flash.each do |type, message|
+    -# Don't display Devise's timedout flash message
+    - unless message.blank? || type == 'timedout' || type == 'html_safe'
+      .flash-holder
+        .flash{class: "#{type}"}
+          = message

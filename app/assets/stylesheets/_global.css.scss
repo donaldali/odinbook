@@ -43,7 +43,7 @@ body {
 body {
   color: $color;
   background-color: $bg-color;
-  font-family: Helvetica, Arial, 'lucida grande',tahoma,verdana,arial,sans-serif;
+  font-family: $font-family;
   font-size: 12px;
 }
 header {
@@ -279,6 +279,7 @@ textarea:focus,
 select:focus {
   outline: 0;
 }
+input[type="checkbox"],
 input[type="radio"] {
   cursor: pointer;
 }
@@ -309,7 +310,6 @@ input[type="radio"] {
   box-sizing: content-box;
   vertical-align: middle;
   font-size: 12px;
-
 }
 .primary-btn {
   @extend .main-btn;
@@ -329,7 +329,6 @@ input[type="radio"] {
   @extend .default-btn;
   color: #980113;
 }
-
 a {
   text-decoration: none;
   cursor: pointer;
@@ -382,5 +381,31 @@ a {
   opacity: 0.3;
   &:hover {
     opacity: 1;
+  }
+}
+
+/*
+  ========================================
+  Error
+  ========================================
+*/
+#error_explanation {
+  margin: 10px;
+  padding: 10px 20px;
+  border: 1px solid #dd3c10;
+  background-color: #ffebe8;
+  color: #8b0300;
+  h2 {
+    font-size: 20px;
+  }
+  h3 {
+    font-size: 14px;
+    color: #8b0300;
+    padding-bottom: 2px;
+  }
+  li {
+    font-size: 14px;
+    padding-left: 15px;
+    padding-top: 3px;
   }
 }

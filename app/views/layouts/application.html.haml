@@ -11,22 +11,16 @@
 
     - if user_signed_in?
       .header-margin
-    
-    - if flash.any?
-      - flash.each do |type, message|
-        -# Don't display Devise's timedout flash message
-        - unless message.blank? || type == 'timedout' || type == 'html_safe'
-          .flash-holder
-            .flash{class: "#{type}"}
-              = message
 
     .main-container
       - if user_signed_in?
         .profile= yield(:profile) if content_for?(:profile)
+        = render "layouts/flash"
         .info-container
           .sidebar>= yield(:sidebar) if content_for?(:sidebar)
           .content= yield
       - else
+        = render "layouts/flash"
         = yield
 
     = debug(params) if Rails.env.development?

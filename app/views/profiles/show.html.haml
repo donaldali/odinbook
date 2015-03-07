@@ -37,6 +37,6 @@
           %span Will you receive email of notifications: 
           %span= "#{bool_to_yes_no @profile.email_notification}"
 
-      .show-center
+      .show-bottom
         %div
         = link_to "Edit Your Profile", edit_profile_path(current_user.profile)

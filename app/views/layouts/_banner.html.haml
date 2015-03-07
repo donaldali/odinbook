@@ -16,6 +16,5 @@
             %span Friends
             %span.friend-count= user.friends.count
   .profile-pic
-    / = link_to "??? Update Profile pic w/ Paperclip???" do
-    = link_to timeline_path(user) do
-      = image_for(user, options = { img_class: "v-lg-img" })
+    = link_to edit_profile_path(user.profile) do
+      = image_for(user, options = { img_class: "v-lg-img", title: "Update Profile Picture" })
