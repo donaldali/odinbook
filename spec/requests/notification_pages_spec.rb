@@ -8,22 +8,22 @@ describe 'Notification pages' do
   before { log_in(user) }
 
   describe 'index' do 
-    before {
-      friender.send_friend_request_to(user)
-      Notification.send_notification(user, "request", friender.name)
-    }
+    before { friend_request_to_from(user, friender) }
+
     it "shows new notification count" do 
-      visit friends_path(user)
       expect(page).to have_selector("#new-notifications", text: "1")
     end
-    it "shows notification" do 
-      visit notifications_path
-      expect(page).to have_text("Friender Doe sent you a Friend Request")
-    end
-    it "clears new notifications count" do
-      visit notifications_path
-      visit friends_path(user)
-      expect(page).not_to have_selector("#new-notifications")
+
+    describe "on page" do
+      before { visit notifications_path }
+
+      it { should have_title("Your Notifications") }
+      it "shows notification" do 
+        expect(page).to have_text("#{friender.name} sent you a Friend Request")
+      end
+      it "clears new notifications count" do
+        expect(page).not_to have_selector("#new-notifications")
+      end
     end
 
   end

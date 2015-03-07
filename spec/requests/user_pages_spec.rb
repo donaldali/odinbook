@@ -13,6 +13,7 @@ describe "User pages" do
       visit users_path
     end
 
+    it { should have_title("All Users | Odinbook") }
     it { should have_selector("h1", text: "All Users") }
 
     context "with multiple users" do
@@ -224,6 +225,7 @@ describe "User pages" do
     describe "post creation" do 
       before { visit newsfeed_path(user) }
 
+      it { should have_title("Odinbook") }
       it { should have_selector(".post-form") }
       it { should have_text("Update status") }
       it { should have_button("Post") }
@@ -373,6 +375,7 @@ describe "User pages" do
     context "for current user" do 
       before { visit timeline_path(user) }
 
+      it { should have_title(user.name) }
       it { should have_css(".profile") }
       it { should have_xpath("//img[@class='v-lg-img']") }
       it { should have_selector(".post-form") }
@@ -503,6 +506,7 @@ describe "User pages" do
         visit timeline_path(friend)
       end
 
+      it { should have_title(friend.name) }
       it { should have_css(".profile") }
       it { should have_xpath("//img[@class='v-lg-img']") }
       it { should have_selector(".post-form") }
@@ -567,6 +571,7 @@ describe "User pages" do
       let(:public_user) { create(:user) }
       before { visit timeline_path(public_user) }
 
+      it { should have_title(public_user.name) }
       it { should have_css(".profile") }
       it { should have_xpath("//img[@class='v-lg-img']") }
       it { should_not have_selector(".post-form") }
@@ -630,6 +635,7 @@ describe "User pages" do
         visit timeline_path(private_user)
       end
 
+      it { should have_title(private_user.name) }
       it { should have_css(".profile") }
       it { should have_xpath("//img[@class='v-lg-img']") }
       it { should_not have_selector(".post-form") }

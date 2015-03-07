@@ -1,5 +1,6 @@
 - user    = User.find(@receiver_id)
 - friends = user.friends
+- provide(:title, user.name)
 
 %ul.users-container
   %li.friends-header

@@ -32,4 +32,8 @@ module ApplicationHelper
                     end
     access_levels[level_granted] >= access_levels[level_requested]
   end
+
+  def page_title(title)
+    (title.blank?) ? "Odinbook" : title
+  end
 end

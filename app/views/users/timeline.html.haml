@@ -1,4 +1,6 @@
 - user = User.find(@receiver_id)
+- provide(:title, user.name)
+
 .timeline-container
   - if access_level?(user, :friend)
     = render template: 'posts/new'
