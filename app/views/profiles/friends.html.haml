@@ -9,3 +9,6 @@
       %span= "#{friends.count}"
 
   = render friends, is_index: true
+
+  - if friends.empty?
+    %li.empty-list= no_friend_profile_message(user)

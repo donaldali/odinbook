@@ -12,13 +12,13 @@
 .post-form {
   border: 1px solid #d3d6db;
   margin-bottom: 17px;
-  border-radius: 3px;
+  @include border-radius(3px);
 
   .post-label, .post-submit {
     background-color: $gray;
   }
   .post-label {
-    height: 35px;
+    height: 33px;
     color: #373e4d;
     border-bottom: 1px solid #dcdee3;
     padding: 10px 0 8px 12px;
@@ -43,6 +43,7 @@
   }
   .post-textarea {
     height: 73px;
+    position: relative;
 
     textarea {
       width: 100%;
@@ -52,17 +53,19 @@
       color: #373e4d;
       border: none;
       padding: 13px 12px 5px 12px;
-      min-height: 73px;
+      height: 45px;
+      min-height: 45px;
       resize: none;
       overflow: hidden;
       font-family: $font-family;
+      position: relative;
     }
   }
 }
 .post-container {
   border: 1px solid;
   border-color: #e5e6e9 #dfe0e4 #d0d1d5;
-  border-radius: 3px;
+  @include border-radius(3px);
   margin-bottom: 10px;
 }
 .post-details {
@@ -127,6 +130,6 @@
   color: $color;
   background-color: #fff;
   border: 1px solid #d3d6db;
-  border-radius: 3px;
+  @include border-radius(3px);
   padding: 15px;
 }

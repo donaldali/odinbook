@@ -5,7 +5,7 @@ module UsersHelper
   end
 
   def get_placeholder receiver_id
-    (receiver_id.to_s == current_user.id.to_s) ? "What's on your mind?" : 
+    (receiver_id.to_s == current_user.id.to_s) ? "What's on your mind?" :
                                                  "Write something..."
   end
 
@@ -63,6 +63,15 @@ module UsersHelper
            else 75
            end
     "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"
+  end
+
+  def empty_message(title)
+    case title.downcase
+    when "friends"         then "No friends yet...Send some friend requests"
+    when "friend requests" then "You currently have no friend requests"
+    when "find friends"    then "You are in contact with everyone"
+    else ""
+    end
   end
   
 end

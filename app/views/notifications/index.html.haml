@@ -5,3 +5,6 @@
 
   %ul
     = render @notifications
+
+    - if @notifications.empty?
+      %li.empty-list= "You have no Notifications" 

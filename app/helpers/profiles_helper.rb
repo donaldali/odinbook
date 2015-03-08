@@ -14,6 +14,15 @@ module ProfilesHelper
     end
   end
 
+  def no_friend_profile_message(user)
+    if current_user == user
+      "No friends yet...Send some friend requests"
+    else
+      "#{user.first_name} has no friends...consider sending "\
+      "a friend request"
+    end
+  end
+
   def formatted_birthday birthday
     return "No birthday provided" if birthday.blank?
 
@@ -49,8 +58,11 @@ module ProfilesHelper
   def get_profession_options
     [["Aspiring Developer", "Aspiring Developer"], 
      ["Practicing Developer", "Practicing Developer"], 
-     ["Computer Related, Not Developer", "Computer Related, Not Developer"],
-     ["Science Related, Not Computer Related", "Science Related, Not Computer Related"],
-     ["Not Science Related, I Have a Life", "Not Science Related, I Have a Life"]]
+     ["Computer Related, Not Developer", 
+      "Computer Related, Not Developer"],
+     ["Science Related, Not Computer Related", 
+      "Science Related, Not Computer Related"],
+     ["Not Science Related, I Have a Life", 
+      "Not Science Related, I Have a Life"]]
   end
 end

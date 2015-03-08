@@ -15,18 +15,24 @@
     border-bottom: 1px solid #aaa;
     padding: 20px 5px;
   }
-}
-.notification-container {
-  padding: 10px 20px;
-  &:nth-child(odd) {
+  .new {
     background: $gray;
     border: 1px solid #e9eaed;
   }
+}
+.notification {
+  padding: 10px 20px;
+  border-bottom: 1px solid #e9eaed;
+
+  .sub-message {
+    a {
+      color: $blue;
+    }
+  }
+}
+li {
   .main-message {
     line-height: 1.28;
     font-size: 12px;
-  }
-  .sub-message {
-
   }
 }
