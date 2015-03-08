@@ -14,4 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require jquery.turbolinks
+//= require jquery.validate
+//= require additional.methods
 //= require_tree .

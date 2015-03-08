@@ -6,7 +6,7 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
     = favicon_link_tag 'favicon.ico'
-  %body
+  %body{ class: "#{params[:controller]}".gsub('devise/', '') }
     %header= yield :header
 
     - if user_signed_in?

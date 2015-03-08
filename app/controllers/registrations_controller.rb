@@ -6,6 +6,10 @@ class RegistrationsController < Devise::RegistrationsController
     signup_welcome(@user) if @user.errors.empty? && @user.persisted?
   end
 
+  def unused_email
+    render json: User.unused_email?(params[:user][:email])
+  end
+
 
   protected
 

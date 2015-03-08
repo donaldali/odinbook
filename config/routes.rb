@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     post   'login'  => 'devise/sessions#create',  :as => :user_session
     delete 'logout' => 'devise/sessions#destroy', :as => :destroy_user_session
     get    'signup' => 'registrations#new'
+    get '/unused_email', to: 'registrations#unused_email'
   end
 
   resources :users,         only: [:index]

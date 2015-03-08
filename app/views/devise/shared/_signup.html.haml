@@ -9,14 +9,15 @@
         .name
           = f.label :first_name
           = f.text_field :first_name, placeholder: "First name"
-          = f.label :last_name
-          = f.text_field :last_name, placeholder: "Last name", class: "right-align"
+          .last-name>
+            = f.label :last_name
+            = f.text_field :last_name, placeholder: "Last name", class: "right-align"
         %div
           = f.label :email
           = f.email_field :email, placeholder: "Email"
         %div
-          = f.label :password
-          = f.password_field :password, autocomplete: "off", placeholder: "New password"
+          = f.label :password, for: "user_signup_password"
+          = f.password_field :password, autocomplete: "off", placeholder: "New password", id: "user_signup_password"
         %div
           = f.label :password_confirmation
           = f.password_field :password_confirmation, autocomplete: "off", placeholder: "Re-enter new password"

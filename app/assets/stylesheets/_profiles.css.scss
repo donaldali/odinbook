@@ -11,7 +11,7 @@
   position: relative;
 
   .edit-profile-form {
-    padding: 12px 0;
+    padding: 20px 0;
   }
 
 
@@ -28,6 +28,7 @@
   }
 }
 .general {
+  position: relative;
   label {
     color: #9197a3;
     font-size: 14px;
@@ -80,6 +81,15 @@
     }
     label { color: #dd3c10; }
   }
+  span {
+    position: absolute;
+    top: -17px;
+    left: 105px;
+    color: #980113;
+  }
+  input.error {
+      border: 1px solid #980113;
+  }
 }
 .delete-picture {
   margin-left: 110px;
@@ -89,7 +99,7 @@
   label {
     width: 120px;
     text-align: left;
-    color: #980113;
+    color: #be4b49;
     font-size: 11px;
     cursor: pointer;
     position: relative;
