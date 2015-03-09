@@ -57,4 +57,4 @@
         = f.submit class: "primary-btn"
         = link_to "Cancel", @profile, class: "default-btn"
 
-  = button_to "Delete Odinbook Account", registration_path(current_user), data: { confirm: "WARNING! This will completely delete your entire Odinbook account (not just your profile).\nThere will be no way to recover any part of your account.\nAre you absolutely sure you want to proceed?" }, method: :delete, class: "destroy-btn"
+  = button_to "Delete Odinbook Account", registration_path(current_user), data: { confirm: "This will completely delete your entire Odinbook account (not just your profile). \n There will be no way to recover any part of your account. \n Are you absolutely sure you want to proceed?" }, method: :delete, class: "destroy-btn"

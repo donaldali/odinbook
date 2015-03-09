@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require jquery.turbolinks
+//= require jquery-ui/dialog
 //= require jquery.validate
-//= require additional.methods
+//= require accept
 //= require_tree .

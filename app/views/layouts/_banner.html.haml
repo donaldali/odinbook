@@ -16,5 +16,9 @@
             %span Friends
             %span.friend-count= user.friends.count
   .profile-pic
-    = link_to edit_profile_path(user.profile) do
-      = image_for(user, options = { img_class: "v-lg-img", title: "Update Profile Picture" })
+    - if current_user == user
+      = link_to edit_profile_path(user.profile) do
+        = image_for(user, options = { img_class: "v-lg-img", title: "Update Profile Picture" })
+    - else
+      = link_to timeline_path(user) do
+        = image_for(user, options = { img_class: "v-lg-img", title: "#{user.name}" })
