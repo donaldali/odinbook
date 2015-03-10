@@ -1,0 +1,26 @@
+:plain
+  $(".feed-container").append("#{ escape_javascript(render @posts) }");
+- if @posts.next_page
+  :plain
+    $(".pagination").replaceWith("#{ escape_javascript(will_paginate @posts) }");
+- else
+  :plain
+    $(".pagination").remove();
+
+:plain
+  $('.comment-list').each(function(i, ele) {
+    $this = $(ele);
+    if($this.hasClass('new')) {
+      var id = $this.attr('id').split('-')[1];
+      var commentNum = $this.find('li').length
+      if( commentNum > 4 ) {
+        var left = commentNum - 4;
+        var pluralize = ( left > 1 ) ? "comments" : "comment"
+        $this.html( $this.find('li').splice( left, 4) ).
+          prepend("<li class='more-comments'><a href='#'>View " + left + " more " + pluralize + "</a></li>");
+        $this.find('a').attr('id', id);
+      }
+      $this.removeClass('new');
+      $this.closest('li').find('.post-comment').show();
+    }
+  });

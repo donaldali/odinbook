@@ -119,7 +119,7 @@ class User < ActiveRecord::Base
     friendeds_ids = "SELECT friended_id FROM friendships 
                      WHERE friender_id = :user_id"
 
-    User.where("id NOT IN (#{frienders_ids}) AND 
+    User.where("id NOT IN (#{frienders_ids}) AND NOT id = :user_id AND
                 id NOT IN (#{friendeds_ids})", user_id: self.id).alphabetize
   end
 

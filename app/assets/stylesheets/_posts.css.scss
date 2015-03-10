@@ -41,6 +41,8 @@
       right: 8px;
     }
   }
+  .post-submit.shrink { display: none; }
+  .post-submit.expand { display: block; }
   .post-textarea {
     height: 73px;
     position: relative;
@@ -61,8 +63,15 @@
       position: relative;
     }
   }
+  .post-textarea.shrink { height: 45px; }
+  .post-textarea.expand { height: 73px; }
+  #post_content.shrink  { min-height: 35px; }
+  #post_content.expand  { min-height: 73px; }
 }
+.post-form.shrink { margin-bottom: 10px; }
+.post-form.expand { margin-bottom: 17px; }
 .post-container {
+  list-style: none;
   border: 1px solid;
   border-color: #e5e6e9 #dfe0e4 #d0d1d5;
   @include border-radius(3px);
@@ -108,6 +117,13 @@
   }
   .post-like {
     margin-top: 10px;
+    display: inline-block;
+    a {
+      color: #6d84b4;
+    }
+  }
+  .post-comment {
+    display: none;
     a {
       color: #6d84b4;
     }

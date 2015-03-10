@@ -21,6 +21,7 @@ gem 'omniauth-facebook', '1.6.0'
 gem 'country_select', github: 'stefanpenner/country_select'
 gem 'paperclip', '4.1.1'
 gem 'jquery-ui-rails', '5.0.3'
+gem 'will_paginate', '3.0.4'
 
 group :development, :test do
   gem 'guard', '2.6.1'

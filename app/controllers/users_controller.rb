@@ -9,47 +9,82 @@ class UsersController < ApplicationController
     @receiver_id = params[:id]
     @label       = "Update Status"
     @placeholder = "What's on your mind?"
-    @posts       = current_user.newsfeed_feed
+    @posts       = current_user.newsfeed_feed.
+                     paginate(page: params[:page], per_page: 4)
+    
+    respond_to do |format|
+      format.html
+      format.js   { render "feed" }
+    end
   end
 
   def timeline
     @receiver_id = params[:id]
     @label       = get_status(@receiver_id)
     @placeholder = get_placeholder(@receiver_id)
-    @posts       = User.find(params[:id]).timeline_feed
-    render layout: "profiles"
+    @posts       = User.find(params[:id]).timeline_feed.
+                     paginate(page: params[:page], per_page: 4)
+    
+    respond_to do |format|
+      format.html { render layout: "profiles" }
+      format.js   { render "feed" }
+    end
   end
 
   def index
-    @users    = User.all.alphabetize
+    @users    = User.paginate(page: params[:page], per_page: 4).alphabetize
     @title    = "All Users"
     @is_index = true
+    
+    respond_to do |format|
+      format.html
+      format.js { render "shared/user_index" }
+    end
   end
 
   def friends
     @receiver_id = params[:id]
-    @users       = User.find(@receiver_id).friends
+    @users       = User.find(@receiver_id).friends.
+                     paginate(page: params[:page], per_page: 4)
     @title       = "Friends"
     @is_index    = false
     if params[:from] == "profile"
-      render template: "profiles/friends", layout: "layouts/profiles"
+      @is_index = true
+      respond_to do |format|
+        format.html { render template: "profiles/friends", 
+                             layout:   "layouts/profiles" }
+        format.js   { render "shared/user_index" }
+      end
     else
-      render "index"
+      respond_to do |format|
+        format.html { render "index" }
+        format.js   { render "shared/user_index" }
+      end
     end
   end
 
   def friend_requests
-    @users    = current_user.requests_from
+    @users    = current_user.requests_from.
+                  paginate(page: params[:page], per_page: 4)
     @title    = "Friend Requests"
     @is_index = false
-    render "index"
+    
+    respond_to do |format|
+      format.html { render "index" }
+      format.js   { render "shared/user_index" }
+    end
   end
 
   def find_friends
-    @users    = current_user.no_friendship - [current_user]
+    @users    = current_user.no_friendship.
+                  paginate(page: params[:page], per_page: 4)
     @title    = "Find Friends"
     @is_index = false
-    render "index"
+    
+    respond_to do |format|
+      format.html { render "index" }
+      format.js   { render "shared/user_index" }
+    end
   end
 
 

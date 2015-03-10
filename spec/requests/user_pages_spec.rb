@@ -71,6 +71,17 @@ describe "User pages" do
         expect(page).to have_submit("Add Friend")
       end
     end
+
+    describe "pagination" do 
+      let(:users) { create_list(:user, 12) }
+      before(:all) do 
+        users = create_list(:user, 12)
+        visit users_path
+      end
+      after(:all) { User.delete_all }
+
+      it { should have_selector('div.pagination') }
+    end
   end
 
   describe "friendship status pages" do

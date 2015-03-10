@@ -168,9 +168,10 @@ describe User do
 
       describe ".no_friendship" do 
         it "gets user with no friendship/request" do 
-          non_friend = user.no_friendship
-          expect(non_friend.count).to eq(1)
-          expect(non_friend).to include(not_friend)
+          not_friend = create(:user)
+          non_friends = user.no_friendship
+          expect(non_friends.count).to eq(1)
+          expect(non_friends).to include(not_friend)
         end
       end
     end

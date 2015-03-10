@@ -437,3 +437,54 @@ a {
   padding: 15px 20px;
   border: 1px solid #e9eaed;
 }
+
+/*
+  ========================================
+  Pagination/Infinite Scroll
+  ========================================
+*/
+.pagination {
+  height: 30px;
+  line-height: 30px;
+
+  em { font-weight: bold; }
+  a, em, span {
+    border: 1px solid;
+    padding: 2px 5px;
+  }
+  a {
+    color: $blue;
+    border-color: $blue;
+    &:hover {
+      text-decoration: none;
+      background-color: $blue;
+      color: #fff;
+    }
+  }
+  em, span {
+    color: $alt-color;
+    border-color: $alt-color;
+  }
+  div { 
+    width: 150px;
+    margin: 0 auto;
+    font-size: 14px;
+    color: $alt-color;
+  }
+  .loading {
+    width: 90px;
+    margin: 0 auto;
+    font-size: 16px;
+    color: $color;
+    padding-top: 5px;
+
+    span { border: none; }
+    span:first-child {
+      height: 16px;
+      width: 16px;
+      background: url(loading.gif) no-repeat center;
+      margin-right: 3px;
+      position: relative;
+    }
+  }
+}

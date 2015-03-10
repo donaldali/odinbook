@@ -1,5 +1,8 @@
 .newsfeed-container
-  = render template: 'posts/new'
+  .feed-container
+    = render template: 'posts/new'
 
-  %ul{ id: "posts" }
-    = render @posts
+    %ul{ id: "posts" }
+      = render @posts
+
+= will_paginate @posts

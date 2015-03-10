@@ -1,26 +1,56 @@
 jQuery ->
   if $('body.users').length
+    # Display comment link
+    $('.post-comment').show()
+
+    # Limit comments displayed per post to 4 initially
+    $('.comment-list').each (i, ele) ->
+      $this = $(ele)
+      if $this.hasClass 'new'
+        id = $this.attr('id').split('-')[1]
+        commentNum = $this.find('li').length
+
+        if commentNum > 4
+          left = commentNum - 4
+          pluralize = if left > 1 then "comments" else "comment"
+          html = """
+                 <li class='more-comments'>
+                   <a href='#'>View #{left} more #{pluralize}</a>
+                 </li>
+                 """
+          $this.html($this.find('li').splice(left, 4)).prepend(html)
+          $this.find('a').attr('id', id);
+
+        $this.removeClass 'new'
+        $this.closest('li').find('.post-comment').show()
+
+
+    # Get more comments for a post
+    $('body').on 'click', '.more-comments a', (event) ->
+      event.preventDefault()
+      url = "/comments?post_id=#{$(this).attr('id')}"
+      $.getScript url
+
     # Give comment input focus when Comment link is clicked
-    $('#posts').on 'click', '.comment-focus', (event) ->
+    $('body').on 'click', '.comment-focus', (event) ->
       event.preventDefault()
       $(this).closest('li').find("input[type='text']").focus()
 
     # Add a class to a post that has its input focused 
     # (Highlight the post with this class)
-    $('#posts').on 'focus', "li.post-container input[type='text']", ->
+    $('body').on 'focus', "li.post-container input[type='text']", ->
       $('li.post-container').removeClass 'focus-post'
       $(this).closest('li').addClass 'focus-post'
 
     # Shrink post textarea and hide Post submit button on page load
-    $('.post-textarea').height 45
-    $('#post_content').css 'min-height', '35px'
-    $('.post-submit').hide()
-    $('.post-form').css 'margin-bottom', 10
+    $('.post-textarea').addClass('shrink')
+    $('#post_content').addClass('shrink')
+    $('.post-submit').addClass('shrink')
+    $('.post-form').addClass('shrink')
 
     # Expand post textarea and show Post submit button on textarea focus
     $('#post_content').focus ->
-      $('.post-textarea').height 73
-      $('#post_content').css 'min-height', '73px'
-      $('.post-submit').show()
-      $('.post-form').css 'margin-bottom', 17
-
+      $('.post-textarea').removeClass('shrink').addClass('expand')
+      $('#post_content').removeClass('shrink').addClass('expand')
+      $('.post-submit').removeClass('shrink').addClass('expand')
+      $('.post-form').removeClass('shrink').addClass('expand')

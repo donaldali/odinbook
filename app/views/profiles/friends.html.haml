@@ -1,5 +1,5 @@
 - user    = User.find(@receiver_id)
-- friends = user.friends
+- friends = @users
 - provide(:title, user.name)
 
 %ul.users-container
@@ -8,7 +8,9 @@
       = "#{user.first_name}'s friends"
       %span= "#{friends.count}"
 
-  = render friends, is_index: true
+  = render friends, is_index: @is_index
 
   - if friends.empty?
     %li.empty-list= no_friend_profile_message(user)
+
+= will_paginate @users

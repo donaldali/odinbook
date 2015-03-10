@@ -3,6 +3,12 @@ class CommentsController < ApplicationController
   before_action :authorize_friend_post_creator_receiver, only: [:create]
   before_action :authorize_self_comment, only: [:destroy]
 
+  def index
+    @post_id  = params[:post_id]
+    @comments = Post.find(@post_id).comments
+    respond_to { |format| format.js } 
+  end
+
   def create
     content = params[:comment][:content]
     unless content.blank?

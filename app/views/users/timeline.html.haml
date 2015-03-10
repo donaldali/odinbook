@@ -2,12 +2,14 @@
 - provide(:title, user.name)
 
 .timeline-container
-  - if access_level?(user, :friend)
-    = render template: 'posts/new'
+  .feed-container
+    - if access_level?(user, :friend)
+      = render template: 'posts/new'
 
-  - if access_level?(user, :public)
-    %ul{ id: "posts" }
-      = render @posts
-  - else
-    %p.no-posts= "#{user.first_name} only shares #{user.genderize} profile and posts with friends"
+    - if access_level?(user, :public)
+      %ul{ id: "posts" }
+        = render @posts
+    - else
+      %p.no-posts= "#{user.first_name} only shares #{user.genderize} profile and posts with friends"
     
+= will_paginate @posts

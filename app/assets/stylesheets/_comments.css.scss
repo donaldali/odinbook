@@ -17,6 +17,15 @@
     padding-top: 7px;
   }
 }
+.more-comments {
+  @extend .comment-container;
+  a {
+    color: $blue;
+    font-size: 12px;
+    display: block;
+    padding: 0 15px;
+  }
+}
 .comment-details {
   .info {
     max-width: 425px;
