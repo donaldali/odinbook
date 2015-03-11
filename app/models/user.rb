@@ -63,6 +63,12 @@ class User < ActiveRecord::Base
     !User.find_by(email: email)
   end
 
+  def self.search(q)
+    q = q.downcase
+    where("lower(first_name) LIKE ? OR lower(last_name) LIKE ?", 
+          "%#{q}%", "%#{q}%").alphabetize
+  end
+
   # Instance methods
   def send_friend_request_to(other_user)
     unless self == other_user || friends_with?(other_user) || 

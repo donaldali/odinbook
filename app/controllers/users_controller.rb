@@ -87,6 +87,21 @@ class UsersController < ApplicationController
     end
   end
 
+  def search
+    if params[:q].blank?
+      redirect_to :back
+    else
+      @is_index = true
+      @users    = User.search(params[:q]).
+                    paginate(page: params[:page], per_page: 4)
+
+      respond_to do |format|
+        format.html
+        format.js   { render "shared/user_index" }
+      end
+    end
+  end
+
 
   private
 

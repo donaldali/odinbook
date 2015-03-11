@@ -13,6 +13,10 @@ jQuery ->
 
   $(window).scroll()
 
+  # Prevent search on an empty string
+  $('.header-form').on 'click', 'button', (event) ->
+    return false if $('#q').val().trim() is ""
+
 
   # Substitute default browser confirmation dialog with jQuery UI's
   $.rails.allowAction = (link) ->

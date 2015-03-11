@@ -686,4 +686,30 @@ describe "User pages" do
     end
 
   end
+
+  describe "search" do
+    let(:user1) { create(:user, first_name: "Foo") }
+    before { user1 = create(:user, first_name: "Foo") }
+
+    context "with no input" do
+      it "doesn't search" do
+        fill_in 'q', with: ""
+        page.find(".search-btn").click
+        expect(current_path).not_to eq(search_path)
+      end
+    end
+
+    context "with valid input" do
+      it "finds relevant users" do 
+        fill_in 'q', with: "foo"
+        page.find(".search-btn").click
+        expect(find(".users-container")).to have_text(user1.first_name)
+      end
+      it "doesn't find irrelevant users" do 
+        fill_in 'q', with: "barbaz"
+        page.find(".search-btn").click
+        expect(page).to have_text("No one matched your search.")
+      end
+    end
+  end
 end

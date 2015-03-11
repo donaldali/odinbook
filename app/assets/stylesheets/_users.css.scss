@@ -49,10 +49,6 @@
   &:last-child {
     padding-bottom: 10px;
   }
-
-  .user-img {
-
-  }
   .user-img,
   .user-info,
   .user-name,
@@ -125,4 +121,13 @@
     color: #89919c;
     padding-left: 3px;
   }
+}
+
+/*
+  ========================================
+  Friend's Header
+  ========================================
+*/
+.search-header {
+  @extend .friends-header;
 }

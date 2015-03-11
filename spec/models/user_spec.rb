@@ -210,7 +210,7 @@ describe User do
   end
 
   describe ".timeline_feed" do
-    let(:friend)     { create(:user) }
+    let(:friend) { create(:user) }
     before { make_friends(user, friend) }
 
     it "includes posts created by user" do
@@ -278,6 +278,27 @@ describe User do
 
       post = create(:post, creator: non_friend, receiver: non_friend2)
       expect(user.newsfeed_feed).not_to include(post)
+    end
+  end
+
+  describe "#search" do
+    let(:friend)   { create(:user, first_name: "friend") }
+    let(:friender) { create(:user, first_name: "friender") }
+    let(:friended) { create(:user, last_name: "friended") }
+    let(:other)    { create(:user) }
+    let(:result)   { User.search("FRIEND") }
+
+    it "finds matching name, case insensitive" do
+      expect(result).to include(friend)
+    end
+    it "finds similar first name, case insensitive" do
+      expect(result).to include(friender)
+    end
+    it "finds similar last name, case insensitive" do
+      expect(result).to include(friended)
+    end
+    it "doesn't find unrelated name" do
+      expect(result).not_to include(other)
     end
   end
 end

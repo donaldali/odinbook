@@ -296,7 +296,8 @@ header {
 }
 input:focus,
 textarea:focus,
-select:focus {
+select:focus,
+button:focus {
   outline: 0;
 }
 input[type="checkbox"],
@@ -472,7 +473,7 @@ a {
     color: $alt-color;
   }
   .loading {
-    width: 90px;
+    width: 120px;
     margin: 0 auto;
     font-size: 16px;
     color: $color;
@@ -480,11 +481,12 @@ a {
 
     span { border: none; }
     span:first-child {
+      display: inline-block; 
       height: 16px;
-      width: 16px;
+      width: 20px;
       background: url(loading.gif) no-repeat center;
-      margin-right: 3px;
       position: relative;
+      top: 2px;
     }
   }
 }

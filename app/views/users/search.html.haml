@@ -1,0 +1,10 @@
+%ul.users-container
+  %li.search-header
+    %h2 Search Results
+
+  = render @users, is_index: @is_index
+
+  - if @users.empty?
+    %li.empty-list No one matched your search. You may try modifying your search; perhaps a shorter search string.
+
+= will_paginate @users

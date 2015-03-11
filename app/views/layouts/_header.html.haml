@@ -3,7 +3,10 @@
     = link_to newsfeed_path(current_user) do
       = image_tag "icon.png", alt: "Odinbook icon", class: "icon"
     .header-form
-      = search_field_tag(:q, "", placeholder: "Search Odinbook soon...")
+      = form_tag search_path, method: :get do
+        = search_field_tag(:q, params[:q], placeholder: "Search Odinbook")
+        = button_tag name: nil, class: "search-btn" do
+          = image_tag "search-icon.png", class: "search-icon"
     .header-menu
       %ul
         %li>

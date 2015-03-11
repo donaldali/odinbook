@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   get 'friends/:id',         to: 'users#friends',         as: :friends
   get 'friend_requests/:id', to: 'users#friend_requests', as: :friend_requests
   get 'find_friends/:id',    to: 'users#find_friends',    as: :find_friends
+  get 'search',              to: 'users#search',          as: :search
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
