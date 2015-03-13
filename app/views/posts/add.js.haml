@@ -1,0 +1,9 @@
+- if @add_post
+  :plain
+    if($("##{ post_dom_id(@post) }").length === 0) {
+      $("#{ escape_javascript(render @post) }").prependTo("#posts")
+        .find('.post-comment').show()
+        .end().find('.comment-list').removeClass('new')
+        .end().hide().fadeIn('slow');
+    }
+  

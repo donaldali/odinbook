@@ -1,4 +1,7 @@
 - unless @post.nil?
   :plain
-    $("#posts").prepend("#{ escape_javascript(render @post) }")
-    $("#post_content").val("")
+    $("#post_content").val("");
+    $("#{ escape_javascript(render @post) }").prependTo("#posts")
+        .find('.post-comment').show()
+        .end().find('.comment-list').removeClass('new')
+        .end().hide().fadeIn('slow');

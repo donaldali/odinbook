@@ -19,6 +19,11 @@
         %li>
           = link_to notifications_path do
             = "Notifications"
-            -if current_user.new_notifications?
-              %span#new-notifications= current_user.new_notifications
+            
+            #new-notification-count
+              = render "layouts/new_notifications"
+            
+            .notification-notice
+              %div NEW
+              %span Notification
         %li>= link_to "Log Out", destroy_user_session_path, method: :delete

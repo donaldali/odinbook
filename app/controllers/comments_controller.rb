@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+  include CommentsHelper
 
   before_action :authorize_friend_post_creator_receiver, only: [:create]
   before_action :authorize_self_comment, only: [:destroy]
@@ -20,16 +21,26 @@ class CommentsController < ApplicationController
       format.html { redirect_to :back }
       format.js
     end
+    WebsocketRails[:updates].trigger(:add_comment, 
+      comment_info(@comment) ) unless @comment.nil?
   end
 
   def destroy
-    @comment = Comment.find(params[:id])
+    @comment       = Comment.find(params[:id])
+    comment_dom_id = comment_dom_id(@comment)
     @comment.destroy
 
     respond_to do |format|
       format.html { redirect_to :back }
       format.js
     end
+    WebsocketRails[:updates].trigger(:remove_comment, 
+      comment_dom_id: comment_dom_id )
+  end
+
+  def add
+    @comment = Comment.find(params[:id])
+    render 'create'
   end
 
 

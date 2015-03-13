@@ -1,6 +1,8 @@
 -if @is_index.to_s.downcase == "true"
   :plain
-    $("#friend-status-#{@user.id}").html("#{escape_javascript(render('users/request_sent'))}")
+    $("#friend-status-#{@user.id}").html("#{escape_javascript(render('users/request_sent'))}");
 -else
   :plain
-    $("#friend-status-#{@user.id}").closest("li").remove()
+    $("#friend-status-#{@user.id}").closest("li").fadeOut('slow', function() {
+      $(this).remove();
+    });

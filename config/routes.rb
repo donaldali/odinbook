@@ -31,6 +31,10 @@ Rails.application.routes.draw do
   get 'friend_requests/:id', to: 'users#friend_requests', as: :friend_requests
   get 'find_friends/:id',    to: 'users#find_friends',    as: :find_friends
   get 'search',              to: 'users#search',          as: :search
+  get 'comments/add/:id',    to: 'comments#add'
+  post 'posts/add',          to: 'posts#add'
+  get 'notifications/update_new', to: 'notifications#update_new'
+  post 'likes/create_destroy',    to: 'likes#create_destroy'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

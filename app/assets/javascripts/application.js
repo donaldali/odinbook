@@ -18,3 +18,5 @@
 //= require jquery.validate
 //= require accept
 //= require_tree .
+//= require websocket_rails/main
+

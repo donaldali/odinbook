@@ -4,9 +4,12 @@
   ========================================
 */
 .notifications {
-  background-color: #fff;
+  background-color: $bg-color;
   width: $content-width;
 
+  .notification-list {
+    background-color: #fff;
+  }
   h1 {
     font-size: 16px;
     font-weight: bold;

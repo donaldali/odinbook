@@ -42,4 +42,7 @@ Rails.application.configure do
 
   # Indicate where Paperclip can find ImageMagick
   Paperclip.options[:command_path] = "/usr/bin/"
+
+  # Remove the Rack::Lock middleware for websocket
+  config.middleware.delete Rack::Lock
 end

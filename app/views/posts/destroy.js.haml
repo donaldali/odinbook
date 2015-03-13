@@ -1,2 +1,4 @@
 :plain
-  $("#post-#{@post.id}").remove()
+  $("##{ post_dom_id(@post) }").fadeOut('slow', function() {
+    $(this).remove();
+  });

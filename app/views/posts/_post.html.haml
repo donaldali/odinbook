@@ -1,6 +1,6 @@
 - creator  = post.creator
 - receiver = post.receiver
-%li.post-container{ id: "post-#{post.id}"}
+%li.post-container{ id: "post-#{post.id}" }
   .post-details
     - if access_level?(creator, :self) || access_level?(receiver, :self)
       = link_to post_path(post), method: :delete, class: "delete", remote: true do
@@ -15,7 +15,7 @@
     %span.post-comment
       - if access_level?(creator, :friend) || access_level?(receiver, :friend)
         %span.dot= "."
-        = link_to "Comment", "", class: "comment-focus", title: "Leave a comment"
+        = link_to "Comment", "#", class: "comment-focus", title: "Leave a comment"
 
   %div{ id: "post-#{post.id}-likers" }
     = render "posts/post_likers", post: post

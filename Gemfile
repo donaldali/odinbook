@@ -22,6 +22,7 @@ gem 'country_select', github: 'stefanpenner/country_select'
 gem 'paperclip', '4.1.1'
 gem 'jquery-ui-rails', '5.0.3'
 gem 'will_paginate', '3.0.4'
+gem 'websocket-rails', '0.7.0'
 
 group :development, :test do
   gem 'guard', '2.6.1'

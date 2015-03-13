@@ -3,7 +3,9 @@
     $("#friend-status-#{@user.id}").html("#{escape_javascript(render('users/add_friend', user: @user, is_index: @is_index))}")
 -else
   :plain
-    $("#friend-status-#{@user.id}").closest("li").remove()
+    $("#friend-status-#{@user.id}").closest("li").fadeOut('slow', function() {
+      $(this).remove();
+    });
 -if @unfriend.to_s.downcase == "true"
   :plain
     $("#friend-count").html("(#{current_user.friends.count})")

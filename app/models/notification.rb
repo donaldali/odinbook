@@ -5,10 +5,13 @@ class Notification < ActiveRecord::Base
   validates :user_id, presence: true
 
   def self.send_notification(receiver, type, sender_name)
-    message = make_message(type, sender_name)
+    message      = make_message(type, sender_name)
     notification = receiver.notifications.create(message: message, 
                      notification_type: type, sender: sender_name)
     receiver.update_new_notifications
+
+    # Send Event to receiver, then send an email
+    WebsocketRails.users[receiver.id].send_message(:new_notification, {})
     notification.send_notification_email
   end
 

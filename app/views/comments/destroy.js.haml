@@ -1,2 +1,4 @@
 :plain
-  $("#comment-#{@comment.id}").remove()
+  $("##{comment_dom_id(@comment)}").fadeOut('slow', function() {
+    $(this).remove();
+  });

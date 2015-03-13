@@ -1,5 +1,5 @@
 - commenter = comment.commenter
-%li.comment-container{ id: "comment-#{ comment.id }"}
+%li.comment-container{ id: "comment-#{ comment.id }" }
   .comment-details
     - if current_user == comment.commenter
       = link_to comment_path(comment), method: :delete, class: "delete", remote: true do

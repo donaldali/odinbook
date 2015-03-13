@@ -79,12 +79,10 @@
     border-left:  1px solid #355079;
     border-right: 1px solid #355079;
     &:first-child {
-      /*border-left: none;*/
-      border-left: 0;
+      border-left: none;
     }
     &:last-child {
-      /*border-right: none;*/
-      border-right: 0;
+      border-right: none;
     }
     &:hover {
       background-color: #355084;
@@ -142,3 +140,20 @@
   right: 0;
   top: -4px;
 }
+.notification-notice {
+  @extend #new-notifications;
+
+  top: 35px;
+  width: 90px;
+  text-align: center;
+  padding: 6px 0;
+  div {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  span { font-size: 12px; }
+  display: none;
+}
+.hide { display: none; }
+
