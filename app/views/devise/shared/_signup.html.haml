@@ -1,29 +1,28 @@
-.signup-container
-  .signup
-    %h2 Sign up
-    %p It’s free and always will be.
+.signup
+  %h2 Sign up
+  %p It’s free and always will be.
 
-    = form_for(resource, as: resource_name, url: registration_path(resource_name), html: {id: 'signup-form'}) do |f|
-      = devise_error_messages!
-      .sr-labels
-        .name
-          = f.label :first_name
-          = f.text_field :first_name, placeholder: "First name"
-          .last-name>
-            = f.label :last_name
-            = f.text_field :last_name, placeholder: "Last name", class: "right-align"
-        %div
-          = f.label :email
-          = f.email_field :email, placeholder: "Email"
-        %div
-          = f.label :password, for: "user_signup_password"
-          = f.password_field :password, autocomplete: "off", placeholder: "New password", id: "user_signup_password"
-        %div
-          = f.label :password_confirmation
-          = f.password_field :password_confirmation, autocomplete: "off", placeholder: "Re-enter new password"
-      .gender
-        = f.radio_button :gender, "female"
-        = f.label :gender_female, "Female"
-        = f.radio_button :gender, "male"
-        = f.label :gender_male,   "Male"
-      %div= f.submit "Sign Up"
+  = form_for(resource, as: resource_name, url: registration_path(resource_name), html: {id: 'signup-form'}) do |f|
+    = devise_error_messages!
+    .sr-labels
+      .name
+        = f.label :first_name
+        = f.text_field :first_name, placeholder: "First name"
+        .last-name>
+          = f.label :last_name
+          = f.text_field :last_name, placeholder: "Last name", class: "right-align"
+      %div
+        = f.label :email
+        = f.email_field :email, placeholder: "Email"
+      %div
+        = f.label :password, for: "user_signup_password"
+        = f.password_field :password, autocomplete: "off", placeholder: "New password", id: "user_signup_password"
+      %div
+        = f.label :password_confirmation
+        = f.password_field :password_confirmation, autocomplete: "off", placeholder: "Re-enter new password"
+    .gender
+      = f.radio_button :gender, "female"
+      = f.label :gender_female, "Female"
+      = f.radio_button :gender, "male"
+      = f.label :gender_male,   "Male"
+    %div= f.submit "Sign Up"

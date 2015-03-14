@@ -18,11 +18,11 @@ jQuery ->
                    <a href='#'>View #{left} more #{pluralize}</a>
                  </li>
                  """
-          $this.html($this.find('li').splice(left, 4)).prepend(html)
-          $this.find('a').attr('id', id);
+          $this.html($this.find('li')[-4..-1]).prepend html
+               .find('a').attr 'id', id
 
         $this.removeClass 'new'
-        $this.closest('li').find('.post-comment').show()
+             .closest('li').find('.post-comment').show()
 
 
     # Get more comments for a post

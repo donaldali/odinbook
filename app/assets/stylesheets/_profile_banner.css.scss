@@ -1,0 +1,120 @@
+/*
+  ========================================
+  Profile Banner
+  ========================================
+*/
+.profile-banner {
+  height: 245px;
+  width:  679px;
+  position: relative;
+  word-wrap: break-word;
+}
+.banner-top {
+  background-color: #232937;
+  position: relative;
+  height: 202px;
+  span,
+  .friend-status {
+    display: inline-block;
+    position: absolute;
+    overflow: hidden;
+    word-wrap: break-word;
+  }
+  span {
+    bottom: 12px;
+    left: 201px;
+    max-width: 210px;
+    max-height: 160px;
+    a {
+      color: #fff;
+      font-size: 24px;
+      line-height: 30px;
+      text-decoration: none;
+    }
+  }
+  .friend-status {
+    bottom: 15px;
+    right: 15px;
+    max-width: 250px;
+    max-height: 160px;
+    text-align: right;
+    font-size: 14px;
+    line-height: 18px;
+
+    p {
+      color: #fff;
+      display: inline;
+    }
+    a {
+      @extend .default-btn;
+      text-decoration: none;
+      margin-top: 5px;
+    }
+    form {
+      display: inline-block;
+      margin-left: 3px;
+      margin-top: 5px;
+      input {
+        @extend .default-btn;
+      }
+    }
+  }
+}
+.banner-bottom {
+  background-color: #fff;
+  height: 43px;
+  border: 1px solid #d3d6db;
+  border-top: none;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+
+  ul {
+    margin-left: 200px;
+  }
+  li {
+    display: inline-block;
+    border-right: 1px solid #e9eaed;
+    &:first-child {
+      border-left: 1px solid #e9eaed;
+    }
+  }
+  a {
+    display: inline-block;
+    padding: 0 17px;
+    height: 42px;
+    line-height: 42px;
+    color: $blue;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    &:hover {
+      background-color: $gray;
+      text-decoration: none;
+    }
+  }
+  .friend-count {
+    color: #89919c;
+    font-size: 11px;
+    padding-left: 3px;
+  }
+}
+.profile-pic {
+  background-color: #fff;
+  a {
+    height: 170px;
+    width:  170px;
+    border: 1px solid #3a5795;
+    position: absolute;
+    bottom: 16px;
+    left:   15px;
+    background-color: #fff;
+    @include border-radius(2px);
+  }
+  img {
+    height: 168px;
+    width: 168px;
+    border: 4px solid #fff;
+    @include border-radius(2px);
+
+  }
+}

@@ -1,0 +1,7 @@
+- if user_signed_in?
+  = render template: "layouts/users"
+- else
+  - content_for :header do
+    = render "devise/shared/login"
+
+  = render template: "layouts/application"

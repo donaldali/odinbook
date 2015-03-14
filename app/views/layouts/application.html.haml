@@ -12,15 +12,21 @@
     - if user_signed_in?
       .header-margin
 
-    .main-container
-      - if user_signed_in?
-        .profile= yield(:profile) if content_for?(:profile)
-        = render "layouts/flash"
-        .info-container
-          .sidebar>= yield(:sidebar) if content_for?(:sidebar)
-          .content= yield
-      - else
-        = render "layouts/flash"
-        = yield
+    .main-holder
+      .main-container
+        - if user_signed_in?
+          .profile= yield(:profile) if content_for?(:profile)
+          = render "layouts/flash"
+          .info-container
+            .sidebar>= yield(:sidebar) if content_for?(:sidebar)
+            .content= yield
+        - else
+          = render "layouts/flash"
+          .signup-container
+            = yield(:signup) if content_for?(:signup)
+            .static-container
+              = yield
+    
+    = render "layouts/footer", controller: params[:controller]
 
     = debug(params) if Rails.env.development?

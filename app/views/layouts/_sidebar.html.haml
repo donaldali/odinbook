@@ -6,14 +6,20 @@
       = link_to "#{current_user.name}", timeline_path(current_user)
       = link_to "Edit Profile", edit_profile_path(current_user.profile)
   %ul
-    %li= link_to "Newsfeed", newsfeed_path(current_user)
-    %li= link_to "Timeline", timeline_path(current_user)
-    %li= link_to "Friends", friends_path(current_user)
-    %li= link_to "Profile", profile_path(current_user.profile)
-    %li= link_to "All Users", users_path
-    %li= link_to "Find Friends", find_friends_path(current_user)
+    %li= link_to "Newsfeed",        newsfeed_path(current_user)
+    %li= link_to "Timeline",        timeline_path(current_user)
+    %li= link_to "All Users",       users_path
+    %li= link_to "Profile",         profile_path(current_user.profile)
+    %li= link_to "Friends",         friends_path(current_user)
     %li= link_to "Friend Requests", friend_requests_path(current_user)
-    %li= link_to "Notifications", notifications_path
-    %li= link_to "Privacy"
+    %li= link_to "Find Friends",    find_friends_path(current_user)
+    %li= link_to "Notifications",   notifications_path
+    %li.divider
+    %li= link_to "About",            about_path
+    %li= link_to "Contact / Help",   contact_help_path
+    %li= link_to "Privacy",          privacy_path
+    %li= link_to "Terms of Service", terms_path
+    %li.divider
     %li= link_to "Log Out", destroy_user_session_path, method: :delete
     
+  %p Odinbook &copy; 2015

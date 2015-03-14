@@ -1,4 +1,5 @@
 - content_for :header do
   = render "devise/shared/login"
 
-= render "devise/shared/signup"
+- content_for :signup do
+  = render "devise/shared/signup"

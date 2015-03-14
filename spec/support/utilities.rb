@@ -6,7 +6,7 @@ def log_in(user)
     fill_in "Email",    with: user.email
     fill_in "Password", with: user.password
   end
-  click_on "Log In"
+  click_button "Log In"
 end
 
 def sign_up(user)

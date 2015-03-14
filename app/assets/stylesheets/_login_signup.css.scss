@@ -77,8 +77,8 @@
 }
 .signup {
   width: 399px;
-  position: absolute;
-  right: 0;
+  float: right;
+  padding-bottom: 50px;
 
   h2,
   p,
@@ -120,11 +120,6 @@
     right: 0;
     top: 0;
   }
-/*  .right-align {
-    position: absolute;
-    right: 0;
-    top: 0;
-  }*/
   .gender {
     padding: 10px 5px;
     input {
@@ -174,17 +169,13 @@
     top: 0;
     left: -294px;
     color: #be4b49;
-    /*background-color: $gray;*/
     text-align: right;
     padding: 0 5px;
   }
   input.error {
-    /*input {*/
-      border: 1px solid #be4b49;
-    /*}*/
+    border: 1px solid #be4b49;
   }
   .last-name {
-    /*display: inline-block;*/
     span {
       top: -39px;
       left: 5px;
@@ -200,4 +191,14 @@
   input {
     border: 1px solid #f53c10;
   }
+}
+
+/*
+  ========================================
+  Password Reset
+  ========================================
+*/
+body.passwords {
+  .password-holder    { background-color: $bg-color; }
+  .password-container { background-color: #fff; }
 }

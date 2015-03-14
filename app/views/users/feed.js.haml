@@ -16,7 +16,7 @@
       if( commentNum > 4 ) {
         var left = commentNum - 4;
         var pluralize = ( left > 1 ) ? "comments" : "comment";
-        $this.html( $this.find('li').splice( left, 4) ).
+        $this.html( $this.find('li').splice(-4) ).
           prepend("<li class='more-comments'><a href='#'>View " + left + " more " + pluralize + "</a></li>");
         $this.find('a').attr('id', id);
       }

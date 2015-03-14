@@ -36,6 +36,12 @@ Rails.application.routes.draw do
   get 'notifications/update_new', to: 'notifications#update_new'
   post 'likes/create_destroy',    to: 'likes#create_destroy'
 
+  get 'about',        to: 'static_pages#about',        as: :about
+  get 'contact_help', to: 'static_pages#contact_help', as: :contact_help
+  get 'privacy',      to: 'static_pages#privacy',      as: :privacy
+  get 'terms',        to: 'static_pages#terms',        as: :terms
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
