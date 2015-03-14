@@ -4,6 +4,7 @@
 - if type == "post"
   :plain
     $("##{@like_data[:likers_dom_id]}").html("#{ escape_javascript(render 'posts/post_likers', post: @like_data[:liked]) }");
+    $(window).trigger('contentSizeReduced');
 - elsif type == "comment"
   :plain
     $("##{@like_data[:likers_dom_id]}").html("#{ escape_javascript(render 'comments/comment_likers', comment: @like_data[:liked]) }");

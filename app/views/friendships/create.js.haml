@@ -5,4 +5,5 @@
   :plain
     $("#friend-status-#{@user.id}").closest("li").fadeOut('slow', function() {
       $(this).remove();
+      $(window).trigger('contentSizeReduced');
     });

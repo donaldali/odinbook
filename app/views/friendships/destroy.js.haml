@@ -5,6 +5,7 @@
   :plain
     $("#friend-status-#{@user.id}").closest("li").fadeOut('slow', function() {
       $(this).remove();
+      $(window).trigger('contentSizeReduced');
     });
 -if @unfriend.to_s.downcase == "true"
   :plain

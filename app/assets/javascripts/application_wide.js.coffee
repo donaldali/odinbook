@@ -1,12 +1,12 @@
 jQuery ->
-  $(window).scroll ->
-    # Move Header on horizontal scroll
-    $('.header-holder').css('left', -$(this).scrollLeft() + "px")
+  $(window).on 'scroll resize contentSizeReduced', ->
+    # Move Header for horizontal scroll
+    $('.header-holder').css 'left', -$(this).scrollLeft() + "px"
 
     # Infinite scroll with pagination
     if $('.pagination').length
       url = $('.pagination .next_page').attr('href')
-      if url && $(window).scrollTop() > $(document).height() - $(window).height() - 100
+      if url && $(window).scrollTop() > $(document).height() - $(window).height() - 200
         $('.pagination').empty().append('<div class="loading"></div>')
         $('.loading').append('<span></span>').append('<span>Loading...</span>')
         $.getScript url

@@ -1,6 +1,6 @@
 - unless @post.nil?
   :plain
-    $("#post_content").val("");
+    $("#post_content").val("").focus();
     $("#{ escape_javascript(render @post) }").prependTo("#posts")
         .find('.post-comment').show()
         .end().find('.comment-list').removeClass('new')

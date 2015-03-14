@@ -18,6 +18,7 @@ jQuery ->
   updates.bind 'remove_comment', (comment_info) ->
     $("##{ comment_info.comment_dom_id }").fadeOut 'slow', ->
       $(this).remove()
+      $(window).trigger('contentSizeReduced');
 
   updates.bind 'add_post', (post_info) ->
     if window.location.href.match /newsfeed|timeline/
@@ -29,3 +30,4 @@ jQuery ->
   updates.bind 'remove_post', (post_info) ->
     $("##{ post_info.post_dom_id }").fadeOut 'slow', ->
       $(this).remove()
+      $(window).trigger('contentSizeReduced');
