@@ -4,9 +4,7 @@ describe "User pages" do
   subject { page }
   let(:user) { create(:user) }
 
-  before(:each) do
-    log_in(user)
-  end
+  before { log_in(user) }
 
   describe "index" do 
     before(:each) do
@@ -17,16 +15,11 @@ describe "User pages" do
     it { should have_selector("h1", text: "All Users") }
 
     context "with multiple users" do
-      let(:friender)  { create(:user, first_name: "friender") }
-      let(:friended)  { create(:user, first_name: "friended") }
-      let(:no_friend) { create(:user, first_name: "no_friend") }
+      let!(:friender)  { create(:user, first_name: "friender") }
+      let!(:friended)  { create(:user, first_name: "friended") }
+      let!(:no_friend) { create(:user, first_name: "no_friend") }
 
-      before(:each) do
-        friender  = create(:user, first_name: "friender")
-        friended  = create(:user, first_name: "friended")
-        no_friend = create(:user, first_name: "no_friend")
-        visit users_path
-      end
+      before { visit users_path }
 
       it "lists current user" do
         within ".users-container" do
@@ -43,29 +36,24 @@ describe "User pages" do
     describe "friend management" do 
       let(:other_user) { create(:user, first_name: "other") }
       before(:each) do 
-        other_user = create(:user, first_name: "other")
+        friend_request_to_from(user, other_user)
         visit users_path
       end
 
       it "sends friend request" do 
+        click_on "Delete Request"
         click_on "Add Friend"
         expect(page).to have_text("Friend Request Sent")
       end
       it "accepts friend request" do 
-        other_user.send_friend_request_to(user)
-        visit users_path
         click_on "Confirm"
         expect(page).to have_submit("Unfriend")
       end
       it "rejects friend request" do 
-        other_user.send_friend_request_to(user)
-        visit users_path
         click_on "Delete Request"
         expect(page).to have_submit("Add Friend")
       end
       it "unfriends" do
-        other_user.send_friend_request_to(user)
-        visit users_path
         click_on "Confirm"
         click_on "Unfriend"
         expect(page).to have_submit("Add Friend")
@@ -73,9 +61,8 @@ describe "User pages" do
     end
 
     describe "pagination" do 
-      let(:users) { create_list(:user, 12) }
       before(:all) do 
-        users = create_list(:user, 12)
+        users = create_list(:user, 31)
         visit users_path
       end
       after(:all) { User.delete_all }
@@ -85,24 +72,16 @@ describe "User pages" do
   end
 
   describe "friendship status pages" do
-    let(:friender1)  { create(:user, first_name: "friender1") }
-    let(:friender2)  { create(:user, first_name: "friender2") }
-    let(:friended1)  { create(:user, first_name: "friended1") }
-    let(:friended2)  { create(:user, first_name: "friended2") }
-    let(:friend1)    { create(:user, first_name: "friend1") }
-    let(:friend2)    { create(:user, first_name: "friend2") }
-    let(:no_friend1) { create(:user, first_name: "no_friend1") }
-    let(:no_friend2) { create(:user, first_name: "no_friend2") }
+    let(:friender1)   { create(:user, first_name: "friender1") }
+    let(:friender2)   { create(:user, first_name: "friender2") }
+    let(:friended1)   { create(:user, first_name: "friended1") }
+    let(:friended2)   { create(:user, first_name: "friended2") }
+    let(:friend1)     { create(:user, first_name: "friend1") }
+    let(:friend2)     { create(:user, first_name: "friend2") }
+    let!(:no_friend1) { create(:user, first_name: "no_friend1") }
+    let!(:no_friend2) { create(:user, first_name: "no_friend2") }
 
     before(:each) do
-      friender1  = create(:user, first_name: "friender1")
-      friender2  = create(:user, first_name: "friender2")
-      friended1  = create(:user, first_name: "friended1")
-      friended2  = create(:user, first_name: "friended2")
-      friend1    = create(:user, first_name: "friend1")
-      friend2    = create(:user, first_name: "friend2")
-      no_friend1 = create(:user, first_name: "no_friend1")
-      no_friend1 = create(:user, first_name: "no_friend2")
       friender1.send_friend_request_to(user)
       friender2.send_friend_request_to(user)
       user.send_friend_request_to(friended1)
@@ -112,7 +91,7 @@ describe "User pages" do
     end
 
     describe "friends page" do 
-      before(:each) { visit friends_path(user) }
+      before { visit friends_path(user) }
 
       it "has the correct header" do 
         expect(page).to have_selector("h1", text: "Friends")
@@ -129,9 +108,7 @@ describe "User pages" do
       end
 
       context "when unfriending" do
-        before(:each) do 
-          click_on("Unfriend", match: :first)
-        end
+        before { click_on("Unfriend", match: :first) }
 
         it "removes only unfriended user" do
           expect(page).to have_submit("Unfriend", count: 1)
@@ -149,7 +126,7 @@ describe "User pages" do
     end
 
     describe "friend requests page" do 
-      before(:each) { visit friend_requests_path(user) }
+      before { visit friend_requests_path(user) }
 
       it "has the correct header" do 
         expect(page).to have_selector("h1", text: "Friend Requests")
@@ -163,9 +140,7 @@ describe "User pages" do
       end
 
       context "accepting friend request" do
-        before(:each) do 
-          click_on("Confirm", match: :first)
-        end
+        before { click_on("Confirm", match: :first) }
 
         it "removes only accepted user" do
           expect(page).to have_submit("Confirm", count: 1)
@@ -182,9 +157,7 @@ describe "User pages" do
       end
 
       context "rejecting friend request" do
-        before(:each) do 
-          click_on("Delete Request", match: :first)
-        end
+        before { click_on("Delete Request", match: :first) }
 
         it "removes only rejected user" do
           expect(page).to have_submit("Delete Request", count: 1)
@@ -199,7 +172,7 @@ describe "User pages" do
     end
 
     describe "find friends page" do 
-      before(:each) { visit find_friends_path(user) }
+      before { visit find_friends_path(user) }
 
       it "has the correct header" do 
         expect(page).to have_selector("h1", text: "Find Friends")
@@ -213,9 +186,7 @@ describe "User pages" do
       end
 
       context "when friending" do
-        before(:each) do 
-          click_on("Add Friend", match: :first)
-        end
+        before { click_on("Add Friend", match: :first) }
 
         it "removes only friended user" do
           expect(page).to have_submit("Add Friend", count: 1)
@@ -267,22 +238,15 @@ describe "User pages" do
     end
 
     describe "post deletion" do
-      before do 
-        visit newsfeed_path(user)
-        fill_in "Update status", with: "Lorem ipsum post"
-        click_on "Post"
-      end
+      before { make_post(user, "Lorem ipsum post") }
+
       it "allows deletion of own post" do
         expect{ page.first(".delete").click }.to change{ Post.count }.by(-1)
       end
     end
 
     describe "comment creation" do 
-      before do 
-        visit newsfeed_path(user)
-        fill_in "Update status", with: "Lorem ipsum"
-        click_on "Post"
-      end
+      before { make_post(user, "Lorem ipsum post") }
 
       context "with no comment content" do 
         it "does not create a comment" do
@@ -315,9 +279,7 @@ describe "User pages" do
 
     describe "comment deletion" do
       before do 
-        visit newsfeed_path(user)
-        fill_in "Update status", with: "Lorem ipsum post"
-        click_on "Post"
+        make_post(user, "Lorem ipsum post")
         within('.post-container') do 
           fill_in "Content", with: "Lorem ipsum comment"
           click_button "Comment"
@@ -330,11 +292,7 @@ describe "User pages" do
     end
 
     describe "liking a post" do 
-      before do 
-        visit newsfeed_path(user)
-        fill_in "Update status", with: "Lorem ipsum"
-        click_on "Post"
-      end
+      before { make_post(user, "Lorem ipsum") }
 
       it "creates a like" do 
         expect { click_on "Like" }.to change{ Like.count }.by(1)
@@ -351,10 +309,7 @@ describe "User pages" do
 
     describe "liking a comment" do 
       before do 
-        visit newsfeed_path(user)
-        fill_in "Update status", with: "Lorem ipsum"
-        click_on "Post"
-        visit newsfeed_path(user)
+        make_post(user, "Lorem ipsum post")
         within '.comment-form' do 
           fill_in "Content", with: "Lorem"
           click_on "Comment"
@@ -688,8 +643,7 @@ describe "User pages" do
   end
 
   describe "search" do
-    let(:user1) { create(:user, first_name: "Foo") }
-    before { user1 = create(:user, first_name: "Foo") }
+    let!(:user1) { create(:user, first_name: "Foo") }
 
     context "with no input" do
       it "doesn't search" do

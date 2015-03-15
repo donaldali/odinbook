@@ -9,16 +9,16 @@ def log_in(user)
   click_button "Log In"
 end
 
-def sign_up(user)
+def fill_sign_up(email = "john@doe.com", password = "password")
   visit new_user_registration_path
   within("#signup-form") do 
-    fill_in "First name", with: user.first_name
-    fill_in "Last name",  with: user.last_name
-    fill_in "Email",      with: user.email
-    fill_in "Password",   with: user.password
-    fill_in "Password confirmation", with: user.password
+    fill_in "First name", with: "John"
+    fill_in "Last name",  with: "Doe"
+    fill_in "Email",      with: email
+    fill_in "Password",   with: password
+    fill_in "Password confirmation", with: password
+    choose "Male"
   end
-  click_on "Sign Up"
 end
 
 def make_friends(user1, user2)
@@ -58,6 +58,12 @@ def friend_request_from_to(user, friended)
   within("#friend-status-#{friended.id}") do
     click_on "Add Friend"
   end
+end
+
+def make_post(user, content)
+  visit newsfeed_path(user)
+  fill_in "Update status", with: content
+  click_on "Post"
 end
 
 def make_post_comment_likes(user, liker)

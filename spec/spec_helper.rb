@@ -59,7 +59,9 @@ Spork.prefork do
     config.after(:suite) do
       FileUtils.rm_rf(Dir["#{Rails.root}/spec/test_files/"])
     end
+    config.include(OmniauthMacros)
   end
+  OmniAuth.config.test_mode = true
 end
 
 
