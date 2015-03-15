@@ -4,5 +4,6 @@
   = form_for(post.comments.build, remote: true) do |f|
     = hidden_field_tag :post_id, post.id
     .comment-label= f.label :content, class: "sr-only"
-    .comment-input= f.text_field :content, placeholder: "Write a comment...", title: "Write a comment..."
+    .comment-input= f.text_field :content, placeholder: "Write a comment...", | 
+                                           title: "Write a comment..."        |
     = f.submit "Comment", class: "sr-only"

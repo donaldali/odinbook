@@ -6,21 +6,18 @@ class PostsController < ApplicationController
 
   def create
     content = params[:post][:content]
-    unless content.blank?
-      @post = current_user.created_posts.create(content: content,
-                                        receiver_id: params[:receiver_id])
-    end
+    @post   = current_user.created_posts.create(content: content, 
+                receiver_id: params[:receiver_id]) unless content.blank?
 
     respond_to do |format|
       format.html { redirect_to :back }
       format.js
     end
-    WebsocketRails[:updates].trigger(:add_post, 
-      {id: @post.id}) unless @post.nil?
+    WebsocketRails[:updates].trigger(:add_post, {id: @post.id}) unless @post.nil?
   end
 
   def destroy
-    @post = Post.find(params[:id])
+    @post       = Post.find(params[:id])
     post_dom_id = post_dom_id(@post)
     @post.destroy
     

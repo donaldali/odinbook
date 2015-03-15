@@ -1,0 +1,3 @@
+- if access_level?(creator, :friend) || access_level?(receiver, :friend)
+  %span.dot= "."
+  = link_to "Comment", "#", class: "comment-focus", title: "Leave a comment"

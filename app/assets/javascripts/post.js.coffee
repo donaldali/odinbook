@@ -1,5 +1,5 @@
 jQuery ->
-  if $('body.users').length
+  if $('.feed-container').length
     # Display comment link
     $('.post-comment').show()
 

@@ -11,18 +11,16 @@ class CommentsController < ApplicationController
   end
 
   def create
-    content = params[:comment][:content]
-    unless content.blank?
-      @comment = current_user.comments.create(content: content, 
-                                              post_id: params[:post_id])
-    end
+    content  = params[:comment][:content]
+    @comment = current_user.comments.create(content: content, 
+                 post_id: params[:post_id]) unless content.blank?
 
     respond_to do |format|
       format.html { redirect_to :back }
       format.js
     end
     WebsocketRails[:updates].trigger(:add_comment, 
-      comment_info(@comment) ) unless @comment.nil?
+                             comment_info(@comment) ) unless @comment.nil?
   end
 
   def destroy
@@ -35,7 +33,7 @@ class CommentsController < ApplicationController
       format.js
     end
     WebsocketRails[:updates].trigger(:remove_comment, 
-      comment_dom_id: comment_dom_id )
+                                      comment_dom_id: comment_dom_id)
   end
 
   def add

@@ -1,5 +1,6 @@
 :plain
-  $(".users-container").append("#{ escape_javascript(render(@users, is_index: @is_index)) }");
+  $(".users-container").
+    append("#{ escape_javascript(render(@users, is_index: @is_index)) }");
 - if @users.next_page
   :plain
     $(".pagination").replaceWith("#{ escape_javascript(will_paginate @users) }");

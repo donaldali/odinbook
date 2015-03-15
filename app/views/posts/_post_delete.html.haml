@@ -1,0 +1,3 @@
+- if access_level?(creator, :self) || access_level?(receiver, :self)
+  = link_to post_path(post), method: :delete, class: "delete", remote: true do
+    = image_tag("close.png", title: "Delete Post")

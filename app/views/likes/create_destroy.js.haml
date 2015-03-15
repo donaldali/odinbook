@@ -1,10 +1,17 @@
 - type = @like_data[:likeable_type].downcase
 :plain
-  $("##{@like_data[:dom_id]}").html("#{ escape_javascript(render 'likes/like_link', likeable_id: @like_data[:likeable_id], likeable_type: @like_data[:likeable_type]) }");
+  $("##{@like_data[:dom_id]}").
+    html("#{ escape_javascript(render 'likes/like_link', 
+                               likeable_id:   @like_data[:likeable_id],
+                               likeable_type: @like_data[:likeable_type]) }");
 - if type == "post"
   :plain
-    $("##{@like_data[:likers_dom_id]}").html("#{ escape_javascript(render 'posts/post_likers', post: @like_data[:liked]) }");
+    $("##{@like_data[:likers_dom_id]}").
+      html("#{ escape_javascript(render 'posts/post_likers', 
+                                         post: @like_data[:liked]) }");
     $(window).trigger('contentSizeReduced');
 - elsif type == "comment"
   :plain
-    $("##{@like_data[:likers_dom_id]}").html("#{ escape_javascript(render 'comments/comment_likers', comment: @like_data[:liked]) }");
+    $("##{@like_data[:likers_dom_id]}").
+      html("#{ escape_javascript(render 'comments/comment_likers', 
+                                         comment: @like_data[:liked]) }");

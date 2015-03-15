@@ -19,19 +19,23 @@
 
         .bday
           = f.label :birthday
-          = f.date_select :birthday, discard_year: true, use_short_month: true, prompt: true
+          = f.date_select :birthday, discard_year: true, 
+                           use_short_month: true, prompt: true
 
         %div
           = f.label :country
-          = f.country_select :country, priority_countries: ["US"], prompt: "Select Country", include_blank: true
+          = f.country_select :country, priority_countries: ["US"], 
+                              prompt: "Select Country", include_blank: true
 
         %div
           = f.label :education
-          = f.select :education, get_education_options, prompt: "Select Education Level", include_blank: true
+          = f.select :education, get_education_options, 
+                      prompt: "Select Education Level", include_blank: true
 
         %div
           = f.label :profession
-          = f.select :profession, get_profession_options, prompt: "Select Profession", include_blank: true
+          = f.select :profession, get_profession_options, 
+                      prompt: "Select Profession", include_blank: true
 
         %div
           = f.label :about_you
@@ -57,4 +61,9 @@
         = f.submit class: "primary-btn"
         = link_to "Cancel", @profile, class: "default-btn"
 
-  = button_to "Delete Odinbook Account", registration_path(current_user), data: { confirm: "This will completely delete your entire Odinbook account (not just your profile). \n There will be no way to recover any part of your account. \n Are you absolutely sure you want to proceed?" }, method: :delete, class: "destroy-btn"
+  = button_to "Delete Odinbook Account", registration_path(current_user),   |
+      data: { confirm: "This will completely delete your entire Odinbook "  |
+                       "account (not just your profile). \n There will be " |
+                       "no way to recover any part of your account. \n "    |
+                       "Are you absolutely sure you want to proceed?" },    |
+      method: :delete, class: "destroy-btn"                                 |

@@ -1,10 +1,12 @@
 .header
   .header-container
     = link_to root_path do
-      = image_tag "logo.png", alt: "Odinbook logo", class: "logo", title: "Go to Odinbook Home"
+      = image_tag "logo.png", alt: "Odinbook logo", class: "logo", 
+                              title: "Go to Odinbook Home"
 
     .login-container
-      = form_for(resource, as: resource_name, url: session_path(resource_name), html: {id: 'login-form'}) do |f|
+      = form_for( resource, as: resource_name, html: {id: 'login-form'}, 
+                            url: session_path(resource_name) ) do |f|
         %table
           %tbody
             %tr
@@ -15,7 +17,8 @@
             %tr
               %td
                 = link_to user_omniauth_authorize_path(:facebook) do
-                  = image_tag "fb_login.png", alt: "Login with Facebook", class: "login-img"
+                  = image_tag "fb_login.png", alt: "Login with Facebook", 
+                                              class: "login-img"
               %td= f.email_field :email, autofocus: true
               %td= f.password_field :password, autocomplete: "off"
               %td= f.submit "Log In"

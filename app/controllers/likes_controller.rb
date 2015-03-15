@@ -8,6 +8,7 @@ class LikesController < ApplicationController
     like = current_user.likes.create(likeable_id:   params[:likeable_id],
                                      likeable_type: params[:likeable_type])
     @like_data = like_data(like)
+    
     respond_to do |format|
       format.html { redirect_to :back }
       format.js   { render "create_destroy" }

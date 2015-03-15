@@ -74,4 +74,30 @@ module UsersHelper
     end
   end
   
+  def set_instance_variables action 
+    case action
+    when "newsfeed"
+      @receiver_id = params[:id]
+      @label       = "Update Status"
+      @placeholder = "What's on your mind?"
+    when "timeline"
+      @receiver_id = params[:id]
+      @label       = get_status(@receiver_id)
+      @placeholder = get_placeholder(@receiver_id)
+    when "index"
+      @title    = "All Users"
+      @is_index = true
+    when "friends"
+      @receiver_id = params[:id]
+      @title       = "Friends"
+      @is_index    = params[:from] == "profile"
+    when "friend_requests"
+      @title    = "Friend Requests"
+      @is_index = false
+    when "find_friends"
+      @title    = "Find Friends"
+      @is_index = false
+    end
+  end
+
 end

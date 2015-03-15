@@ -1,9 +1,7 @@
 - commenter = comment.commenter
 %li.comment-container{ id: "comment-#{ comment.id }" }
   .comment-details
-    - if current_user == comment.commenter
-      = link_to comment_path(comment), method: :delete, class: "delete", remote: true do
-        = image_tag("close.png", title: "Delete Comment")
+    = render "comments/comment_delete", comment: comment, commenter: commenter
 
     = link_to timeline_path(commenter) do
       = image_for(commenter, options = { img_class: "sm-img"})
@@ -16,7 +14,8 @@
 
         %span.dot= "."
         %span.comment-like{ id: "comment-#{comment.id}-like" }
-          = render "likes/like_link", likeable_id: comment.id, likeable_type: "Comment"
+          = render "likes/like_link", likeable_id: comment.id, 
+                                      likeable_type: "Comment"
 
         %span{ id: "comment-#{comment.id}-likers"}
           = render "comments/comment_likers", comment: comment

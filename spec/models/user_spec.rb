@@ -95,12 +95,15 @@ describe User do
         expect(friended.has_friend_request_from?(user)).to be_true
       end
       it "doesn't duplicate friend requests" do 
-        expect{user.send_friend_request_to(friended)}.to change{Friendship.count}.by(1)
-        expect{friended.send_friend_request_to(user)}.not_to change{Friendship.count}
+        expect{user.send_friend_request_to(friended)}.
+               to change{Friendship.count}.by(1)
+        expect{friended.send_friend_request_to(user)}.
+               not_to change{Friendship.count}
       end
       it "doesn't send friend request to friends" do 
         make_friends(user, friended)
-        expect{friended.send_friend_request_to(user)}.not_to change{Friendship.count}
+        expect{friended.send_friend_request_to(user)}.
+               not_to change{Friendship.count}
       end
     end
 

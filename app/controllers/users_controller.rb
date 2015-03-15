@@ -6,25 +6,20 @@ class UsersController < ApplicationController
                    only: [:newsfeed, :friend_requests, :find_friends]
 
   def newsfeed
-    @receiver_id = params[:id]
-    @label       = "Update Status"
-    @placeholder = "What's on your mind?"
-    @posts       = current_user.newsfeed_feed.
-                     paginate(page: params[:page], per_page: 4)
+    set_instance_variables("newsfeed")
+    @posts = current_user.newsfeed_feed.paginate(page: params[:page], per_page: 10)
     
     respond_to do |format|
       format.html
-      format.js   { render "feed" }
+      format.js { render "feed" }
     end
   end
 
   def timeline
-    @receiver_id = params[:id]
-    @label       = get_status(@receiver_id)
-    @placeholder = get_placeholder(@receiver_id)
-    @posts       = User.find(params[:id]).timeline_feed.
-                     paginate(page: params[:page], per_page: 4)
-    
+    set_instance_variables("timeline")
+    @posts = User.find(params[:id]).timeline_feed.
+                  paginate(page: params[:page], per_page: 10)
+
     respond_to do |format|
       format.html { render layout: "profiles" }
       format.js   { render "feed" }
@@ -32,9 +27,8 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users    = User.paginate(page: params[:page], per_page: 4).alphabetize
-    @title    = "All Users"
-    @is_index = true
+    set_instance_variables("index")
+    @users = User.paginate(page: params[:page], per_page: 15).alphabetize
     
     respond_to do |format|
       format.html
@@ -43,31 +37,20 @@ class UsersController < ApplicationController
   end
 
   def friends
-    @receiver_id = params[:id]
-    @users       = User.find(@receiver_id).friends.
-                     paginate(page: params[:page], per_page: 4)
-    @title       = "Friends"
-    @is_index    = false
-    if params[:from] == "profile"
-      @is_index = true
-      respond_to do |format|
-        format.html { render template: "profiles/friends", 
-                             layout:   "layouts/profiles" }
-        format.js   { render "shared/user_index" }
-      end
-    else
-      respond_to do |format|
-        format.html { render "index" }
-        format.js   { render "shared/user_index" }
-      end
+    set_instance_variables("friends")
+    @users = User.find(@receiver_id).friends.
+                  paginate(page: params[:page], per_page: 15)
+
+    respond_to do |format|
+      format.html { (params[:from] != "profile") ? (render "index") :
+          (render template: "profiles/friends", layout: "layouts/profiles") }
+      format.js   { render "shared/user_index" }
     end
   end
 
   def friend_requests
-    @users    = current_user.requests_from.
-                  paginate(page: params[:page], per_page: 4)
-    @title    = "Friend Requests"
-    @is_index = false
+    set_instance_variables("friend_requests")
+    @users = current_user.requests_from.paginate(page: params[:page], per_page: 15)
     
     respond_to do |format|
       format.html { render "index" }
@@ -76,10 +59,8 @@ class UsersController < ApplicationController
   end
 
   def find_friends
-    @users    = current_user.no_friendship.
-                  paginate(page: params[:page], per_page: 4)
-    @title    = "Find Friends"
-    @is_index = false
+    set_instance_variables("find_friends")
+    @users = current_user.no_friendship.paginate(page: params[:page], per_page: 15)
     
     respond_to do |format|
       format.html { render "index" }
@@ -88,17 +69,14 @@ class UsersController < ApplicationController
   end
 
   def search
-    if params[:q].blank?
-      redirect_to :back
-    else
-      @is_index = true
-      @users    = User.search(params[:q]).
-                    paginate(page: params[:page], per_page: 4)
+    redirect_to :back and return if params[:q].blank?
 
-      respond_to do |format|
-        format.html
-        format.js   { render "shared/user_index" }
-      end
+    @is_index = true
+    @users = User.search(params[:q]).paginate(page: params[:page], per_page: 15)
+
+    respond_to do |format|
+      format.html
+      format.js { render "shared/user_index" }
     end
   end
 
@@ -121,11 +99,14 @@ class UsersController < ApplicationController
     user = User.find(params[:id])
 
     if params[:from] == "profile"
-      msg = "#{user.first_name} doesn't publicly share #{user.genderize} list of friends."
+      msg = "#{user.first_name} doesn't publicly share #{user.genderize}"\
+            " list of friends."
       authorize_user!(user, :public, msg)
     else
-      msg = "Try viewing #{user.first_name}'s friends from #{user.genderize} Timeline."
+      msg = "Try viewing #{user.first_name}'s friends from"\
+            " #{user.genderize} Timeline."
       authorize_user!(user, :self, msg)
     end
   end
+
 end

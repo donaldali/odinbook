@@ -10,6 +10,7 @@
       %ul{ id: "posts" }
         = render @posts
     - else
-      %p.no-posts= "#{user.first_name} only shares #{user.genderize} profile and posts with friends"
+      %p.no-posts= "#{user.first_name} only shares #{user.genderize} " |
+                   "profile and posts with friends"                    |
     
 = will_paginate @posts

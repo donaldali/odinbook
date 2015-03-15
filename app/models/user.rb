@@ -75,6 +75,7 @@ class User < ActiveRecord::Base
            has_friend_request_from?(other_user) ||
            other_user.has_friend_request_from?(self)
       self.friendships.create(friended_id: other_user.id, accepted: false)
+      Notification.send_notification(other_user, "request", self.name)
     end
   end
 

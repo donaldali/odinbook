@@ -1,4 +1,5 @@
 %li.notification{class: ("new" if @new_count > notification_counter)}
   .main-message= notification.message
   - if notification.notification_type == "request"
-    .sub-message= link_to "See your Friend Requests", friend_requests_path(current_user)
+    .sub-message= link_to "See your Friend Requests",         |
+                           friend_requests_path(current_user) |
