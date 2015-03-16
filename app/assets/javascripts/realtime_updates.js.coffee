@@ -1,5 +1,5 @@
 jQuery ->
-  dispatcher = new WebSocketRails 'localhost:3000/websocket'
+  dispatcher = new WebSocketRails 'stormy-savannah-8193.herokuapp.com/websocket'
   updates    = dispatcher.subscribe 'updates'
 
   dispatcher.bind 'new_notification', (data) ->
