@@ -91,5 +91,5 @@ Rails.application.configure do
     :domain         => 'heroku.com',
     :enable_starttls_auto => true
   }
-  config.action_mailer.default_url_options = { host: 'odinbook.herokuapp.com' }
+  config.action_mailer.default_url_options = { host: 'dna-odinbook.herokuapp.com' }
 end
