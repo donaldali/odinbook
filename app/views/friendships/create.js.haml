@@ -4,7 +4,7 @@
         html("#{escape_javascript(render('users/request_sent'))}");
 -else
   :plain
-    $("#friend-status-#{@user.id}").closest("li").fadeOut('slow', function() {
+    $("#friend-status-#{@user.id}").closest("li").fadeOut(300, function() {
       $(this).remove();
       $(window).trigger('contentSizeReduced');
     });

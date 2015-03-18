@@ -5,7 +5,7 @@
                                           is_index: @is_index))}")
 -else
   :plain
-    $("#friend-status-#{@user.id}").closest("li").fadeOut('slow', function() {
+    $("#friend-status-#{@user.id}").closest("li").fadeOut(300, function() {
       $(this).remove();
       $(window).trigger('contentSizeReduced');
     });

@@ -3,7 +3,7 @@
   :plain
     if( $("##{ comment_dom_id(@comment) }").length === 0 ) {
       $("#{ escape_javascript(render @comment) }")
-        .appendTo("##{ dom_parent_id }").hide().fadeIn('slow');
+        .appendTo("##{ dom_parent_id }").hide().fadeIn();
 
       $("##{ dom_parent_id }").closest("li").find("input[type='text']").val("");
     }

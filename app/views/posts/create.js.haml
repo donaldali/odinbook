@@ -4,4 +4,4 @@
     $("#{ escape_javascript(render @post) }").prependTo("#posts")
         .find('.post-comment').show()
         .end().find('.comment-list').removeClass('new')
-        .end().hide().fadeIn('slow');
+        .end().hide().fadeIn();

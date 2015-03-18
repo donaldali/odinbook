@@ -1,5 +1,5 @@
 :plain
-  $("##{ post_dom_id(@post) }").fadeOut('slow', function() {
+  $("##{ post_dom_id(@post) }").fadeOut(300, function() {
     $(this).remove();
     $(window).trigger('contentSizeReduced');
   });

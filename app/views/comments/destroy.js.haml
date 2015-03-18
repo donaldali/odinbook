@@ -1,5 +1,5 @@
 :plain
-  $("##{comment_dom_id(@comment)}").fadeOut('slow', function() {
+  $("##{comment_dom_id(@comment)}").fadeOut(300, function() {
     $(this).remove();
     $(window).trigger('contentSizeReduced');
   });
