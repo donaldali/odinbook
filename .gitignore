@@ -20,3 +20,6 @@
 
 # Ignore pictures
 /public/system/*
+
+# Ignore initial accounts
+/init_accounts

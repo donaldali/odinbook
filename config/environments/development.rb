@@ -45,4 +45,15 @@ Rails.application.configure do
 
   # Remove the Rack::Lock middleware for websocket
   config.middleware.delete Rack::Lock
+
+  # Configuration for paperclip storage on AWS S3
+  config.paperclip_defaults = {
+    storage: :s3,
+    s3_host_name: 's3-us-west-1.amazonaws.com',
+    s3_credentials: {
+      bucket: ENV['S3_BUCKET_NAME_DEV'],
+      access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+      secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
+    }
+  }
 end
