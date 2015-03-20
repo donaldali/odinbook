@@ -7,6 +7,10 @@ jQuery ->
     $('.comment-list').each (i, ele) ->
       $this = $(ele)
       if $this.hasClass 'new'
+        # The id extracted here is the id of the Post that these 
+        # comments belong to. This id is used later if the user
+        # clicks the "View more ..." link to extract the comments
+        # for the Post with that id
         id = $this.attr('id').split('-')[1]
         commentNum = $this.find('li').length
 
